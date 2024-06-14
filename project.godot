@@ -11,5 +11,13 @@ config_version=5
 [application]
 
 config/name="MehuJam"
+run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[input]
+
+move={
+"deadzone": 0.5,
+"events": []
+}

@@ -1,3 +1,144 @@
-[gd_scene format=3 uid="uid://cb7tmni4jkgpd"]
+[gd_scene load_steps=18 format=3 uid="uid://cb7tmni4jkgpd"]
+
+[ext_resource type="Shader" path="res://Water.gdshader" id="1_jqjca"]
+
+[sub_resource type="Environment" id="Environment_ygvgb"]
+background_mode = 1
+background_color = Color(0.698039, 0.811765, 0.972549, 1)
+ambient_light_color = Color(1, 1, 1, 1)
+fog_enabled = true
+fog_light_color = Color(0, 0, 0.0745098, 1)
+fog_density = 0.0275
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(0.0431373, 0, 0.337255, 1)
+
+[sub_resource type="Gradient" id="Gradient_6n0c2"]
+colors = PackedColorArray(0.0745098, 0.333333, 0.521569, 1, 0.0745098, 0.333333, 0.521569, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pif7q"]
+gradient = SubResource("Gradient_6n0c2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2qxyf"]
+render_priority = 0
+shader = ExtResource("1_jqjca")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/albedo_tex = SubResource("GradientTexture2D_pif7q")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1lw4w"]
+material = SubResource("ShaderMaterial_2qxyf")
+size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_puy63"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8vfg1"]
+material = SubResource("StandardMaterial3D_puy63")
+size = Vector2(1000, 1000)
+
+[sub_resource type="Curve" id="Curve_s2hxw"]
+_data = [Vector2(0, 0.0193548), 0.0, 8.48065, 0, 0, Vector2(0.3159, 1), 0.0, 0.0, 0, 0, Vector2(0.89749, 0.851613), -1.09804, -1.09804, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_pmmli"]
+curve = SubResource("Curve_s2hxw")
+
+[sub_resource type="Curve" id="Curve_a4ahb"]
+_data = [Vector2(0, 0.178197), 0.0, 0.0, 0, 0, Vector2(1, 0.181298), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r8bhc"]
+curve = SubResource("Curve_a4ahb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2ty6m"]
+emission_shape_scale = Vector3(1, 0, 1)
+emission_shape = 3
+emission_box_extents = Vector3(15, 1, 15)
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0.5, 0)
+alpha_curve = SubResource("CurveTexture_pmmli")
+turbulence_enabled = true
+turbulence_influence_over_life = SubResource("CurveTexture_r8bhc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cctew"]
+transparency = 1
+depth_draw_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.666667, 0.807843, 1, 1)
+disable_receive_shadows = true
+billboard_mode = 1
+distance_fade_mode = 1
+distance_fade_max_distance = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3cvgp"]
+material = SubResource("StandardMaterial3D_cctew")
+size = Vector2(0.5, 0.5)
+orientation = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyct3"]
+bg_color = Color(0.345098, 0.345098, 0.345098, 1)
+corner_radius_bottom_right = 40
+
+[sub_resource type="BoxMesh" id="BoxMesh_l371t"]
 
 [node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ygvgb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_1lw4w")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2314, -51.3588, 4.84295)
+mesh = SubResource("PlaneMesh_8vfg1")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2314, -33.1596, 4.84295)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.8103, 0)
+amount = 100
+lifetime = 20.0
+randomness = 1.0
+visibility_aabb = AABB(-31.2538, -1.00001, -24.0354, 63.9678, 54.6824, 63.2687)
+process_material = SubResource("ParticleProcessMaterial_2ty6m")
+draw_pass_1 = SubResource("PlaneMesh_3cvgp")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 100.0
+spot_range = 127.611
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 0
+offset_right = 225.0
+offset_bottom = 68.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oyct3")
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/Panel/CenterContainer"]
+custom_minimum_size = Vector2(150, 15)
+layout_mode = 2
+value = 50.0
+show_percentage = false
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.7028, -33.5791, -5.03041)
+mesh = SubResource("BoxMesh_l371t")
