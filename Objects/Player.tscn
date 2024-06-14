@@ -19,5 +19,11 @@ mesh = SubResource("CapsuleMesh_1ngyl")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 1.49012e-08, 2.22045e-16, -1.49012e-08, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0, 0, 0)
 
+[node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
+transform = Transform3D(1, -1.49012e-08, 0, 1.49012e-08, 1, -1.49012e-08, 2.22046e-16, 1.49012e-08, 1, 1.37846, 0, -0.0970838)
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 100.0
+spot_range = 127.611
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_u6feq")
