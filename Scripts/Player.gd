@@ -10,13 +10,13 @@ extends CharacterBody3D
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 #var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready():
-	print("Hi")
-	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * CameraSensitivity)
 		cam.rotate_x(-event.relative.y * CameraSensitivity)
+		print("Mouse moved")
 
 func _physics_process(delta):
 	#Handle movement

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cb7tmni4jkgpd"]
+[gd_scene load_steps=19 format=3 uid="uid://cxuqisihcmvj7"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_0v12o"]
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
@@ -102,6 +102,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Panel" type="Panel" parent="Control"]
 layout_mode = 0
@@ -138,9 +139,3 @@ randomness = 1.0
 visibility_aabb = AABB(-31.2538, -1.00001, -24.0354, 63.9678, 54.6824, 63.2687)
 process_material = SubResource("ParticleProcessMaterial_2ty6m")
 draw_pass_1 = SubResource("PlaneMesh_3cvgp")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6913, 0, -2.04577)
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 100.0
-spot_range = 127.611
