@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_74jr7"]
 [ext_resource type="PackedScene" uid="uid://c1mt5hokcdfjd" path="res://Objects/Cage.tscn" id="5_l40g5"]
 [ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight.tscn" id="6_si0ay"]
-[ext_resource type="PackedScene" uid="uid://0jjipnl1wliy" path="res://Objects/Battery.tscn" id="7_w3b30"]
-[ext_resource type="PackedScene" uid="uid://oq3w1n1gpbfx" path="res://Objects/Oxygen Tank.tscn" id="8_m4m8r"]
+[ext_resource type="PackedScene" uid="uid://brruw0njg4mh3" path="res://Objects/Battery.tscn" id="7_w3b30"]
+[ext_resource type="PackedScene" uid="uid://bi3trq3ee7seg" path="res://Objects/Oxygen Tank.tscn" id="8_m4m8r"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
 

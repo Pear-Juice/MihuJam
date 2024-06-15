@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://oq3w1n1gpbfx"]
+[gd_scene load_steps=5 format=3 uid="uid://bi3trq3ee7seg"]
 
 [ext_resource type="Script" path="res://Scripts/OxygenTank.gd" id="1_4u3k8"]
 [ext_resource type="Script" path="res://Scripts/FloatingItem.gd" id="2_qqwbe"]
