@@ -2,12 +2,11 @@
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_2n4qn"]
 
-[sub_resource type="Curve" id="Curve_hjiae"]
+[sub_resource type="Curve" id="Curve_qywf0"]
 min_value = 10.0
 max_value = 14.0
 _data = [Vector2(0, 14), 0.0, 0.0, 0, 0, Vector2(1, 10), 0.0, 0.0, 0, 0]
 point_count = 2
-metadata/_snap_enabled = true
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1ngyl"]
 
@@ -18,8 +17,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.948671, 0)
 script = ExtResource("1_2n4qn")
 MovementSpeed = 8.0
 CameraSensitivity = 0.01
-DashSpeedOverTime = SubResource("Curve_hjiae")
-DashTime = 2.0
+DashSpeedOverTime = SubResource("Curve_qywf0")
+DashTime = 3.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false

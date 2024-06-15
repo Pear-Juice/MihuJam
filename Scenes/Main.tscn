@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cb7tmni4jkgpd"]
+[gd_scene load_steps=21 format=3 uid="uid://cxuqisihcmvj7"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_0v12o"]
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
@@ -133,9 +133,6 @@ mesh = SubResource("BoxMesh_l371t")
 
 [node name="Shark" parent="." instance=ExtResource("2_e4jod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.72148, -9.39109)
-patrol_speed = 1.0
-circle_speed = 3.0
-chase_speed = 5.0
 
 [node name="Player" parent="." instance=ExtResource("2_6dpmj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.1776, 0)
