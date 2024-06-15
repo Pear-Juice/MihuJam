@@ -8,7 +8,6 @@ class_name Player
 @export var DashSpeedOverTime : Curve
 @export var DashTime: float 
 @export var DashCooldown : float
-@export var PickUpRange : float
 
 #Private variables
 var isDashing : bool = false
@@ -48,6 +47,7 @@ func _physics_process(delta):
 	
 	if input_dir != Vector2():
 		velocity = lerp(velocity, desired_velocity, 0.1)
+		velocity.y += verticalInput
 	else:
 		velocity *= .97
 		

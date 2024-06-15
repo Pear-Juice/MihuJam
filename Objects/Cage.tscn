@@ -1,10 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1mt5hokcdfjd"]
+[gd_scene load_steps=24 format=3 uid="uid://c1mt5hokcdfjd"]
 
 [ext_resource type="Script" path="res://Objects/Cage.gd" id="1_1hc8d"]
 [ext_resource type="PackedScene" uid="uid://dspdt1cjs3f5g" path="res://assets/props/cage.blend" id="2_tncsy"]
 [ext_resource type="Script" path="res://Objects/Door.gd" id="3_yoh8p"]
+[ext_resource type="Shader" path="res://Detail.gdshader" id="4_ctnid"]
+[ext_resource type="AudioStream" uid="uid://0cm58618tvxr" path="res://assets/Audio/dooropen.wav" id="4_r8bx4"]
+[ext_resource type="AudioStream" uid="uid://dq1mvdy3ifi8f" path="res://assets/Audio/doorclose2.wav" id="5_0r7vw"]
+[ext_resource type="AudioStream" uid="uid://brg507k4wktj1" path="res://assets/Audio/Dooropen1.wav" id="5_s5jud"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sxegj"]
+size = Vector3(9, 0.198486, 9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ghpd"]
 size = Vector3(9, 0.198486, 9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fdk5b"]
@@ -31,6 +38,32 @@ size = Vector3(9, 3, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_yrw8c"]
 size = Vector3(2.55078, 4.09985, 0.166077)
 
+[sub_resource type="Gradient" id="Gradient_xhgdm"]
+offsets = PackedFloat32Array(0.997549, 1)
+colors = PackedColorArray(0.381509, 0.290956, 0.223633, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3csvn"]
+gradient = SubResource("Gradient_xhgdm")
+fill_from = Vector2(0.433048, 0.643875)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_n60pr"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qb2r5"]
+noise = SubResource("FastNoiseLite_n60pr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dm1ut"]
+render_priority = 0
+shader = ExtResource("4_ctnid")
+shader_parameter/metalic = 0.3
+shader_parameter/noise_color = Color(0.741176, 0.52549, 0.4, 1)
+shader_parameter/noise_alpha = 0.6
+shader_parameter/albedo = SubResource("GradientTexture2D_3csvn")
+shader_parameter/noise = SubResource("NoiseTexture2D_qb2r5")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ullva"]
+material = SubResource("ShaderMaterial_dm1ut")
+size = Vector3(3, 4, 0.2)
+
 [node name="Cage" type="Node3D"]
 script = ExtResource("1_1hc8d")
 
@@ -44,6 +77,10 @@ collision_layer = 4
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.213501, 0)
 shape = SubResource("BoxShape3D_sxegj")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="Floor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.7865, 0)
+shape = SubResource("BoxShape3D_2ghpd")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Floor2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4.5, 0)
@@ -77,8 +114,25 @@ shape = SubResource("BoxShape3D_w55ju")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5341, 0, 4)
 collision_layer = 4
 script = ExtResource("3_yoh8p")
+open_rot = -104
 
 [node name="DoorCollider" type="CollisionShape3D" parent="Door"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.36851, 0.0272217, 0.0936584)
 shape = SubResource("BoxShape3D_yrw8c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.42719, 0, 0)
+mesh = SubResource("BoxMesh_ullva")
+
+[node name="DoorOpen" type="AudioStreamPlayer3D" parent="Door"]
+unique_name_in_owner = true
+stream = ExtResource("4_r8bx4")
+
+[node name="DoorOpenSlow" type="AudioStreamPlayer3D" parent="Door"]
+unique_name_in_owner = true
+stream = ExtResource("5_s5jud")
+
+[node name="DoorClose" type="AudioStreamPlayer3D" parent="Door"]
+unique_name_in_owner = true
+stream = ExtResource("5_0r7vw")
