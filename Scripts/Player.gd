@@ -3,7 +3,8 @@ class_name Player
 
 #Public variables
 @export var MovementSpeed : float
-@export var CameraSensitivity : float
+@export var MouseSensitivity : float
+@export var StickSensitivity : float
 @export var DashSpeedOverTime : Curve
 @export var DashTime: float 
 @export var DashCooldown : float
@@ -21,9 +22,6 @@ var currentSpeed : float
 @onready var leftHand = $"Camera3D/Left Hand"
 static var I : Player
 
-#Signals
-signal itemGrabbed
-signal itemReleased
 
 func _init():
 	I = self
@@ -36,6 +34,8 @@ func _physics_process(delta):
 	#Handle movement
 	var input_dir = Input.get_vector("Left", "Right", "Forward", "Back")
 	velocity = (input_dir.y * cam.global_transform.basis.z) + (input_dir.x * global_transform.basis.x)
+	var vecticalInput = Input.get_axis("Swim Down", "Swim Up")
+	velocity.y += vecticalInput
 	velocity *= currentSpeed
 
 	move_and_slide()
@@ -47,36 +47,47 @@ func _process(delta):
 		
 		if dashTimeElapsed >= DashTime:
 			EndDash()
-	
-func _input(event):
-	if event.is_action_pressed("Pause"):
+			
+	if Input.is_action_just_pressed("Pause"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		
-	if event.is_action_pressed("Dash") && !isDashing:
+	if Input.is_action_just_pressed("Dash") && !isDashing:
 		StartDash()
 	
-	if event.is_action_pressed("ItemUse_Left"):
+	if Input.is_action_just_pressed("ItemUse_Left"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		UseItem(leftHand)
+		
+	if Input.is_action_just_pressed("ItemUse_Right"):
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		UseItem(rightHand)
 	
-	if(event.is_action_pressed("ItemGrab_Left")):
+	if(Input.is_action_just_pressed("ItemGrab_Left")):
 		if(CheckHandStatus(leftHand)):
 			LetItemGo(CheckHandStatus(leftHand))
 		else:
 			TryGetItem(leftHand)
 			
-	if(event.is_action_pressed("ItemGrab_Right")):
+	if(Input.is_action_just_pressed("ItemGrab_Right")):
 		if(CheckHandStatus(rightHand)):
 			LetItemGo(CheckHandStatus(rightHand))
 		else:
 			TryGetItem(rightHand)
+			
+	cam.rotate_x(Input.get_axis("Camera Down", "Camera Up") * StickSensitivity)
+	if abs(cam.rotation_degrees.y) < 1:
+		rotate_y(-Input.get_axis("Camera Left", "Camera Right") * StickSensitivity)
+	else:
+		rotate_y(-Input.get_axis("Camera Left", "Camera Right") * StickSensitivity)
 
+#Handle camera movement with mouse
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
-		cam.rotate_x(-event.relative.y * CameraSensitivity)
+		cam.rotate_x(-event.relative.y * MouseSensitivity)
 		if abs(cam.rotation_degrees.y) < 1:
-			rotate_y(-event.relative.x * CameraSensitivity)
+			rotate_y(-event.relative.x * MouseSensitivity)
 		else:
-			rotate_y(event.relative.x * CameraSensitivity)
+			rotate_y(event.relative.x * MouseSensitivity)
 
 func StartDash():
 	isDashing = true
@@ -98,20 +109,26 @@ func LetItemGo(item):
 	item.get_parent().remove_child(item)
 	get_tree().root.add_child(item)
 	item.transform = itemTransfromValues
-	emit_signal("itemReleased")
+	item.get_child(0).OnItemReleased()
 	
 
 func TryGetItem(hand):
-	var item = raycastFromCam.get_collider()
+	var item = raycastFromCam.get_collider() as Node3D
 	
 	if item != null:
 		if(!item.is_in_group("Item")):
 			return
 		
-		get_tree().root.remove_child(item)
+		item.get_parent().remove_child(item)
 		hand.add_child(item)
 		item.position = Vector3.ZERO
 		item.rotation_degrees = Vector3.ZERO
 		item.scale = Vector3.ONE
 		
-		emit_signal("itemGrabbed")
+		item.get_child(0).OnItemGrabbed()
+		
+func UseItem(hand):
+	var item = CheckHandStatus(hand)
+	
+	if(item != null):
+		item.OnItemUse()

@@ -1,0 +1,186 @@
+[gd_scene load_steps=26 format=3 uid="uid://wlt3r1u20xx4"]
+
+[ext_resource type="Shader" path="res://Water.gdshader" id="1_8vp7v"]
+[ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_ryv21"]
+[ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="3_wkpi2"]
+[ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_74jr7"]
+[ext_resource type="PackedScene" path="res://Objects/Cage.tscn" id="5_l40g5"]
+[ext_resource type="PackedScene" uid="uid://beye4nemcj2uc" path="res://Objects/Flashlight.tscn" id="6_si0ay"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
+
+[sub_resource type="Sky" id="Sky_tonp6"]
+sky_material = SubResource("ProceduralSkyMaterial_dvpsr")
+
+[sub_resource type="Environment" id="Environment_ygvgb"]
+background_color = Color(0.698039, 0.811765, 0.972549, 1)
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_tonp6")
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.0
+fog_enabled = true
+fog_light_color = Color(0, 0, 0.101961, 1)
+fog_density = 0.0275
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(0.0431373, 0, 0.337255, 1)
+
+[sub_resource type="Gradient" id="Gradient_6n0c2"]
+colors = PackedColorArray(0.0745098, 0.333333, 0.521569, 1, 0.0745098, 0.333333, 0.521569, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pif7q"]
+gradient = SubResource("Gradient_6n0c2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2qxyf"]
+render_priority = 0
+shader = ExtResource("1_8vp7v")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/albedo_tex = SubResource("GradientTexture2D_pif7q")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1lw4w"]
+material = SubResource("ShaderMaterial_2qxyf")
+size = Vector2(1000, 1000)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cpkxa"]
+size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_puy63"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8vfg1"]
+material = SubResource("StandardMaterial3D_puy63")
+size = Vector2(1000, 1000)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l371t"]
+
+[sub_resource type="Curve" id="Curve_s2hxw"]
+_data = [Vector2(0, 0.0193548), 0.0, 8.48065, 0, 0, Vector2(0.3159, 1), 0.0, 0.0, 0, 0, Vector2(0.89749, 0.851613), -1.09804, -1.09804, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_pmmli"]
+curve = SubResource("Curve_s2hxw")
+
+[sub_resource type="Curve" id="Curve_a4ahb"]
+_data = [Vector2(0, 0.178197), 0.0, 0.0, 0, 0, Vector2(1, 0.181298), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r8bhc"]
+curve = SubResource("Curve_a4ahb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2ty6m"]
+emission_shape_scale = Vector3(1, 0, 1)
+emission_shape = 3
+emission_box_extents = Vector3(15, 1, 15)
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0.5, 0)
+scale_min = 0.0
+alpha_curve = SubResource("CurveTexture_pmmli")
+turbulence_enabled = true
+turbulence_influence_over_life = SubResource("CurveTexture_r8bhc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cctew"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+depth_draw_mode = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("4_74jr7")
+disable_receive_shadows = true
+billboard_mode = 1
+distance_fade_mode = 1
+distance_fade_max_distance = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3cvgp"]
+material = SubResource("StandardMaterial3D_cctew")
+size = Vector2(0.2, 0.2)
+orientation = 2
+
+[sub_resource type="Curve3D" id="Curve3D_r8ivh"]
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ygvgb")
+
+[node name="CeilingUnder" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_1lw4w")
+skeleton = NodePath("../CeilingOver")
+
+[node name="CeilingOver" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("PlaneMesh_cpkxa")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2314, -51.3588, 4.84295)
+mesh = SubResource("PlaneMesh_8vfg1")
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.812021, -11.1078, -9.04501)
+mesh = SubResource("BoxMesh_l371t")
+
+[node name="Shark" parent="." instance=ExtResource("2_ryv21")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.72148, -9.39109)
+
+[node name="Player" parent="." instance=ExtResource("3_wkpi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7064, -12.135, 1.99237)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.1308, 0)
+amount = 100
+lifetime = 20.0
+preprocess = 5.0
+randomness = 1.0
+visibility_aabb = AABB(-31.2538, -1.00001, -24.0354, 63.9678, 54.6824, 63.2687)
+process_material = SubResource("ParticleProcessMaterial_2ty6m")
+draw_pass_1 = SubResource("PlaneMesh_3cvgp")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_r8ivh")
+
+[node name="Cage" parent="." instance=ExtResource("5_l40g5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13.4141, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Cage"]
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+size = Vector3(6.9707, 9.01392, 7.0127)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.868441, -4.98672e-08, 0.495792, -0.493388, -0.0983645, 0.86423, 0.0487683, -0.99515, -0.0854238, 0, 0, 0)
+light_energy = 0.0
+shadow_enabled = true
+shadow_opacity = 0.56
+shadow_blur = 6.228
+
+[node name="Flashlight" parent="." instance=ExtResource("6_si0ay")]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 13.1542, -10.4685, -1.07666)
+BatteryTime = 100.0
+
+[node name="Flashlight2" parent="." instance=ExtResource("6_si0ay")]
+transform = Transform3D(-0.669669, -0.230267, 0.70606, 0.388844, 0.701273, 0.597509, -0.632728, 0.67468, -0.380083, 11.2714, -7.96033, -3.36518)
+BatteryTime = 100.0
+
+[node name="Flashlight3" parent="." instance=ExtResource("6_si0ay")]
+transform = Transform3D(-0.906628, 0.175967, 0.383485, 0.388844, 0.701273, 0.597509, -0.163786, 0.690834, -0.704218, 4.15495, -11.4306, -6.05334)
+BatteryTime = 100.0
+
+[node name="Flashlight4" parent="." instance=ExtResource("6_si0ay")]
+transform = Transform3D(-0.854021, 0.517656, -0.0517778, 0.388844, 0.701273, 0.597509, 0.345614, 0.490151, -0.800189, -6.52244, -11.4306, -8.63757)
+BatteryTime = 100.0
+
+[node name="Flashlight5" parent="." instance=ExtResource("6_si0ay")]
+transform = Transform3D(-0.508586, 0.704163, -0.495474, 0.388844, 0.701273, 0.597509, 0.768207, 0.111222, -0.630467, -6.52244, -6.02611, -3.74434)
+BatteryTime = 100.0
+
+[node name="Flashlight6" parent="." instance=ExtResource("6_si0ay")]
+transform = Transform3D(0.276489, -0.349979, -0.895024, 0.771036, -0.47513, 0.423976, -0.573636, -0.80732, 0.138478, -7.74518, -5.61211, 2.48511)
+BatteryTime = 100.0
+
+[node name="Flashlight7" parent="." instance=ExtResource("6_si0ay")]
+transform = Transform3D(-0.523669, -0.851918, -0.00236994, 0.771036, -0.47513, 0.423976, -0.362319, 0.220196, 0.905671, -4.20132, -6.26978, 7.70575)
+BatteryTime = 100.0
+
+[node name="Flashlight8" parent="." instance=ExtResource("6_si0ay")]
+transform = Transform3D(-0.523669, -0.851918, -0.00236996, 0.596129, -0.368421, 0.71337, -0.608606, 0.372157, 0.700784, 0.167953, -6.26978, 7.70575)
+BatteryTime = 100.0
