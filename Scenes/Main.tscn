@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cb7tmni4jkgpd"]
+[gd_scene load_steps=25 format=3 uid="uid://cb7tmni4jkgpd"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_0v12o"]
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
@@ -48,10 +48,6 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="PlaneMesh" id="PlaneMesh_8vfg1"]
 material = SubResource("StandardMaterial3D_puy63")
 size = Vector2(1000, 1000)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyct3"]
-bg_color = Color(0.345098, 0.345098, 0.345098, 1)
-corner_radius_bottom_right = 40
 
 [sub_resource type="BoxMesh" id="BoxMesh_l371t"]
 
@@ -116,35 +112,6 @@ mesh = SubResource("PlaneMesh_cpkxa")
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2314, -51.3588, 4.84295)
 mesh = SubResource("PlaneMesh_8vfg1")
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Panel" type="Panel" parent="Control"]
-layout_mode = 0
-offset_right = 225.0
-offset_bottom = 68.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_oyct3")
-
-[node name="CenterContainer" type="CenterContainer" parent="Control/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="Control/Panel/CenterContainer"]
-custom_minimum_size = Vector2(150, 15)
-layout_mode = 2
-value = 50.0
-show_percentage = false
 
 [node name="Cube" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.812021, -11.1078, -9.04501)
