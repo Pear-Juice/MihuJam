@@ -24,7 +24,6 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	currentSpeed = MovementSpeed
 
-
 func _physics_process(delta):
 	#Handle movement
 	var input_dir = Input.get_vector("Left", "Right", "Forward", "Back")
@@ -54,8 +53,11 @@ func _input(event):
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * CameraSensitivity)
 		cam.rotate_x(-event.relative.y * CameraSensitivity)
+		if abs(cam.rotation_degrees.y) < 1:
+			rotate_y(-event.relative.x * CameraSensitivity)
+		else:
+			rotate_y(event.relative.x * CameraSensitivity)
 
 
 func StartDash():
