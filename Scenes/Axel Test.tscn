@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b010y57bt4wj0"]
+[gd_scene load_steps=35 format=3 uid="uid://b010y57bt4wj0"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_8vp7v"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_ryv21"]
@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight.tscn" id="6_si0ay"]
 [ext_resource type="PackedScene" uid="uid://6bxucw5xesty" path="res://Objects/Battery.tscn" id="7_w3b30"]
 [ext_resource type="PackedScene" uid="uid://bxd0pplnyh5yl" path="res://Objects/Oxygen Tank.tscn" id="8_m4m8r"]
+[ext_resource type="Terrain3DStorage" uid="uid://bykcc7ajvm2fd" path="res://Terrain/Environment.res" id="9_la3rf"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/rock_alb_ht.dds" id="10_pypfj"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/rock_nrm_rgh.dds" id="11_m1a56"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
 
@@ -43,13 +46,6 @@ material = SubResource("ShaderMaterial_2qxyf")
 size = Vector2(1000, 1000)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_cpkxa"]
-size = Vector2(1000, 1000)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_puy63"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_8vfg1"]
-material = SubResource("StandardMaterial3D_puy63")
 size = Vector2(1000, 1000)
 
 [sub_resource type="BoxMesh" id="BoxMesh_l371t"]
@@ -98,33 +94,73 @@ orientation = 2
 
 [sub_resource type="Curve3D" id="Curve3D_r8ivh"]
 
+[sub_resource type="Gradient" id="Gradient_j43ds"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1i0gc"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w27l2"]
+seamless = true
+color_ramp = SubResource("Gradient_j43ds")
+noise = SubResource("FastNoiseLite_1i0gc")
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_q2mg3"]
+_shader_parameters = {
+"_mouse_layer": 2147483648,
+"blend_sharpness": null,
+"height_blending": null,
+"macro_variation1": null,
+"macro_variation2": null,
+"noise1_angle": null,
+"noise1_offset": null,
+"noise1_scale": null,
+"noise2_scale": null,
+"noise3_scale": null,
+"noise_texture": SubResource("NoiseTexture2D_w27l2")
+}
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_cc22v"]
+albedo_texture = ExtResource("10_pypfj")
+normal_texture = ExtResource("11_m1a56")
+
+[sub_resource type="Terrain3DTextureList" id="Terrain3DTextureList_ftx0w"]
+textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_cc22v")])
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ygvgb")
 
 [node name="CeilingUnder" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 155.689, 0)
 mesh = SubResource("PlaneMesh_1lw4w")
 skeleton = NodePath("../CeilingOver")
 
 [node name="CeilingOver" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 155.789, 0)
 mesh = SubResource("PlaneMesh_cpkxa")
 
-[node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.43, -52.2176, 4.60121)
-mesh = SubResource("PlaneMesh_8vfg1")
-
 [node name="Cube" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.812021, -11.1078, -9.04501)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.812021, 59.8218, -9.04501)
 mesh = SubResource("BoxMesh_l371t")
 
 [node name="Shark" parent="." instance=ExtResource("2_ryv21")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.72148, -9.39109)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 64.2081, -9.39109)
 
 [node name="Player" parent="." instance=ExtResource("3_wkpi2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7064, -12.135, 1.99237)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7064, 58.7946, 1.99237)
+MaxOxygenTime = 120.0
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.1308, 0)
@@ -137,22 +173,36 @@ process_material = SubResource("ParticleProcessMaterial_2ty6m")
 draw_pass_1 = SubResource("PlaneMesh_3cvgp")
 
 [node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 70.9296, 0)
 curve = SubResource("Curve3D_r8ivh")
 
 [node name="Cage" parent="." instance=ExtResource("5_l40g5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13.4141, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 57.5155, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.868441, -4.98672e-08, 0.495792, -0.493388, -0.0983645, 0.86423, 0.0487683, -0.99515, -0.0854238, 0, 0, 0)
-light_energy = 0.0
+transform = Transform3D(0.868441, -8.86896e-08, 0.495792, -0.493388, -0.0983645, 0.86423, 0.0487683, -0.99515, -0.0854238, 0, 70.9296, 0)
+light_energy = 0.1
+light_indirect_energy = 16.0
+light_volumetric_fog_energy = 16.0
 shadow_enabled = true
 shadow_opacity = 0.56
 shadow_blur = 6.228
 
 [node name="Flashlight" parent="." instance=ExtResource("6_si0ay")]
-transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 13.1542, -10.4685, -1.07666)
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 13.1542, 60.4611, -1.07666)
+BatteryTime = 1000.0
 
 [node name="Battery" parent="." instance=ExtResource("7_w3b30")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7375, 60.2321, -1.9117)
 
 [node name="Oxygen Tank" parent="." instance=ExtResource("8_m4m8r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.32369, -12.267, 0.921748)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.32369, 58.6626, 0.921748)
+
+[node name="Terrain3D" type="Terrain3D" parent="."]
+storage = ExtResource("9_la3rf")
+material = SubResource("Terrain3DMaterial_q2mg3")
+texture_list = SubResource("Terrain3DTextureList_ftx0w")
+collision_layer = 4
+collision_mask = 3
+mesh_lods = 2
+mesh_size = 32
