@@ -6,3 +6,4 @@ static var I : Cage
 
 func _init():
 	I = self
+

@@ -27,6 +27,10 @@ var currentOxygen : float
 
 static var I : Player
 
+#AudioStreams
+@onready var ambient_background := $"AmbientPlayer"
+@onready var swim_player := $"SwimPlayer"
+
 
 func _init():
 	I = self
@@ -36,16 +40,28 @@ func _ready():
 	currentSpeed = MovementSpeed
 	currentOxygen = MaxOxygenTime
 	oxygenBar.max_value = MaxOxygenTime
+	
+	ambient_background.play()
+	
 
 func _physics_process(delta):
 	#Handle movement
 	var input_dir = Input.get_vector("Left", "Right", "Forward", "Back")
-	velocity = (input_dir.y * cam.global_transform.basis.z) + (input_dir.x * global_transform.basis.x)
-	var vecticalInput = Input.get_axis("Swim Down", "Swim Up")
-	velocity.y += vecticalInput
-	velocity *= currentSpeed
-
+	var verticalInput = Input.get_axis("Swim Down", "Swim Up")
+	
+	var dir_vector = (input_dir.y * cam.global_transform.basis.z) + (input_dir.x * global_transform.basis.x)
+	
+	var desired_velocity = currentSpeed * dir_vector + Vector3(0, verticalInput, 0)
+	
+	if input_dir != Vector2():
+		velocity = lerp(velocity, desired_velocity, 0.1)
+	else:
+		velocity *= .97
+		
 	move_and_slide()
+	
+	if input_dir != Vector2() && !swim_player.playing:
+		swim_player.play()
 	
 func _process(delta):
 	if(DepleteOxygen):
@@ -66,7 +82,7 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("ItemUse_Left"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		UseItem(leftHand)
+		UseItem(rightHand)
 		
 	if Input.is_action_just_pressed("ItemUse_Right"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -131,19 +147,23 @@ func LetItemGo(item):
 	
 
 func TryGetItem(hand):
-	var item = raycastFromCam.get_collider() as Node3D
+	var collider = raycastFromCam.get_collider() as Node3D
 	
-	if item != null:
-		if(!item.is_in_group("Item")):
+	if collider != null:
+		if collider.is_in_group("Interactable"):
+			collider.interact(hand)
 			return
+			
+		if(collider.is_in_group("Item")):
+			collider.get_parent().remove_child(collider)
+			hand.add_child(collider)
+			collider.position = Vector3.ZERO
+			collider.rotation_degrees = Vector3.ZERO
+			collider.scale = Vector3.ONE
+			
+			collider.get_child(0).OnItemGrabbed()
+			
 		
-		item.get_parent().remove_child(item)
-		hand.add_child(item)
-		item.position = Vector3.ZERO
-		item.rotation_degrees = Vector3.ZERO
-		item.scale = Vector3.ONE
-		
-		item.get_child(0).OnItemGrabbed()
 		
 func UseItem(hand):
 	var item = CheckHandStatus(hand)
