@@ -1,5 +1,11 @@
 extends CharacterBody3D
 
+@export var patrol_speed : float
+@export var circle_speed : float
+@export var chase_speed : float
+var current_speed : float
+
+var target : Vector3
 var state_m : StateMachine
 
 func _ready():
@@ -7,26 +13,45 @@ func _ready():
 	
 	state_m.add_state("Patrol", patrol_state)
 	state_m.add_state("Circle", circle_state)
-	state_m.add_state("Chase", chase_state)
+	state_m.add_state("Chase", chase_state, chase_state_run)
+	state_m.add_state("Ram", ram_state)
 	state_m.add_state("Run", run_state)
 	state_m.add_state("Eat", eat_state)
 	
+	state_m.debug = true
 	state_m.transfer("Patrol")
+	
+func _physics_process(delta):
+	velocity = global_position.direction_to(target) * current_speed
+	move_and_slide()
 
 func patrol_state():
-	
-	await get_tree().create_timer(randf_range(60,180)).timeout
-	state_m.transfer("Circle")
+	current_speed = patrol_speed
+	get_tree().create_timer(randf_range(60,180)).timeout.connect(func(): state_m.transfer("Circle"), Node.CONNECT_ONE_SHOT)
 	
 func circle_state():
-	state_m.transfer("Chase")
-	pass
+	current_speed = circle_speed
+	get_tree().create_timer(randf_range(30,60)).timeout.connect(func(): state_m.transfer("Patrol"), Node.CONNECT_ONE_SHOT)
 	
 func chase_state():
-	pass
+	current_speed = chase_speed
+	
+func chase_state_run():
+	target = Player.I.global_position
+	
+func ram_state():
+	current_speed = chase_speed
+	state_m.transfer("Circle")
 	
 func run_state():
-	pass
+	current_speed = chase_speed
+	state_m.transfer("Patrol")
 	
 func eat_state():
-	pass
+	pass #kill player
+
+func _on_sight_entered(body):
+	state_m.transfer("Chase")
+
+func _on_eat_body_entered(body):
+	state_m.transfer("Eat")
