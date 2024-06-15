@@ -1,4 +1,6 @@
 extends CharacterBody3D
+class_name Player
+
 
 #Public variables
 @export var MovementSpeed : float
@@ -14,6 +16,10 @@ var currentSpeed : float
 
 #Components
 @onready var cam = $Camera3D
+static var I : Player
+
+func _init():
+	I = self
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
