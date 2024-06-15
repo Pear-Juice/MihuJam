@@ -5,6 +5,7 @@ extends Node
 var state_array : Array[State]
 var current_state : State
 var debug : bool
+var delta : float
 
 static func create(base : Node):
 	var new_machine = StateMachine.new()
@@ -51,6 +52,6 @@ func transfer(state_name : String):
 	if debug:
 		print("Transfer complete")
 	
-func _process(_delta):
+func _process(delta):
 	if current_state && current_state.run:
-		current_state.run.call()
+		current_state.run.call(delta)
