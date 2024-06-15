@@ -1,14 +1,13 @@
-[gd_scene load_steps=31 format=3 uid="uid://wlt3r1u20xx4"]
+[gd_scene load_steps=28 format=3 uid="uid://b010y57bt4wj0"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_8vp7v"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_ryv21"]
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="3_wkpi2"]
 [ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_74jr7"]
 [ext_resource type="PackedScene" path="res://Objects/Cage.tscn" id="5_l40g5"]
-[ext_resource type="PackedScene" uid="uid://beye4nemcj2uc" path="res://Objects/Flashlight.tscn" id="6_si0ay"]
+[ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight.tscn" id="6_si0ay"]
 [ext_resource type="PackedScene" uid="uid://b4y5j5y58nffo" path="res://Objects/Battery.tscn" id="7_w3b30"]
-[ext_resource type="Script" path="res://Scripts/FloatingItem.gd" id="8_ksspw"]
-[ext_resource type="Script" path="res://Scripts/OxygenTank.gd" id="8_s5yj7"]
+[ext_resource type="PackedScene" uid="uid://b3qeroiekodnj" path="res://Objects/Oxygen Tank.tscn" id="8_m4m8r"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
 
@@ -99,10 +98,6 @@ orientation = 2
 
 [sub_resource type="Curve3D" id="Curve3D_r8ivh"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_442y8"]
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_bdptf"]
-
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -165,21 +160,4 @@ transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 
 
 [node name="Battery" parent="." instance=ExtResource("7_w3b30")]
 
-[node name="Oxygen Tank" type="CharacterBody3D" parent="." groups=["Item"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.56649, -10.2985, 0.283414)
-collision_layer = 2
-collision_mask = 4
-script = ExtResource("8_s5yj7")
-OxygenRefillAmount = 10.0
-RefillRate = 5.0
-
-[node name="Floating" type="Node3D" parent="Oxygen Tank"]
-script = ExtResource("8_ksspw")
-FloatTime = 10.0
-FallingSpeed = -3.0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Oxygen Tank"]
-mesh = SubResource("CylinderMesh_442y8")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Oxygen Tank"]
-shape = SubResource("CylinderShape3D_bdptf")
+[node name="Oxygen Tank" parent="." instance=ExtResource("8_m4m8r")]
