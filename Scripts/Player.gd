@@ -7,6 +7,7 @@ class_name Player
 @export var DashSpeedOverTime : Curve
 @export var DashTime: float 
 @export var DashCooldown : float
+@export var PickUpRange : float
 
 #Private variables
 var isDashing : bool = false
@@ -15,7 +16,14 @@ var currentSpeed : float
 
 #Components
 @onready var cam = $Camera3D
+@onready var raycastFromCam = $Camera3D/RayCast3D
+@onready var rightHand = $"Camera3D/Right Hand"
+@onready var leftHand = $"Camera3D/Left Hand"
 static var I : Player
+
+#Signals
+signal itemGrabbed
+signal itemReleased
 
 func _init():
 	I = self
@@ -37,7 +45,6 @@ func _process(delta):
 		currentSpeed = DashSpeedOverTime.sample(dashTimeElapsed/DashTime)
 		dashTimeElapsed += delta
 		
-		
 		if dashTimeElapsed >= DashTime:
 			EndDash()
 	
@@ -50,6 +57,18 @@ func _input(event):
 	
 	if event.is_action_pressed("ItemUse_Left"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	if(event.is_action_pressed("ItemGrab_Left")):
+		if(CheckHandStatus(leftHand)):
+			LetItemGo(CheckHandStatus(leftHand))
+		else:
+			TryGetItem(leftHand)
+			
+	if(event.is_action_pressed("ItemGrab_Right")):
+		if(CheckHandStatus(rightHand)):
+			LetItemGo(CheckHandStatus(rightHand))
+		else:
+			TryGetItem(rightHand)
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -59,7 +78,6 @@ func _unhandled_input(event):
 		else:
 			rotate_y(event.relative.x * CameraSensitivity)
 
-
 func StartDash():
 	isDashing = true
 	dashTimeElapsed = 0
@@ -67,3 +85,33 @@ func StartDash():
 func EndDash():
 	isDashing = false
 	currentSpeed = MovementSpeed
+
+func CheckHandStatus(hand) -> Node3D:
+	var itemInHand = null
+	for child in hand.get_children():
+		if(child.is_in_group("Item")):
+			itemInHand = child
+	return itemInHand
+
+func LetItemGo(item):
+	var itemTransfromValues = item.global_transform
+	item.get_parent().remove_child(item)
+	get_tree().root.add_child(item)
+	item.transform = itemTransfromValues
+	emit_signal("itemReleased")
+	
+
+func TryGetItem(hand):
+	var item = raycastFromCam.get_collider()
+	
+	if item != null:
+		if(!item.is_in_group("Item")):
+			return
+		
+		get_tree().root.remove_child(item)
+		hand.add_child(item)
+		item.position = Vector3.ZERO
+		item.rotation_degrees = Vector3.ZERO
+		item.scale = Vector3.ONE
+		
+		emit_signal("itemGrabbed")

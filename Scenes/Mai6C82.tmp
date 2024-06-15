@@ -1,0 +1,147 @@
+[gd_scene load_steps=21 format=3 uid="uid://cxuqisihcmvj7"]
+
+[ext_resource type="Shader" path="res://Water.gdshader" id="1_0v12o"]
+[ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
+[ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_e4jod"]
+[ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_hn4lp"]
+
+[sub_resource type="Environment" id="Environment_ygvgb"]
+background_mode = 1
+background_color = Color(0.698039, 0.811765, 0.972549, 1)
+ambient_light_color = Color(1, 1, 1, 1)
+fog_enabled = true
+fog_light_color = Color(0, 0, 0.0745098, 1)
+fog_density = 0.0275
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(0.0431373, 0, 0.337255, 1)
+
+[sub_resource type="Gradient" id="Gradient_6n0c2"]
+colors = PackedColorArray(0.0745098, 0.333333, 0.521569, 1, 0.0745098, 0.333333, 0.521569, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pif7q"]
+gradient = SubResource("Gradient_6n0c2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2qxyf"]
+render_priority = 0
+shader = ExtResource("1_0v12o")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/albedo_tex = SubResource("GradientTexture2D_pif7q")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1lw4w"]
+material = SubResource("ShaderMaterial_2qxyf")
+size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_puy63"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8vfg1"]
+material = SubResource("StandardMaterial3D_puy63")
+size = Vector2(1000, 1000)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyct3"]
+bg_color = Color(0.345098, 0.345098, 0.345098, 1)
+corner_radius_bottom_right = 40
+
+[sub_resource type="BoxMesh" id="BoxMesh_l371t"]
+
+[sub_resource type="Curve" id="Curve_s2hxw"]
+_data = [Vector2(0, 0.0193548), 0.0, 8.48065, 0, 0, Vector2(0.3159, 1), 0.0, 0.0, 0, 0, Vector2(0.89749, 0.851613), -1.09804, -1.09804, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_pmmli"]
+curve = SubResource("Curve_s2hxw")
+
+[sub_resource type="Curve" id="Curve_a4ahb"]
+_data = [Vector2(0, 0.178197), 0.0, 0.0, 0, 0, Vector2(1, 0.181298), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r8bhc"]
+curve = SubResource("Curve_a4ahb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2ty6m"]
+emission_shape_scale = Vector3(1, 0, 1)
+emission_shape = 3
+emission_box_extents = Vector3(15, 1, 15)
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0.5, 0)
+alpha_curve = SubResource("CurveTexture_pmmli")
+turbulence_enabled = true
+turbulence_influence_over_life = SubResource("CurveTexture_r8bhc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cctew"]
+transparency = 1
+depth_draw_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.666667, 0.807843, 1, 1)
+albedo_texture = ExtResource("4_hn4lp")
+disable_receive_shadows = true
+billboard_mode = 1
+distance_fade_mode = 1
+distance_fade_max_distance = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3cvgp"]
+material = SubResource("StandardMaterial3D_cctew")
+size = Vector2(0.5, 0.5)
+orientation = 2
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ygvgb")
+
+[node name="Ceiling" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_1lw4w")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2314, -51.3588, 4.84295)
+mesh = SubResource("PlaneMesh_8vfg1")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 0
+offset_right = 225.0
+offset_bottom = 68.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oyct3")
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/Panel/CenterContainer"]
+custom_minimum_size = Vector2(150, 15)
+layout_mode = 2
+value = 50.0
+show_percentage = false
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.812021, -11.1078, -9.04501)
+mesh = SubResource("BoxMesh_l371t")
+
+[node name="Shark" parent="." instance=ExtResource("2_e4jod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.72148, -9.39109)
+
+[node name="Player" parent="." instance=ExtResource("2_6dpmj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.1776, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.1308, 0)
+amount = 100
+lifetime = 20.0
+randomness = 1.0
+visibility_aabb = AABB(-31.2538, -1.00001, -24.0354, 63.9678, 54.6824, 63.2687)
+process_material = SubResource("ParticleProcessMaterial_2ty6m")
+draw_pass_1 = SubResource("PlaneMesh_3cvgp")

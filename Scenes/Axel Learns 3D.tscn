@@ -26,26 +26,43 @@ environment = SubResource("Environment_1q86s")
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(3.54857, 0, 0, 0, 1, 0, 0, 0, 3.54857, -17.4206, 2.87243, -2.84278)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(1, 18.5398, 1)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(3.54857, 0, 0, 0, 1, 0, 0, 0, 3.54857, -1.30911, -0.822237, -4.47132)
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+size = Vector3(0.310547, 0.753906, 0.001)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
 transform = Transform3D(3.54857, 0, 0, 0, 1, 0, 0, 0, 3.54857, -3.12621, 1.04981, 17.1735)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(1, 14.8945, 1)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="."]
 transform = Transform3D(3.54857, 0, 0, 0, 1, 0, 0, 0, 3.54857, 14.9198, -0.711364, 2.6355)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(1, 11.3722, 1)
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="."]
 transform = Transform3D(3.54857, 0, 0, 0, 1, 0, 0, 0, 3.54857, 13.5912, -3.97821, -17.5489)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(1, 4.8385, 1)
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="."]
 transform = Transform3D(3.54857, 0, 0, 0, 1, 0, 0, 0, 3.54857, -6.86463, 4.07105, -21.985)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(1, 21.0967, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_w3ob7")]
