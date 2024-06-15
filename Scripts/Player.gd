@@ -7,18 +7,24 @@ class_name Player
 @export var StickSensitivity : float
 @export var DashSpeedOverTime : Curve
 @export var DashTime: float 
-@export var DashCooldown : float
+#@export var DashCooldown : float
+@export var PickUpRange : float
+@export var MaxOxygenTime : float
+@export var DepleteOxygen : bool = true
 
 #Private variables
 var isDashing : bool = false
 var dashTimeElapsed : float = 0
 var currentSpeed : float
+var currentOxygen : float
 
 #Components
 @onready var cam = $Camera3D
 @onready var raycastFromCam = $Camera3D/RayCast3D
 @onready var rightHand = $"Camera3D/Right Hand"
 @onready var leftHand = $"Camera3D/Left Hand"
+@onready var oxygenBar = $Control/Panel/CenterContainer/ProgressBar as ProgressBar
+
 static var I : Player
 
 #AudioStreams
@@ -32,6 +38,8 @@ func _init():
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	currentSpeed = MovementSpeed
+	currentOxygen = MaxOxygenTime
+	oxygenBar.max_value = MaxOxygenTime
 	
 	ambient_background.play()
 	
@@ -42,12 +50,10 @@ func _physics_process(delta):
 	var verticalInput = Input.get_axis("Swim Down", "Swim Up")
 	
 	var dir_vector = (input_dir.y * cam.global_transform.basis.z) + (input_dir.x * global_transform.basis.x)
-	
 	var desired_velocity = currentSpeed * dir_vector + Vector3(0, verticalInput, 0)
 	
 	if input_dir != Vector2():
 		velocity = lerp(velocity, desired_velocity, 0.1)
-		velocity.y += verticalInput
 	else:
 		velocity *= .97
 		
@@ -57,6 +63,9 @@ func _physics_process(delta):
 		swim_player.play()
 	
 func _process(delta):
+	if(DepleteOxygen):
+		ChangeOxygen(-delta)
+	
 	if isDashing:
 		currentSpeed = DashSpeedOverTime.sample(dashTimeElapsed/DashTime)
 		dashTimeElapsed += delta
@@ -72,11 +81,19 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("ItemUse_Left"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		UseItem(rightHand)
+		UseItem(leftHand)
 		
 	if Input.is_action_just_pressed("ItemUse_Right"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		UseItem(leftHand)
+		UseItem(rightHand)
+		
+	if Input.is_action_just_released("ItemUse_Left"):
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		CancelItem(leftHand)
+		
+	if Input.is_action_just_released("ItemUse_Right"):
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		CancelItem(rightHand)
 	
 	if(Input.is_action_just_pressed("ItemGrab_Left")):
 		if(CheckHandStatus(leftHand)):
@@ -152,3 +169,32 @@ func UseItem(hand):
 	
 	if(item != null):
 		item.OnItemUse()
+		
+func CancelItem(hand):
+	var item = CheckHandStatus(hand)
+	if(item != null):
+		item.OnCancelUse()
+	
+
+func CheckHandsForItem(itemName) -> Node3D:
+	var desiredItem : Node3D = null
+	var leftItem = CheckHandStatus(leftHand)
+	var rightItem = CheckHandStatus(rightHand)
+	
+	if leftItem != null && leftItem.name.contains(itemName):
+		desiredItem = leftItem
+	if rightItem != null && rightItem.name.contains(itemName):
+		desiredItem = rightItem
+	return desiredItem
+	
+func ChangeOxygen(amount):
+	currentOxygen += amount
+	currentOxygen = clamp(currentOxygen, 0, MaxOxygenTime)
+	oxygenBar.value = currentOxygen
+	
+	if(currentOxygen <= 0):
+		GameOver()
+		return
+
+func GameOver():
+	print("No more oxygen")
