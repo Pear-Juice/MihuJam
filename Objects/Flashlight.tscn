@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Flashlight.gd" id="1_els3w"]
 [ext_resource type="Script" path="res://Scripts/FloatingItem.gd" id="2_nbqms"]
-[ext_resource type="AudioStream" uid="uid://cxb8cgjhr4jwc" path="res://Audio/light-switch-156813.mp3" id="3_g81yc"]
+[ext_resource type="AudioStream" uid="uid://cxb8cgjhr4jwc" path="res://assets/Audio/light-switch-156813.mp3" id="3_g81yc"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_x8evn"]
 

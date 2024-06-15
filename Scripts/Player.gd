@@ -51,8 +51,6 @@ func _physics_process(delta):
 	else:
 		velocity *= .97
 		
-	print(velocity)
-		
 	move_and_slide()
 	
 	if input_dir != Vector2() && !swim_player.playing:
@@ -134,6 +132,10 @@ func TryGetItem(hand):
 	var collider = raycastFromCam.get_collider() as Node3D
 	
 	if collider != null:
+		if collider.is_in_group("Interactable"):
+			collider.interact(hand)
+			return
+			
 		if(collider.is_in_group("Item")):
 			collider.get_parent().remove_child(collider)
 			hand.add_child(collider)
@@ -142,9 +144,6 @@ func TryGetItem(hand):
 			collider.scale = Vector3.ONE
 			
 			collider.get_child(0).OnItemGrabbed()
-			
-		if collider.is_in_group("Interactable"):
-			collider.interact(hand)
 			
 		
 		
