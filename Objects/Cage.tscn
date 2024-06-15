@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1mt5hokcdfjd"]
+[gd_scene load_steps=4 format=3 uid="uid://c1mt5hokcdfjd"]
 
 [ext_resource type="Script" path="res://Objects/Cage.gd" id="1_1hc8d"]
 
-[node name="Cage" type="Node3D"]
+[sub_resource type="BoxMesh" id="BoxMesh_xirm3"]
+size = Vector3(7, 9, 7)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rb08y"]
+size = Vector3(1, 10, 1)
+
+[node name="Cage" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_xirm3")
 script = ExtResource("1_1hc8d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.24728, 0)
+mesh = SubResource("BoxMesh_rb08y")

@@ -33,6 +33,9 @@ func circle_state():
 	current_speed = circle_speed
 	get_tree().create_timer(randf_range(30,60)).timeout.connect(func(): state_m.transfer("Patrol"), Node.CONNECT_ONE_SHOT)
 	
+func circle_state_run():
+	pass
+	
 func chase_state():
 	current_speed = chase_speed
 	
@@ -48,10 +51,15 @@ func run_state():
 	state_m.transfer("Patrol")
 	
 func eat_state():
-	pass #kill player
+	print("Player died!")
 
 func _on_sight_entered(body):
-	state_m.transfer("Chase")
+	if body is Player:
+		state_m.transfer("Chase")
 
 func _on_eat_body_entered(body):
-	state_m.transfer("Eat")
+	if body is Player:
+		state_m.transfer("Eat")
+		
+func player_escaped():
+	state_m.transfer("Circle")
