@@ -131,19 +131,22 @@ func LetItemGo(item):
 	
 
 func TryGetItem(hand):
-	var item = raycastFromCam.get_collider() as Node3D
+	var collider = raycastFromCam.get_collider() as Node3D
 	
-	if item != null:
-		if(!item.is_in_group("Item")):
-			return
+	if collider != null:
+		if(collider.is_in_group("Item")):
+			collider.get_parent().remove_child(collider)
+			hand.add_child(collider)
+			collider.position = Vector3.ZERO
+			collider.rotation_degrees = Vector3.ZERO
+			collider.scale = Vector3.ONE
+			
+			collider.get_child(0).OnItemGrabbed()
+			
+		if collider.is_in_group("Interactable"):
+			collider.interact(hand)
+			
 		
-		item.get_parent().remove_child(item)
-		hand.add_child(item)
-		item.position = Vector3.ZERO
-		item.rotation_degrees = Vector3.ZERO
-		item.scale = Vector3.ONE
-		
-		item.get_child(0).OnItemGrabbed()
 		
 func UseItem(hand):
 	var item = CheckHandStatus(hand)
