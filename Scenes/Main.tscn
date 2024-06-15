@@ -1,10 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://cb7tmni4jkgpd"]
+[gd_scene load_steps=25 format=3 uid="uid://cxuqisihcmvj7"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_0v12o"]
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_e4jod"]
 [ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_hn4lp"]
-[ext_resource type="PackedScene" uid="uid://c1mt5hokcdfjd" path="res://Objects/Cage.tscn" id="5_w6t3y"]
+[ext_resource type="PackedScene" path="res://Objects/Cage.tscn" id="5_w6t3y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
 

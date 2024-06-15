@@ -94,6 +94,11 @@ script = ExtResource("2_erglh")
 FloatTime = 10.0
 FallingSpeed = -3.0
 
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_energy = 2.0
+light_size = 1.0
+omni_range = 10.0
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -107,6 +112,7 @@ mouse_filter = 2
 layout_mode = 0
 offset_right = 225.0
 offset_bottom = 68.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hykog")
 
 [node name="CenterContainer" type="CenterContainer" parent="Control/Panel"]
@@ -116,10 +122,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="Control/Panel/CenterContainer"]
 custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
+mouse_filter = 2
 value = 50.0
 show_percentage = false
 
@@ -130,10 +138,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Panel2" type="Panel" parent="Control/CenterContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_w3j15")
 
 [connection signal="itemGrabbed" from="." to="Camera3D/Right Hand/Flashlight/Floating" method="OnItemGrabbed"]
