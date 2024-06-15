@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjf5ynmdqpvgk"]
+[gd_scene load_steps=11 format=3 uid="uid://bjf5ynmdqpvgk"]
 
 [ext_resource type="Script" path="res://Objects/Shark.gd" id="1_48se7"]
 [ext_resource type="PackedScene" uid="uid://do2ud8cty4ikl" path="res://assets/props/shark.blend" id="2_0410o"]
@@ -19,6 +19,9 @@ height = 14.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s28vd"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ajbej"]
+size = Vector3(9.0459, 4.44006, 12.3808)
+
 [sub_resource type="BoxMesh" id="BoxMesh_i1gv5"]
 size = Vector3(0.5, 0.5, 0.5)
 
@@ -36,6 +39,7 @@ circle_speed = 3.0
 min_circle_distance = 7
 circle_length_sec = 120
 chase_speed = 8.0
+aware_length_threshold = 5.0
 wiggle_curve = SubResource("Curve_i6w12")
 wiggle_amp = 3.0
 wiggle_speed = 10
@@ -61,6 +65,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.02593)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.59695)
 shape = SubResource("BoxShape3D_s28vd")
 
+[node name="Awareness" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Awareness"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85919, 5.6904)
+shape = SubResource("BoxShape3D_ajbej")
+
 [node name="Target" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -75,3 +85,5 @@ shape = SubResource("CapsuleShape3D_4hbs6")
 
 [connection signal="body_entered" from="Sight" to="." method="_on_sight_entered"]
 [connection signal="body_entered" from="Eat" to="." method="_on_eat_body_entered"]
+[connection signal="body_entered" from="Awareness" to="." method="_on_awareness_body_entered"]
+[connection signal="body_exited" from="Awareness" to="." method="_on_awareness_body_exited"]
