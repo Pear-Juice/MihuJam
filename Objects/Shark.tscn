@@ -1,14 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjf5ynmdqpvgk"]
+[gd_scene load_steps=7 format=3 uid="uid://bjf5ynmdqpvgk"]
 
 [ext_resource type="Script" path="res://Objects/Shark.gd" id="1_48se7"]
-
-[sub_resource type="Curve" id="Curve_i6w12"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Curve" id="Curve_4yclo"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_acn8q"]
 
@@ -23,56 +15,38 @@ height = 14.0
 [sub_resource type="BoxMesh" id="BoxMesh_i1gv5"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[sub_resource type="BoxMesh" id="BoxMesh_raf5h"]
-size = Vector3(0.3, 1, 1)
-
 [node name="Shark" type="CharacterBody3D"]
 script = ExtResource("1_48se7")
 min_retarget_dist = 1.5
-patrol_speed = 2.0
-min_patrol_distance = 30
-patrol_length_sec = 140
+patrol_speed = 3.0
 circle_speed = 3.0
-min_circle_distance = 7
-circle_length_sec = 120
-chase_speed = 8.0
-wiggle_curve = SubResource("Curve_i6w12")
-wiggle_amp = 3.0
-wiggle_speed = 10
-approach_curve = SubResource("Curve_4yclo")
-approach_amp = 20.0
-approach_speed = 0.5
+chase_speed = 5.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_acn8q")
 
 [node name="Sight" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15.0373)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16.1458)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sight"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 8.10048)
 shape = SubResource("CapsuleShape3D_mrns2")
 
 [node name="Eat" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.02593)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.21227)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Eat"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.59695)
 shape = SubResource("BoxShape3D_s28vd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_1ukbw")
 
 [node name="Target" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
-visible = false
 mesh = SubResource("BoxMesh_i1gv5")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.85497)
-mesh = SubResource("BoxMesh_raf5h")
 
 [connection signal="body_entered" from="Sight" to="." method="_on_sight_entered"]
 [connection signal="body_entered" from="Eat" to="." method="_on_eat_body_entered"]

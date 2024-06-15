@@ -44,7 +44,6 @@ func transfer(state_name : String):
 		return
 		
 	if current_state && current_state.begin:
-		current_state.elapsed_time = 0
 		current_state.begin.call()
 		
 		if debug:
@@ -56,4 +55,3 @@ func transfer(state_name : String):
 func _process(delta):
 	if current_state && current_state.run:
 		current_state.run.call(delta)
-		current_state.elapsed_time += delta

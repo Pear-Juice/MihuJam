@@ -8,5 +8,3 @@ var state_name : String
 var begin
 var run
 var exit
-
-var elapsed_time : float
