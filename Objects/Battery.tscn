@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://brruw0njg4mh3"]
+[gd_scene load_steps=5 format=3 uid="uid://6bxucw5xesty"]
 
 [ext_resource type="Script" path="res://Scripts/Battery.gd" id="1_gekmd"]
 [ext_resource type="Script" path="res://Scripts/FloatingItem.gd" id="2_w3e8w"]
