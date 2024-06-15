@@ -24,6 +24,10 @@ var state_length_mod : int
 
 var lerp_multiplier = 2
 
+var aware_of_player : bool
+var aware_length : float
+@export var aware_length_threshold : float
+
 @export var wiggle_curve : Curve
 @export var wiggle_amp : float
 @export var wiggle_speed : int
@@ -69,6 +73,11 @@ func patrol_state_run(delta):
 	if state_m.current_state.elapsed_time > patrol_length_sec + state_length_mod:
 		state_m.transfer("Circle")
 	
+	if aware_of_player:
+		if aware_length > aware_length_threshold:
+			state_m.transfer("Chase")
+		aware_length += delta
+	
 	if global_position.distance_to(target) < min_retarget_dist:
 		target_angle += 2
 		
@@ -84,6 +93,11 @@ func circle_state():
 func circle_state_run(delta):
 	if state_m.current_state.elapsed_time > circle_length_sec + state_length_mod:
 		state_m.transfer("Patrol")
+		
+	if aware_of_player:
+		if aware_length > aware_length_threshold:
+			state_m.transfer("Chase")
+		aware_length += delta
 	
 	if global_position.distance_to(target) < min_retarget_dist:
 		target_angle += 2
@@ -127,6 +141,25 @@ func _on_eat_body_entered(body):
 		
 func player_escaped():
 	state_m.transfer("Circle")
+	
+func kill():
+	get_tree().create_tween().tween_property(self, "rotation:z", 180, 0.3)
+	
+func bonk():
+	aware_length = 0
+	aware_of_player = false
+	state_m.transfer("Run")
 
 func get_position_away_from_position(pos, angle, distance):
 	return (Vector3(0,0,1).rotated(Vector3(0,1,0), deg_to_rad(angle)) * distance) + pos
+
+
+func _on_awareness_body_entered(body):
+	if body is Player:
+		aware_of_player = true
+		aware_length = 0
+
+
+func _on_awareness_body_exited(body):
+	if body is Player:
+		aware_of_player = false
