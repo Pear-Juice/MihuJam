@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://wlt3r1u20xx4"]
+[gd_scene load_steps=31 format=3 uid="uid://wlt3r1u20xx4"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_8vp7v"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_ryv21"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_74jr7"]
 [ext_resource type="PackedScene" path="res://Objects/Cage.tscn" id="5_l40g5"]
 [ext_resource type="PackedScene" uid="uid://beye4nemcj2uc" path="res://Objects/Flashlight.tscn" id="6_si0ay"]
+[ext_resource type="PackedScene" uid="uid://b4y5j5y58nffo" path="res://Objects/Battery.tscn" id="7_w3b30"]
+[ext_resource type="Script" path="res://Scripts/FloatingItem.gd" id="8_ksspw"]
+[ext_resource type="Script" path="res://Scripts/OxygenTank.gd" id="8_s5yj7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
 
@@ -96,6 +99,10 @@ orientation = 2
 
 [sub_resource type="Curve3D" id="Curve3D_r8ivh"]
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_442y8"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bdptf"]
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -111,7 +118,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 mesh = SubResource("PlaneMesh_cpkxa")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2314, -51.3588, 4.84295)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.43, -52.2176, 4.60121)
 mesh = SubResource("PlaneMesh_8vfg1")
 
 [node name="Cube" type="MeshInstance3D" parent="."]
@@ -155,32 +162,24 @@ shadow_blur = 6.228
 
 [node name="Flashlight" parent="." instance=ExtResource("6_si0ay")]
 transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 13.1542, -10.4685, -1.07666)
-BatteryTime = 100.0
 
-[node name="Flashlight2" parent="." instance=ExtResource("6_si0ay")]
-transform = Transform3D(-0.669669, -0.230267, 0.70606, 0.388844, 0.701273, 0.597509, -0.632728, 0.67468, -0.380083, 11.2714, -7.96033, -3.36518)
-BatteryTime = 100.0
+[node name="Battery" parent="." instance=ExtResource("7_w3b30")]
 
-[node name="Flashlight3" parent="." instance=ExtResource("6_si0ay")]
-transform = Transform3D(-0.906628, 0.175967, 0.383485, 0.388844, 0.701273, 0.597509, -0.163786, 0.690834, -0.704218, 4.15495, -11.4306, -6.05334)
-BatteryTime = 100.0
+[node name="Oxygen Tank" type="CharacterBody3D" parent="." groups=["Item"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.56649, -10.2985, 0.283414)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("8_s5yj7")
+OxygenRefillAmount = 10.0
+RefillRate = 5.0
 
-[node name="Flashlight4" parent="." instance=ExtResource("6_si0ay")]
-transform = Transform3D(-0.854021, 0.517656, -0.0517778, 0.388844, 0.701273, 0.597509, 0.345614, 0.490151, -0.800189, -6.52244, -11.4306, -8.63757)
-BatteryTime = 100.0
+[node name="Floating" type="Node3D" parent="Oxygen Tank"]
+script = ExtResource("8_ksspw")
+FloatTime = 10.0
+FallingSpeed = -3.0
 
-[node name="Flashlight5" parent="." instance=ExtResource("6_si0ay")]
-transform = Transform3D(-0.508586, 0.704163, -0.495474, 0.388844, 0.701273, 0.597509, 0.768207, 0.111222, -0.630467, -6.52244, -6.02611, -3.74434)
-BatteryTime = 100.0
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Oxygen Tank"]
+mesh = SubResource("CylinderMesh_442y8")
 
-[node name="Flashlight6" parent="." instance=ExtResource("6_si0ay")]
-transform = Transform3D(0.276489, -0.349979, -0.895024, 0.771036, -0.47513, 0.423976, -0.573636, -0.80732, 0.138478, -7.74518, -5.61211, 2.48511)
-BatteryTime = 100.0
-
-[node name="Flashlight7" parent="." instance=ExtResource("6_si0ay")]
-transform = Transform3D(-0.523669, -0.851918, -0.00236994, 0.771036, -0.47513, 0.423976, -0.362319, 0.220196, 0.905671, -4.20132, -6.26978, 7.70575)
-BatteryTime = 100.0
-
-[node name="Flashlight8" parent="." instance=ExtResource("6_si0ay")]
-transform = Transform3D(-0.523669, -0.851918, -0.00236996, 0.596129, -0.368421, 0.71337, -0.608606, 0.372157, 0.700784, 0.167953, -6.26978, 7.70575)
-BatteryTime = 100.0
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Oxygen Tank"]
+shape = SubResource("CylinderShape3D_bdptf")

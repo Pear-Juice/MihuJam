@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bpvsyyc4g8scg"]
+[gd_scene load_steps=8 format=3 uid="uid://bpvsyyc4g8scg"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_2n4qn"]
-[ext_resource type="PackedScene" uid="uid://beye4nemcj2uc" path="res://Objects/Flashlight.tscn" id="2_bqu81"]
 
 [sub_resource type="Curve" id="Curve_qywf0"]
 min_value = 10.0
@@ -35,6 +34,8 @@ MouseSensitivity = 0.01
 StickSensitivity = 0.05
 DashSpeedOverTime = SubResource("Curve_qywf0")
 DashTime = 3.0
+PickUpRange = 5.0
+MaxOxygenTime = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false
@@ -65,8 +66,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.2, -0.5)
 [node name="Hand Mesh" type="MeshInstance3D" parent="Camera3D/Right Hand"]
 transform = Transform3D(0.3, 7.19049e-05, 3.39432e-05, -7.19095e-05, 0.3, 2.63742e-05, -3.39335e-05, -2.63866e-05, 0.3, 0, 0, 0)
 mesh = SubResource("SphereMesh_l0em4")
-
-[node name="Flashlight" parent="Camera3D/Right Hand" instance=ExtResource("2_bqu81")]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_energy = 2.0
@@ -105,8 +104,7 @@ mouse_filter = 2
 custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 mouse_filter = 2
-value = 50.0
-show_percentage = false
+value = 100.0
 
 [node name="CenterContainer" type="CenterContainer" parent="Control"]
 layout_mode = 1

@@ -26,7 +26,13 @@ func OnItemUse():
 	
 	Active = !Active
 	SetFlashlightState(Active)
+	
+func OnCancelUse():
+	pass
 
 func SetFlashlightState(state):
 	light.visible = state
 	sound.play(0)
+	
+func Recharge(amount):
+	currentBattery += amount
