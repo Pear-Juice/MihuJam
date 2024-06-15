@@ -1,16 +1,24 @@
-[gd_scene load_steps=21 format=3 uid="uid://cb7tmni4jkgpd"]
+[gd_scene load_steps=26 format=3 uid="uid://cb7tmni4jkgpd"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_0v12o"]
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_e4jod"]
 [ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_hn4lp"]
+[ext_resource type="PackedScene" uid="uid://c1mt5hokcdfjd" path="res://Objects/Cage.tscn" id="5_w6t3y"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
+
+[sub_resource type="Sky" id="Sky_tonp6"]
+sky_material = SubResource("ProceduralSkyMaterial_dvpsr")
 
 [sub_resource type="Environment" id="Environment_ygvgb"]
-background_mode = 1
 background_color = Color(0.698039, 0.811765, 0.972549, 1)
-ambient_light_color = Color(1, 1, 1, 1)
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_tonp6")
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.0
 fog_enabled = true
-fog_light_color = Color(0, 0, 0.0745098, 1)
+fog_light_color = Color(0, 0, 0.101961, 1)
 fog_density = 0.0275
 volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.0431373, 0, 0.337255, 1)
@@ -29,6 +37,9 @@ shader_parameter/albedo_tex = SubResource("GradientTexture2D_pif7q")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1lw4w"]
 material = SubResource("ShaderMaterial_2qxyf")
+size = Vector2(1000, 1000)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cpkxa"]
 size = Vector2(1000, 1000)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_puy63"]
@@ -64,16 +75,17 @@ emission_shape = 3
 emission_box_extents = Vector3(15, 1, 15)
 direction = Vector3(0, 0, 0)
 gravity = Vector3(0, 0.5, 0)
+scale_min = 0.0
 alpha_curve = SubResource("CurveTexture_pmmli")
 turbulence_enabled = true
 turbulence_influence_over_life = SubResource("CurveTexture_r8bhc")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cctew"]
-transparency = 1
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 depth_draw_mode = 1
-shading_mode = 0
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.666667, 0.807843, 1, 1)
 albedo_texture = ExtResource("4_hn4lp")
 disable_receive_shadows = true
 billboard_mode = 1
@@ -82,17 +94,24 @@ distance_fade_max_distance = 1.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3cvgp"]
 material = SubResource("StandardMaterial3D_cctew")
-size = Vector2(0.5, 0.5)
+size = Vector2(0.2, 0.2)
 orientation = 2
+
+[sub_resource type="Curve3D" id="Curve3D_r8ivh"]
 
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ygvgb")
 
-[node name="Ceiling" type="MeshInstance3D" parent="."]
+[node name="CeilingUnder" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
 mesh = SubResource("PlaneMesh_1lw4w")
+skeleton = NodePath("../CeilingOver")
+
+[node name="CeilingOver" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("PlaneMesh_cpkxa")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2314, -51.3588, 4.84295)
@@ -138,7 +157,7 @@ circle_speed = 3.0
 chase_speed = 5.0
 
 [node name="Player" parent="." instance=ExtResource("2_6dpmj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.1776, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7064, -12.135, 1.99237)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.1308, 0)
@@ -148,3 +167,16 @@ randomness = 1.0
 visibility_aabb = AABB(-31.2538, -1.00001, -24.0354, 63.9678, 54.6824, 63.2687)
 process_material = SubResource("ParticleProcessMaterial_2ty6m")
 draw_pass_1 = SubResource("PlaneMesh_3cvgp")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_r8ivh")
+
+[node name="Cage" parent="." instance=ExtResource("5_w6t3y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13.4141, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.868441, -4.98672e-08, 0.495792, -0.493388, -0.0983645, 0.86423, 0.0487683, -0.99515, -0.0854238, 0, 0, 0)
+light_energy = 0.0
+shadow_enabled = true
+shadow_opacity = 0.56
+shadow_blur = 6.228
