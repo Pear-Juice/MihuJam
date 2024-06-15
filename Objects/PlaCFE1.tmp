@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bpvsyyc4g8scg"]
+[gd_scene load_steps=8 format=3 uid="uid://bpvsyyc4g8scg"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_2n4qn"]
-[ext_resource type="Script" path="res://Scripts/FloatingItem.gd" id="2_erglh"]
 
 [sub_resource type="Curve" id="Curve_qywf0"]
 min_value = 10.0
@@ -21,7 +20,6 @@ point_count = 2
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.948671, 0)
-collision_mask = 4
 script = ExtResource("1_2n4qn")
 MovementSpeed = 8.0
 CameraSensitivity = 0.01
@@ -38,11 +36,6 @@ shape = SubResource("CapsuleShape3D_u6feq")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 1.49012e-08, 2.22045e-16, -1.49012e-08, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0, 0, 0)
 
-[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
-transform = Transform3D(1, 4.47036e-08, -6.51352e-16, 0, -1.31134e-07, -1, -1.49012e-08, 3, -4.37114e-08, 0, 0, 0)
-collision_mask = 6
-debug_shape_custom_color = Color(1, 0, 1, 1)
-
 [node name="Left Hand" type="Node3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.2, -0.5)
 
@@ -58,17 +51,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.2, -0.5)
 transform = Transform3D(0.3, 7.19049e-05, 3.39432e-05, -7.19095e-05, 0.3, 2.63742e-05, -3.39335e-05, -2.63866e-05, 0.3, 0, 0, 0)
 mesh = SubResource("SphereMesh_l0em4")
 
-[node name="Flashlight" type="CharacterBody3D" parent="Camera3D/Right Hand" groups=["Item"]]
+[node name="Flashlight" type="RigidBody3D" parent="Camera3D/Right Hand" groups=["Item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.262774)
-collision_layer = 2
-collision_mask = 4
+freeze = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/Right Hand/Flashlight"]
 transform = Transform3D(0.2, 2.98024e-09, -1.3027e-16, 0, -8.74228e-09, -0.2, -2.98024e-09, 0.2, -8.74228e-09, 0, 0, 0)
 mesh = SubResource("CylinderMesh_x8evn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/Right Hand/Flashlight"]
-transform = Transform3D(0.4, 5.96048e-09, 2.60541e-16, 0, -1.74846e-08, 0.4, 5.96048e-09, -0.4, -1.74846e-08, 0, 0, 0)
+transform = Transform3D(0.2, 2.98024e-09, 1.3027e-16, 0, -8.74228e-09, 0.2, 2.98024e-09, -0.2, -8.74228e-09, 0, 0, 0)
 shape = SubResource("CylinderShape3D_t3l3k")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D/Right Hand/Flashlight"]
@@ -77,11 +69,3 @@ light_energy = 7.303
 light_volumetric_fog_energy = 16.0
 light_size = 0.444
 spot_range = 73.553
-
-[node name="Floating" type="Node3D" parent="Camera3D/Right Hand/Flashlight"]
-script = ExtResource("2_erglh")
-FloatTime = 10.0
-FallingSpeed = -3.0
-
-[connection signal="itemGrabbed" from="." to="Camera3D/Right Hand/Flashlight/Floating" method="OnItemGrabbed"]
-[connection signal="itemReleased" from="." to="Camera3D/Right Hand/Flashlight/Floating" method="OnItemReleased"]
