@@ -5,13 +5,16 @@ extends Node3D
 
 var body
 var timeElapsed : float = 0
-var held : bool = true
+var held : bool = false
 var isFalling : bool = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	body = get_parent()
+	print(get_parent().name)
+	if(get_parent().get_parent().name.contains("Hand")):
+		OnItemGrabbed()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
