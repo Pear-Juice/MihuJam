@@ -66,7 +66,6 @@ func patrol_state():
 	state_length_mod = randi_range(-20,20)
 	
 func patrol_state_run(delta):
-	print("aldn")
 	if state_m.current_state.elapsed_time > patrol_length_sec + state_length_mod:
 		state_m.transfer("Circle")
 	

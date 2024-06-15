@@ -1,6 +1,5 @@
-[gd_scene load_steps=28 format=3 uid="uid://cb7tmni4jkgpd"]
+[gd_scene load_steps=22 format=3 uid="uid://cb7tmni4jkgpd"]
 
-[ext_resource type="Shader" path="res://Water.gdshader" id="1_0v12o"]
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_e4jod"]
 [ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_hn4lp"]
@@ -23,25 +22,6 @@ fog_light_color = Color(0, 0, 0.101961, 1)
 fog_density = 0.0275
 volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.0431373, 0, 0.337255, 1)
-
-[sub_resource type="Gradient" id="Gradient_6n0c2"]
-colors = PackedColorArray(0.0745098, 0.333333, 0.521569, 1, 0.0745098, 0.333333, 0.521569, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_pif7q"]
-gradient = SubResource("Gradient_6n0c2")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2qxyf"]
-render_priority = 0
-shader = ExtResource("1_0v12o")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/albedo_tex = SubResource("GradientTexture2D_pif7q")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_1lw4w"]
-material = SubResource("ShaderMaterial_2qxyf")
-size = Vector2(1000, 1000)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_cpkxa"]
-size = Vector2(1000, 1000)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_puy63"]
 albedo_color = Color(0, 0, 0, 1)
@@ -108,15 +88,6 @@ shader_parameter/dithering_amount = 0.5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ygvgb")
-
-[node name="CeilingUnder" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
-mesh = SubResource("PlaneMesh_1lw4w")
-skeleton = NodePath("../CeilingOver")
-
-[node name="CeilingOver" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-mesh = SubResource("PlaneMesh_cpkxa")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2314, -51.3588, 4.84295)
