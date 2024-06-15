@@ -1,12 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjf5ynmdqpvgk"]
+[gd_scene load_steps=6 format=3 uid="uid://bjf5ynmdqpvgk"]
 
 [ext_resource type="Script" path="res://Objects/Shark.gd" id="1_48se7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_acn8q"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mrns2"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s28vd"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1ukbw"]
+
 [node name="Shark" type="CharacterBody3D"]
 script = ExtResource("1_48se7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_acn8q")
+
+[node name="Sight" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sight"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 8.10048)
+shape = SubResource("CapsuleShape3D_mrns2")
+
+[node name="Eat" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Eat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.59695)
+shape = SubResource("BoxShape3D_s28vd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_1ukbw")
+
+[connection signal="body_entered" from="Sight" to="." method="_on_sight_entered"]
+[connection signal="body_entered" from="Eat" to="." method="_on_eat_body_entered"]

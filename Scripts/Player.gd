@@ -1,7 +1,6 @@
 extends CharacterBody3D
 class_name Player
 
-
 #Public variables
 @export var MovementSpeed : float
 @export var CameraSensitivity : float
@@ -24,6 +23,7 @@ func _init():
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	currentSpeed = MovementSpeed
+
 
 func _physics_process(delta):
 	#Handle movement
