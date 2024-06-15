@@ -8,6 +8,7 @@ func _ready():
 	player = get_node("/root/Main/Player")
 
 func OnItemUse():
+	print("hi")
 	var flashlight = player.CheckHandsForItem("Flashlight")
 	if(flashlight != null):
 		flashlight.Recharge(BatteryRecovery)

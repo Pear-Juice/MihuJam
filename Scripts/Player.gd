@@ -50,7 +50,6 @@ func _physics_process(delta):
 	var verticalInput = Input.get_axis("Swim Down", "Swim Up")
 	
 	var dir_vector = (input_dir.y * cam.global_transform.basis.z) + (input_dir.x * global_transform.basis.x)
-	
 	var desired_velocity = currentSpeed * dir_vector + Vector3(0, verticalInput, 0)
 	
 	if input_dir != Vector2():
@@ -82,7 +81,7 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("ItemUse_Left"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		UseItem(rightHand)
+		UseItem(leftHand)
 		
 	if Input.is_action_just_pressed("ItemUse_Right"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
