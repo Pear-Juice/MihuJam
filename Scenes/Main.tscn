@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://cb7tmni4jkgpd"]
+[gd_scene load_steps=28 format=3 uid="uid://cb7tmni4jkgpd"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_0v12o"]
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_e4jod"]
 [ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_hn4lp"]
 [ext_resource type="PackedScene" uid="uid://c1mt5hokcdfjd" path="res://Objects/Cage.tscn" id="5_w6t3y"]
+[ext_resource type="Shader" path="res://Scenes/ColorQuantizer.gdshader" id="6_an45p"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
 
@@ -95,6 +96,14 @@ orientation = 2
 
 [sub_resource type="Curve3D" id="Curve3D_r8ivh"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cub58"]
+shader = ExtResource("6_an45p")
+shader_parameter/num_channels = 50.0
+shader_parameter/dithering = true
+shader_parameter/dithering_amount = 0.5
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ck5ut"]
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -118,7 +127,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.812021, -11.1078, -9.04501)
 mesh = SubResource("BoxMesh_l371t")
 
 [node name="Shark" parent="." instance=ExtResource("2_e4jod")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.72148, -9.39109)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13.0589, -26.3903)
 
 [node name="Player" parent="." instance=ExtResource("2_6dpmj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7064, -12.135, 1.99237)
@@ -141,7 +150,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13.4141, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.868441, -4.98672e-08, 0.495792, -0.493388, -0.0983645, 0.86423, 0.0487683, -0.99515, -0.0854238, 0, 0, 0)
-light_energy = 0.0
+light_color = Color(0.513726, 0.862745, 1, 1)
+light_energy = 0.1
 shadow_enabled = true
 shadow_opacity = 0.56
 shadow_blur = 6.228
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_cub58")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("PlaceholderTexture2D_ck5ut")
