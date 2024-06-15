@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://beye4nemcj2uc"]
+[gd_scene load_steps=6 format=3 uid="uid://cni7v830hypgc"]
 
 [ext_resource type="Script" path="res://Scripts/Flashlight.gd" id="1_els3w"]
 [ext_resource type="Script" path="res://Scripts/FloatingItem.gd" id="2_nbqms"]
