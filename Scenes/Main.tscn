@@ -208,5 +208,8 @@ transform = Transform3D(0.100705, -0.0778686, 0.991864, -0.0534615, -0.995916, -
 [node name="Chest" parent="Items" instance=ExtResource("17_3uxxl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.8868, -154.59, -39.35)
 
+[node name="Chest2" parent="Items" instance=ExtResource("17_3uxxl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.177858, 57.8289, -1.02918)
+
 [node name="Oxygen Tank3" parent="Items" instance=ExtResource("15_yk8in")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -253.508, -15.887, -125.443)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bee72ke1o1401"]
 
-[ext_resource type="Script" path="res://Scripts/EmptyObject.gd" id="1_conko"]
 [ext_resource type="PackedScene" uid="uid://sngh1vfj0k0r" path="res://Objects/Floating.tscn" id="1_iq2fa"]
+[ext_resource type="Script" path="res://Objects/Chest.gd" id="1_mq7bl"]
 [ext_resource type="PackedScene" uid="uid://c44jfgfdq7ci2" path="res://Objects/Item Light.tscn" id="2_j35lw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m56hx"]
@@ -13,7 +13,7 @@ size = Vector3(2, 2, 2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.258, 53.1148, 0.598731)
 collision_layer = 2
 collision_mask = 4
-script = ExtResource("1_conko")
+script = ExtResource("1_mq7bl")
 
 [node name="Floating" parent="." instance=ExtResource("1_iq2fa")]
 FloatTime = 0.0
