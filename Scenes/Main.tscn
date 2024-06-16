@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://cb7tmni4jkgpd"]
+[gd_scene load_steps=20 format=3 uid="uid://cb7tmni4jkgpd"]
 
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_e4jod"]
 [ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_hn4lp"]
+[ext_resource type="PackedScene" uid="uid://dqb7y38rjiupt" path="res://Objects/Worm.tscn" id="5_miws6"]
 [ext_resource type="PackedScene" uid="uid://c1mt5hokcdfjd" path="res://Objects/Cage.tscn" id="5_w6t3y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
@@ -73,7 +74,12 @@ material = SubResource("StandardMaterial3D_cctew")
 size = Vector2(0.2, 0.2)
 orientation = 2
 
-[sub_resource type="Curve3D" id="Curve3D_r8ivh"]
+[sub_resource type="Curve3D" id="Curve3D_gryuh"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5.38278, -12.2696, 27.6817, 0, 0, 0, 0, 0, 0, -6.13141, -9.41049, 24.8505, 0, 0, 0, 0, 0, 0, -16.5731, -19.3204, 6.71692, 0, 0, 0, 0, 0, 0, -39.0967, -16.3471, -13.748, 0, 0, 0, 0, 0, 0, -35.6063, -11.042, -13.9699, 0, 0, 0, 0, 0, 0, -29.1856, -9.08657, -9.84211, 0, 0, 0, 0, 0, 0, -23.5796, -11.1326, -13.1957, 0, 0, 0, 0, 0, 0, -12.2583, -11.0432, -21.813, 0, 0, 0, 0, 0, 0, 1.29138, -16.9713, -39.2996, 0, 0, 0, 0, 0, 0, 11.3626, -10.4469, -23.5569, 0, 0, 0, 0, 0, 0, 14.699, -7.63154, -21.0807, 0, 0, 0, 0, 0, 0, 19.4267, -13.6148, -16.1223, 0, 0, 0, 0, 0, 0, 18.7432, -13.3164, -7.37288, 0, 0, 0, 0, 0, 0, 22.5239, -13.0325, 0.980058, 0, 0, 0, 0, 0, 0, 20.8002, -9.79014, 9.03702, 0, 0, 0, 0, 0, 0, 12.1671, -16.3894, 12.7603, 0, 0, 0, 0, 0, 0, 1.50852, -15.8926, 20.108, 0, 0, 0, 0, 0, 0, -2.01614, -13.3788, 28.1193),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 18
 
 [node name="Main" type="Node3D"]
 
@@ -104,9 +110,6 @@ visibility_aabb = AABB(-31.2538, -1.00001, -24.0354, 63.9678, 54.6824, 63.2687)
 process_material = SubResource("ParticleProcessMaterial_2ty6m")
 draw_pass_1 = SubResource("PlaneMesh_3cvgp")
 
-[node name="Path3D" type="Path3D" parent="."]
-curve = SubResource("Curve3D_r8ivh")
-
 [node name="Cage" parent="." instance=ExtResource("5_w6t3y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13.4141, 0)
 
@@ -117,3 +120,15 @@ light_energy = 0.1
 shadow_enabled = true
 shadow_opacity = 0.56
 shadow_blur = 6.228
+
+[node name="Worm" parent="." instance=ExtResource("5_miws6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.6025, -22.7558, -35.2669)
+
+[node name="Node" type="Node" parent="Worm"]
+
+[node name="Path3D" type="Path3D" parent="Worm/Node"]
+curve = SubResource("Curve3D_gryuh")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Worm/Node/Path3D"]
+transform = Transform3D(0.853987, -0.259461, 0.450984, 0.0481635, 0.902486, 0.428017, -0.51806, -0.3438, 0.783208, -8.79545, -11.9389, 20.224)
+progress = 10.0
