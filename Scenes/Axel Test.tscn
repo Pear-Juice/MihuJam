@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://b010y57bt4wj0"]
+[gd_scene load_steps=48 format=3 uid="uid://b010y57bt4wj0"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_8vp7v"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_ryv21"]
@@ -17,6 +17,9 @@
 [ext_resource type="Texture2D" path="res://Terrain/Textures/sand_nrm_rgh.dds" id="15_wgicw"]
 [ext_resource type="Texture2D" path="res://Terrain/Textures/black_rock_alb_ht.dds" id="16_xb6y1"]
 [ext_resource type="Texture2D" path="res://Terrain/Textures/black_rock_nrm_rgh.dds" id="17_5dhtf"]
+[ext_resource type="Script" path="res://Scripts/FloatingItem.gd" id="18_3husn"]
+[ext_resource type="Script" path="res://Scripts/Knife.gd" id="18_j2den"]
+[ext_resource type="PackedScene" uid="uid://j7m2ipuw08my" path="res://assets/props/knife.blend" id="19_8n5i0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5qaiq"]
 
@@ -158,6 +161,9 @@ normal_texture = ExtResource("17_5dhtf")
 [sub_resource type="Terrain3DTextureList" id="Terrain3DTextureList_ftx0w"]
 textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_cc22v"), SubResource("Terrain3DTexture_dq6kq"), SubResource("Terrain3DTexture_3cshu"), SubResource("Terrain3DTexture_llowk")])
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_3i3c5"]
+size = Vector3(0.669678, 1.17169, 1)
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -178,6 +184,7 @@ mesh = SubResource("BoxMesh_l371t")
 
 [node name="Shark" parent="." instance=ExtResource("2_ryv21")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 64.2081, -9.39109)
+collision_layer = 8
 
 [node name="Player" parent="." instance=ExtResource("3_wkpi2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7064, 58.7946, 1.99237)
@@ -231,3 +238,27 @@ collision_layer = 4
 collision_mask = 3
 mesh_lods = 2
 mesh_size = 32
+
+[node name="Knife" type="CharacterBody3D" parent="." groups=["Item"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.44929, 67.2437, 0)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("18_j2den")
+
+[node name="Floating" type="Node3D" parent="Knife"]
+script = ExtResource("18_3husn")
+FloatTime = 10.0
+FallingSpeed = -3.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Knife"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.146088, 0)
+shape = SubResource("BoxShape3D_3i3c5")
+
+[node name="knife" parent="Knife" instance=ExtResource("19_8n5i0")]
+transform = Transform3D(-0.968208, -0.25, 0.00851861, -0.25, 0.965926, -0.0669873, 0.00851847, -0.0669873, -0.997718, 0, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Knife"]
+light_energy = 2.0
+light_indirect_energy = 5.0
+light_volumetric_fog_energy = 16.0
+omni_range = 3.0

@@ -94,7 +94,7 @@ current = true
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
 transform = Transform3D(0.333, 1.49012e-08, -2.169e-16, 0, -4.37114e-08, -0.333, -4.9621e-09, 1, -1.45559e-08, 0, 0, 0)
 target_position = Vector3(0, -4, 0)
-collision_mask = 6
+collision_mask = 14
 debug_shape_custom_color = Color(1, 0, 1, 1)
 
 [node name="Left Hand" type="Node3D" parent="Camera3D"]
@@ -102,14 +102,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.2, -0.5)
 
 [node name="Right Hand" type="Node3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.2, -0.5)
-
-[node name="Background light" type="OmniLight3D" parent="Camera3D"]
-transform = Transform3D(1, -1.49012e-08, 0, 1.49012e-08, 1, -1.49012e-08, 2.22046e-16, 1.49012e-08, 1, 0, 1.07288e-06, -70)
-visible = false
-light_energy = 20.0
-light_indirect_energy = 20.95
-light_volumetric_fog_energy = 30.0
-omni_range = 40.0
 
 [node name="Player Dim Light" type="OmniLight3D" parent="."]
 light_color = Color(0.45098, 0.737255, 0.905882, 1)
