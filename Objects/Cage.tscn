@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c1mt5hokcdfjd"]
+[gd_scene load_steps=26 format=3 uid="uid://c1mt5hokcdfjd"]
 
 [ext_resource type="Script" path="res://Objects/Cage.gd" id="1_1hc8d"]
 [ext_resource type="PackedScene" uid="uid://dspdt1cjs3f5g" path="res://assets/props/cage.blend" id="2_tncsy"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://0cm58618tvxr" path="res://assets/Audio/dooropen.wav" id="4_r8bx4"]
 [ext_resource type="AudioStream" uid="uid://dq1mvdy3ifi8f" path="res://assets/Audio/doorclose2.wav" id="5_0r7vw"]
 [ext_resource type="AudioStream" uid="uid://brg507k4wktj1" path="res://assets/Audio/Dooropen1.wav" id="5_s5jud"]
+[ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight.tscn" id="8_dsckn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sxegj"]
 size = Vector3(9, 0.198486, 9)
@@ -64,6 +65,9 @@ shader_parameter/noise = SubResource("NoiseTexture2D_qb2r5")
 material = SubResource("ShaderMaterial_dm1ut")
 size = Vector3(3, 4, 0.2)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_n5yar"]
+size = Vector3(7, 9, 7)
+
 [node name="Cage" type="Node3D"]
 script = ExtResource("1_1hc8d")
 
@@ -111,6 +115,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 4)
 shape = SubResource("BoxShape3D_w55ju")
 
 [node name="Door" type="StaticBody3D" parent="." groups=["Interactable"]]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5341, 0, 4)
 collision_layer = 4
 script = ExtResource("3_yoh8p")
@@ -136,3 +141,17 @@ stream = ExtResource("5_s5jud")
 [node name="DoorClose" type="AudioStreamPlayer3D" parent="Door"]
 unique_name_in_owner = true
 stream = ExtResource("5_0r7vw")
+
+[node name="Flashlight" parent="." instance=ExtResource("8_dsckn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0406278, -2.57347, -0.105658)
+BatteryTime = 60.0
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_n5yar")
+
+[connection signal="on_close" from="Door" to="." method="_on_door_on_close"]
+[connection signal="on_open" from="Door" to="." method="_on_door_on_open"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

@@ -25,12 +25,17 @@ var currentOxygen : float
 @onready var leftHand = $"Camera3D/Left Hand"
 @onready var oxygenBar = $Control/Panel/CenterContainer/ProgressBar as ProgressBar
 
+@onready var viginette_shader := $"CanvasLayer/Viginette"
+@onready var pixilate_shader := $"CanvasLayer/Pixilate"
+
 static var I : Player
 
 #AudioStreams
 @onready var ambient_background := $"AmbientPlayer"
 @onready var swim_player := $"SwimPlayer"
+@onready var drown_player := $"DrownPlayer"
 
+var is_dead : bool
 
 func _init():
 	I = self
@@ -42,6 +47,8 @@ func _ready():
 	oxygenBar.max_value = MaxOxygenTime
 	
 	ambient_background.play()
+	
+	spawn()
 	
 
 func _physics_process(delta):
@@ -192,9 +199,35 @@ func ChangeOxygen(amount):
 	currentOxygen = clamp(currentOxygen, 0, MaxOxygenTime)
 	oxygenBar.value = currentOxygen
 	
-	if(currentOxygen <= 0):
+	if(currentOxygen <= 0) && !is_dead:
 		GameOver()
 		return
 
 func GameOver():
+	is_dead = true
 	print("No more oxygen")
+	
+	viginette_shader.visible = true
+	pixilate_shader.visible = true
+	create_tween().tween_method(func(value): viginette_shader.material.set_shader_parameter("SCALE", value), 1.3, 0, 0.5)
+	create_tween().tween_method(func(value): pixilate_shader.material.set_shader_parameter("amount", value), 200, 30, 0.2)
+	
+	drown_player.play()
+	
+	await get_tree().create_timer(1.5).timeout
+	reset_game()
+
+func spawn():
+	is_dead = false
+	viginette_shader.visible = true
+	pixilate_shader.visible = true
+
+	create_tween().tween_method(func(value): viginette_shader.material.set_shader_parameter("SCALE", value), 0, 1.3, 1)
+	create_tween().tween_method(func(value): pixilate_shader.material.set_shader_parameter("amount", value), 30, 200, 1)
+	await get_tree().create_timer(1).timeout
+	
+	viginette_shader.visible = false
+	pixilate_shader.visible = false
+
+func reset_game():
+	get_tree().reload_current_scene()
