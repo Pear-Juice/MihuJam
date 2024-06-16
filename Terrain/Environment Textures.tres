@@ -1,4 +1,4 @@
-[gd_resource type="Terrain3DTextureList" load_steps=13 format=3 uid="uid://ji7as4bd41s"]
+[gd_resource type="Terrain3DTextureList" load_steps=13 format=3 uid="uid://bx522sn62k7ec"]
 
 [ext_resource type="Texture2D" path="res://Terrain/Textures/rock_alb_ht.dds" id="1_0vt03"]
 [ext_resource type="Texture2D" path="res://Terrain/Textures/rock_nrm_rgh.dds" id="2_eocdy"]

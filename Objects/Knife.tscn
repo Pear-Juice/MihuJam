@@ -20,7 +20,7 @@ script = ExtResource("1_citss")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.146088, 0)
 shape = SubResource("BoxShape3D_3i3c5")
 
-[node name="knife" parent="." instance=ExtResource("3_5sgne")]
-transform = Transform3D(-0.968208, -0.25, 0.00851861, -0.25, 0.965926, -0.0669873, 0.00851847, -0.0669873, -0.997718, 0, 0, 0)
-
 [node name="Item Light" parent="." instance=ExtResource("4_q4yhk")]
+
+[node name="knife" parent="." instance=ExtResource("3_5sgne")]
+transform = Transform3D(4.36809e-08, -0.999293, 0.0366429, -0.999975, -4.37098e-08, 0, 1.60171e-09, -0.0366425, -0.999305, 0.171948, -0.134041, 0.18286)

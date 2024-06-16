@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://d015dlu4xmyv1"]
+
+[ext_resource type="Theme" uid="uid://db5y4jox5gcwj" path="res://Theme.tres" id="1_gcm57"]
+[ext_resource type="Script" path="res://Scripts/Controls.gd" id="2_7ja5n"]
+
+[node name="Controls" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gcm57")
+script = ExtResource("2_7ja5n")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -26.0
+offset_right = 40.0
+offset_bottom = -12.0
+grow_vertical = 0
+text = "Back"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 15.0
+offset_top = 12.0
+offset_right = 97.0
+offset_bottom = 77.0
+theme_override_font_sizes/font_size = 10
+text = "Movement:
+WASD / Joystick
+UP: Ctrl / Y
+Down: Space / A
+Dash: Shift / X
+"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+offset_left = 107.0
+offset_top = 12.0
+offset_right = 221.0
+offset_bottom = 94.0
+theme_override_font_sizes/font_size = 10
+text = "Interaction:
+Left grab: Q / LT
+Right grab: E / RT
+Left use: L mouse /LB
+Right use: R mouse / RB
+"
+
+[connection signal="button_down" from="Button" to="." method="_on_back_button_down"]
