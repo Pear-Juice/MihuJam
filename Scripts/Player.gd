@@ -45,6 +45,7 @@ static var I : Player
 @onready var game_game_texture := $"CanvasLayer/GameGameText/GameGameTexture"
 
 var is_dead : bool
+var has_chest : bool
 
 func _init():
 	I = self
@@ -163,6 +164,8 @@ func LetItemGo(item):
 		cam.add_child(decoyLeft)
 		decoyRight.get_parent().remove_child(decoyRight)
 		cam.add_child(decoyRight)
+		
+		has_chest = false
 
 	item.get_parent().remove_child(item)
 	sceneRoot.add_child(item)
@@ -206,6 +209,8 @@ func TryGetChest(chest):
 	chest.rotation_degrees = Vector3.ZERO
 	chest.scale = Vector3.ONE
 	chest.get_child(0).OnItemGrabbed()
+	
+	has_chest = true
 
 func LetChestGo():
 	leftHand.remove_child(decoyLeft)
@@ -289,3 +294,10 @@ func spawn():
 
 func reset_game():
 	get_tree().reload_current_scene()
+	
+func win_game():
+	viginette_shader.visible = true
+	var tween = create_tween().tween_method(func(value): viginette_shader.material.set_shader_parameter("SCALE", value), 1.3, 0, 0.5)
+	await tween.finished
+	
+	get_tree().change_scene_to_file("res://Scenes/Credits.tscn")

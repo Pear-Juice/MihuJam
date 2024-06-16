@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://0cm58618tvxr" path="res://assets/Audio/dooropen.wav" id="4_r8bx4"]
 [ext_resource type="AudioStream" uid="uid://dq1mvdy3ifi8f" path="res://assets/Audio/doorclose2.wav" id="5_0r7vw"]
 [ext_resource type="AudioStream" uid="uid://brg507k4wktj1" path="res://assets/Audio/Dooropen1.wav" id="5_s5jud"]
-[ext_resource type="ArrayMesh" path="res://assets/props/CageDoor.res" id="7_dtpbt"]
+[ext_resource type="ArrayMesh" uid="uid://c70idtimn7gyx" path="res://assets/props/CageDoor.res" id="7_dtpbt"]
 [ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight.tscn" id="8_dsckn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sxegj"]
@@ -50,7 +50,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.42893, 0)
 
 [node name="Collision" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.42893, 0)
-collision_layer = 4
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.213501, 0)
