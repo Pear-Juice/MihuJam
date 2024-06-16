@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://b010y57bt4wj0"]
+[gd_scene load_steps=44 format=3 uid="uid://b010y57bt4wj0"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_8vp7v"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_ryv21"]
@@ -11,6 +11,12 @@
 [ext_resource type="Terrain3DStorage" uid="uid://bykcc7ajvm2fd" path="res://Terrain/Environment.res" id="9_la3rf"]
 [ext_resource type="Texture2D" path="res://Terrain/Textures/rock_alb_ht.dds" id="10_pypfj"]
 [ext_resource type="Texture2D" path="res://Terrain/Textures/rock_nrm_rgh.dds" id="11_m1a56"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/moss_alb_ht.dds" id="12_3kb4y"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/moss_nrm_rgh.dds" id="13_4qfln"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/sand_alb_ht.dds" id="14_kh4vt"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/sand_nrm_rgh.dds" id="15_wgicw"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/black_rock_alb_ht.dds" id="16_xb6y1"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/black_rock_nrm_rgh.dds" id="17_5dhtf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
 
@@ -25,7 +31,7 @@ ambient_light_sky_contribution = 0.0
 ambient_light_energy = 0.0
 fog_enabled = true
 fog_light_color = Color(0, 0, 0.101961, 1)
-fog_density = 0.0275
+fog_density = 0.4
 volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.0431373, 0, 0.337255, 1)
 
@@ -134,8 +140,23 @@ _shader_parameters = {
 albedo_texture = ExtResource("10_pypfj")
 normal_texture = ExtResource("11_m1a56")
 
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_dq6kq"]
+texture_id = 1
+albedo_texture = ExtResource("12_3kb4y")
+normal_texture = ExtResource("13_4qfln")
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_3cshu"]
+texture_id = 2
+albedo_texture = ExtResource("14_kh4vt")
+normal_texture = ExtResource("15_wgicw")
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_llowk"]
+texture_id = 3
+albedo_texture = ExtResource("16_xb6y1")
+normal_texture = ExtResource("17_5dhtf")
+
 [sub_resource type="Terrain3DTextureList" id="Terrain3DTextureList_ftx0w"]
-textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_cc22v")])
+textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_cc22v"), SubResource("Terrain3DTexture_dq6kq"), SubResource("Terrain3DTexture_3cshu"), SubResource("Terrain3DTexture_llowk")])
 
 [node name="Main" type="Node3D"]
 
@@ -180,23 +201,27 @@ curve = SubResource("Curve3D_r8ivh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 57.5155, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.868441, -8.86896e-08, 0.495792, -0.493388, -0.0983645, 0.86423, 0.0487683, -0.99515, -0.0854238, 0, 70.9296, 0)
-light_energy = 0.1
+transform = Transform3D(0.868441, -9.83952e-08, 0.495792, -0.493388, -0.0983645, 0.86423, 0.0487683, -0.99515, -0.0854239, 0, 70.9296, 0)
+light_color = Color(0.16474, 0.397744, 1, 1)
+light_energy = 0.2
 light_indirect_energy = 16.0
-light_volumetric_fog_energy = 16.0
+light_volumetric_fog_energy = 30.0
 shadow_enabled = true
 shadow_opacity = 0.56
 shadow_blur = 6.228
 
 [node name="Flashlight" parent="." instance=ExtResource("6_si0ay")]
-transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 13.1542, 60.4611, -1.07666)
+transform = Transform3D(-0.500944, -0.173253, -0.847962, -0.0881226, 0.984877, -0.149168, 0.860982, 0, -0.508636, -74.0076, 55.5057, -31.344)
 BatteryTime = 1000.0
 
 [node name="Battery" parent="." instance=ExtResource("7_w3b30")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7375, 60.2321, -1.9117)
 
 [node name="Oxygen Tank" parent="." instance=ExtResource("8_m4m8r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.32369, 58.6626, 0.921748)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.7226, 41.0561, -179.318)
+
+[node name="Flashlight2" parent="." instance=ExtResource("6_si0ay")]
+transform = Transform3D(-0.866025, 0, 0.5, -0.110093, 0.975458, -0.190687, -0.487729, -0.220187, -0.844771, -51.2114, 32.8262, -84.2998)
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("9_la3rf")

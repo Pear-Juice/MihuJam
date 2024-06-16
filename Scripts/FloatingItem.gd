@@ -3,6 +3,8 @@ extends Node3D
 @export var FloatTime : float
 @export var FallingSpeed : float
 
+@onready var omniLight = $"../OmniLight3D" as OmniLight3D
+
 var body
 var timeElapsed : float = 0
 var held : bool = false
@@ -34,7 +36,9 @@ func OnItemGrabbed():
 	held = true
 	isFalling = false
 	timeElapsed = 0
+	omniLight.visible = false
 
 func OnItemReleased():
 	held = false
 	timeElapsed = 0
+	omniLight.visible = true

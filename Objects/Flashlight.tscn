@@ -12,7 +12,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.262774)
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_els3w")
-BatteryTime = 5.0
+BatteryTime = 60.0
 
 [node name="Floating" type="Node3D" parent="."]
 script = ExtResource("2_nbqms")
@@ -25,14 +25,21 @@ shape = SubResource("CylinderShape3D_t3l3k")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.172138)
-light_color = Color(0.647059, 0.788235, 0.854902, 1)
-light_energy = 7.303
-light_volumetric_fog_energy = 16.0
+light_energy = 40.0
+light_indirect_energy = 7.225
+light_volumetric_fog_energy = 8.0
 light_size = 0.444
-spot_range = 73.553
+light_specular = 4.325
+spot_range = 100.0
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_g81yc")
 
 [node name="torch" parent="." instance=ExtResource("4_a1uq7")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.0386719)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_energy = 2.0
+light_indirect_energy = 5.0
+light_volumetric_fog_energy = 16.0
+omni_range = 3.0
