@@ -64,9 +64,10 @@ func _ready():
 	
 	spawn()
 	
+	await get_tree().create_timer(randi_range(15, 30)).timeout
 	while true:
-		await get_tree().create_timer(randi_range(45, 120)).timeout
 		music_player.play()
+		await get_tree().create_timer(randi_range(45, 120)).timeout
 	
 
 func _physics_process(delta):
