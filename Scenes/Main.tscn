@@ -1,10 +1,22 @@
-[gd_scene load_steps=20 format=3 uid="uid://cb7tmni4jkgpd"]
+[gd_scene load_steps=38 format=3 uid="uid://cb7tmni4jkgpd"]
 
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_e4jod"]
 [ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_hn4lp"]
-[ext_resource type="PackedScene" uid="uid://dqb7y38rjiupt" path="res://Objects/Worm.tscn" id="5_miws6"]
 [ext_resource type="PackedScene" uid="uid://c1mt5hokcdfjd" path="res://Objects/Cage.tscn" id="5_w6t3y"]
+[ext_resource type="Terrain3DStorage" uid="uid://bykcc7ajvm2fd" path="res://Terrain/Environment.res" id="6_a2hpm"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/rock_alb_ht.dds" id="7_ad230"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/rock_nrm_rgh.dds" id="8_f0cr1"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/moss_alb_ht.dds" id="9_5n3uh"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/moss_nrm_rgh.dds" id="10_spnss"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/sand_alb_ht.dds" id="11_iwu3x"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/sand_nrm_rgh.dds" id="12_cxmbm"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/black_rock_alb_ht.dds" id="13_v1gp2"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/black_rock_nrm_rgh.dds" id="14_4n5rg"]
+[ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight.tscn" id="14_saoey"]
+[ext_resource type="PackedScene" uid="uid://bxd0pplnyh5yl" path="res://Objects/Oxygen Tank.tscn" id="15_yk8in"]
+[ext_resource type="PackedScene" uid="uid://bwqs4xjt6t0dv" path="res://Objects/Knife.tscn" id="16_mxtw6"]
+[ext_resource type="PackedScene" uid="uid://bee72ke1o1401" path="res://Objects/Chest.tscn" id="17_3uxxl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
 
@@ -22,13 +34,6 @@ fog_light_color = Color(0, 0, 0.101961, 1)
 fog_density = 0.0275
 volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.0431373, 0, 0.337255, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_puy63"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_8vfg1"]
-material = SubResource("StandardMaterial3D_puy63")
-size = Vector2(1000, 1000)
 
 [sub_resource type="BoxMesh" id="BoxMesh_l371t"]
 
@@ -74,31 +79,79 @@ material = SubResource("StandardMaterial3D_cctew")
 size = Vector2(0.2, 0.2)
 orientation = 2
 
-[sub_resource type="Curve3D" id="Curve3D_gryuh"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5.38278, -12.2696, 27.6817, 0, 0, 0, 0, 0, 0, -6.13141, -9.41049, 24.8505, 0, 0, 0, 0, 0, 0, -16.5731, -19.3204, 6.71692, 0, 0, 0, 0, 0, 0, -39.0967, -16.3471, -13.748, 0, 0, 0, 0, 0, 0, -35.6063, -11.042, -13.9699, 0, 0, 0, 0, 0, 0, -29.1856, -9.08657, -9.84211, 0, 0, 0, 0, 0, 0, -23.5796, -11.1326, -13.1957, 0, 0, 0, 0, 0, 0, -12.2583, -11.0432, -21.813, 0, 0, 0, 0, 0, 0, 1.29138, -16.9713, -39.2996, 0, 0, 0, 0, 0, 0, 11.3626, -10.4469, -23.5569, 0, 0, 0, 0, 0, 0, 14.699, -7.63154, -21.0807, 0, 0, 0, 0, 0, 0, 19.4267, -13.6148, -16.1223, 0, 0, 0, 0, 0, 0, 18.7432, -13.3164, -7.37288, 0, 0, 0, 0, 0, 0, 22.5239, -13.0325, 0.980058, 0, 0, 0, 0, 0, 0, 20.8002, -9.79014, 9.03702, 0, 0, 0, 0, 0, 0, 12.1671, -16.3894, 12.7603, 0, 0, 0, 0, 0, 0, 1.50852, -15.8926, 20.108, 0, 0, 0, 0, 0, 0, -2.01614, -13.3788, 28.1193),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+[sub_resource type="Gradient" id="Gradient_j43ds"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1i0gc"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w27l2"]
+seamless = true
+color_ramp = SubResource("Gradient_j43ds")
+noise = SubResource("FastNoiseLite_1i0gc")
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_q2mg3"]
+_shader_parameters = {
+"_mouse_layer": 2147483648,
+"blend_sharpness": null,
+"height_blending": null,
+"macro_variation1": null,
+"macro_variation2": null,
+"noise1_angle": null,
+"noise1_offset": null,
+"noise1_scale": null,
+"noise2_scale": null,
+"noise3_scale": null,
+"noise_texture": SubResource("NoiseTexture2D_w27l2")
 }
-point_count = 18
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_cc22v"]
+albedo_texture = ExtResource("7_ad230")
+normal_texture = ExtResource("8_f0cr1")
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_dq6kq"]
+texture_id = 1
+albedo_texture = ExtResource("9_5n3uh")
+normal_texture = ExtResource("10_spnss")
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_3cshu"]
+texture_id = 2
+albedo_texture = ExtResource("11_iwu3x")
+normal_texture = ExtResource("12_cxmbm")
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_llowk"]
+texture_id = 3
+albedo_texture = ExtResource("13_v1gp2")
+normal_texture = ExtResource("14_4n5rg")
+
+[sub_resource type="Terrain3DTextureList" id="Terrain3DTextureList_ftx0w"]
+textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_cc22v"), SubResource("Terrain3DTexture_dq6kq"), SubResource("Terrain3DTexture_3cshu"), SubResource("Terrain3DTexture_llowk")])
 
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ygvgb")
 
-[node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2314, -51.3588, 4.84295)
-mesh = SubResource("PlaneMesh_8vfg1")
-
 [node name="Cube" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.812021, -11.1078, -9.04501)
 mesh = SubResource("BoxMesh_l371t")
 
-[node name="Shark" parent="." instance=ExtResource("2_e4jod")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13.0589, -26.3903)
+[node name="Shark" parent="." node_paths=PackedStringArray("home_obj") instance=ExtResource("2_e4jod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 60, -26.39)
+home_obj = NodePath("../Cage")
 
 [node name="Player" parent="." instance=ExtResource("2_6dpmj")]
-transform = Transform3D(-0.959191, 0, -0.28276, 0, 1, 0, 0.28276, 0, -0.959191, -1.284, -13.3899, -0.01)
+transform = Transform3D(-0.959191, 0, -0.28276, 0, 1, 0, 0.28276, 0, -0.959191, -1.284, 54.7752, -0.01)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.1308, 0)
@@ -111,7 +164,7 @@ process_material = SubResource("ParticleProcessMaterial_2ty6m")
 draw_pass_1 = SubResource("PlaneMesh_3cvgp")
 
 [node name="Cage" parent="." instance=ExtResource("5_w6t3y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13.4141, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 57.5155, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.868441, -4.98672e-08, 0.495792, -0.493388, -0.0983645, 0.86423, 0.0487683, -0.99515, -0.0854238, 0, 0, 0)
@@ -121,14 +174,37 @@ shadow_enabled = true
 shadow_opacity = 0.56
 shadow_blur = 6.228
 
-[node name="Worm" parent="." instance=ExtResource("5_miws6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.6025, -22.7558, -35.2669)
+[node name="Terrain3D" type="Terrain3D" parent="."]
+storage = ExtResource("6_a2hpm")
+material = SubResource("Terrain3DMaterial_q2mg3")
+texture_list = SubResource("Terrain3DTextureList_ftx0w")
 
-[node name="Node" type="Node" parent="Worm"]
+[node name="Items" type="Node" parent="."]
 
-[node name="Path3D" type="Path3D" parent="Worm/Node"]
-curve = SubResource("Curve3D_gryuh")
+[node name="Flashlight" parent="Items" instance=ExtResource("14_saoey")]
+transform = Transform3D(-0.500944, -0.173253, -0.847962, -0.0881226, 0.984877, -0.149168, 0.860982, 0, -0.508636, -74.0076, 55.5057, -31.344)
+BatteryTime = 1000.0
 
-[node name="PathFollow3D" type="PathFollow3D" parent="Worm/Node/Path3D"]
-transform = Transform3D(0.853987, -0.259461, 0.450984, 0.0481635, 0.902486, 0.428017, -0.51806, -0.3438, 0.783208, -8.79545, -11.9389, 20.224)
-progress = 10.0
+[node name="Oxygen Tank" parent="Items" instance=ExtResource("15_yk8in")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.7226, 41.0561, -179.318)
+
+[node name="Oxygen Tank2" parent="Items" instance=ExtResource("15_yk8in")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.5856, -0.890015, -131.961)
+
+[node name="Flashlight2" parent="Items" instance=ExtResource("14_saoey")]
+transform = Transform3D(-0.866025, 0, 0.5, -0.110093, 0.975458, -0.190687, -0.487729, -0.220187, -0.844771, -51.2114, 32.8262, -84.2998)
+
+[node name="Knife" parent="Items" instance=ExtResource("16_mxtw6")]
+transform = Transform3D(1, 0, 0, 0, -0.970426, 0.241397, 0, -0.241397, -0.970426, -119.668, 30.1887, -163.735)
+
+[node name="Knife2" parent="Items" instance=ExtResource("16_mxtw6")]
+transform = Transform3D(0.888305, 0.445673, -0.110863, 0.459254, -0.862034, 0.214434, 0, -0.241397, -0.970426, -240.793, 58.7196, -189.473)
+
+[node name="Flashlight3" parent="Items" instance=ExtResource("14_saoey")]
+transform = Transform3D(0.100705, -0.0778686, 0.991864, -0.0534615, -0.995916, -0.0727587, 0.993479, -0.0456994, -0.104457, -209.792, 1.90735e-06, -164.682)
+
+[node name="Chest" parent="Items" instance=ExtResource("17_3uxxl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.8868, -154.59, -39.35)
+
+[node name="Oxygen Tank3" parent="Items" instance=ExtResource("15_yk8in")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -253.508, -15.887, -125.443)

@@ -2,6 +2,8 @@ class_name Shark
 
 extends CharacterBody3D
 
+@export var home_obj : Node3D
+
 @export var min_retarget_dist : float
 
 @export var patrol_speed : float
@@ -55,7 +57,7 @@ func _ready():
 func spawn():
 	is_targeting = true
 	target_angle = 180
-	target = get_position_away_from_position(Cage.I.global_position, target_angle, min_circle_distance)
+	target = get_position_away_from_position(home_obj.global_position, target_angle, min_circle_distance)
 	global_position = target
 	state_m.transfer("Circle")
 	
@@ -88,7 +90,7 @@ func patrol_state_run(delta):
 		var wiggle_distance = (wiggle_curve.sample((target_angle * wiggle_speed % 360) / 360.0) * wiggle_amp)
 		var approach_distance = (approach_curve.sample((int(target_angle * approach_speed) % 360) / 360.0) * approach_amp)
 		
-		target = get_position_away_from_position(Cage.I.global_position, target_angle, wiggle_distance + approach_distance + min_patrol_distance)
+		target = get_position_away_from_position(home_obj.global_position, target_angle, wiggle_distance + approach_distance + min_patrol_distance)
 
 func circle_state():
 	
@@ -110,7 +112,7 @@ func circle_state_run(delta):
 		var wiggle_distance = (wiggle_curve.sample((target_angle * wiggle_speed % 360) / 360.0) * wiggle_amp)
 		var approach_distance = (approach_curve.sample((int(target_angle * approach_speed) % 360) / 360.0) * approach_amp)
 		
-		target = get_position_away_from_position(Cage.I.global_position, target_angle, wiggle_distance + approach_distance + min_circle_distance)
+		target = get_position_away_from_position(home_obj.global_position, target_angle, wiggle_distance + approach_distance + min_circle_distance)
 	
 func chase_state():
 	current_speed = chase_speed
@@ -136,7 +138,7 @@ func ram_state():
 func run_state():
 	current_speed = chase_speed
 	
-	target = get_position_away_from_position(Cage.I.global_position, target_angle, 30)
+	target = get_position_away_from_position(home_obj.global_position, target_angle, 30)
 	
 func run_state_run(delta):
 	if global_position.distance_to(target) < min_retarget_dist:
