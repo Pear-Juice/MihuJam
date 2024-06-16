@@ -38,6 +38,11 @@ static var I : Player
 @onready var ambient_background := $"AmbientPlayer"
 @onready var swim_player := $"SwimPlayer"
 @onready var drown_player := $"DrownPlayer"
+@onready var bootup_player := $"BootupPlayer"
+@onready var death_player := $"DeathPlayer"
+
+@onready var game_game_text := $"CanvasLayer/GameGameText"
+@onready var game_game_texture := $"CanvasLayer/GameGameText/GameGameTexture"
 
 var is_dead : bool
 
@@ -251,8 +256,22 @@ func GameOver():
 	
 	drown_player.play()
 	
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(0.5).timeout
+	game_game_text.visible = true
+	
+	var messages = ["...loading", "...loading", "...loading", "...loading", "oof"]
+	print_text(game_game_text, messages.pick_random())
+	
+	#create_tween().tween_property(game_game_texture, "shader_paremeters/noise/noise/seed", 100, 3)
+	death_player.play()
+	
+	await get_tree().create_timer(3).timeout
 	reset_game()
+	
+func print_text(text_obj : Label, text):
+	for char in text:
+		text_obj.text += char
+		await get_tree().create_timer(0.1).timeout
 
 func spawn():
 	is_dead = false
@@ -265,6 +284,8 @@ func spawn():
 	
 	viginette_shader.visible = false
 	pixilate_shader.visible = false
+	
+	bootup_player.play()
 
 func reset_game():
 	get_tree().reload_current_scene()

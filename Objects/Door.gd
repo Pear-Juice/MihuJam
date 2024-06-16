@@ -6,7 +6,7 @@ var is_open : bool
 @export var open_rot : int
 
 var time_since_close_sec : float
-@onready var max_close_time := randi_range(60, 180)
+@onready var max_close_time := randi_range(5, 60)
 
 signal on_close
 signal on_open
@@ -15,9 +15,8 @@ func interact(hand):
 	switch_state()
 		
 func _process(delta):
-	time_since_close_sec+= delta
-	
-	if !is_open:
+	if !is_open && get_parent().player_in_cage:
+		time_since_close_sec += delta
 		if time_since_close_sec > max_close_time:
 			open_slow()
 	
@@ -33,7 +32,7 @@ func switch_state():
 		get_tree().create_tween().set_ease(Tween.EASE_IN).tween_property(self, "rotation_degrees:y", close_rot, 1)
 		%DoorClose.play()
 		time_since_close_sec = 0
-		max_close_time = randi_range(60, 180)
+		max_close_time = randi_range(5, 60)
 		on_close.emit()
 		
 func open_slow():

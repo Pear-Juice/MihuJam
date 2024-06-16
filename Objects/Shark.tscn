@@ -40,8 +40,8 @@ stream_1/stream = ExtResource("4_a3nsn")
 stream_1/weight = 1.0
 
 [node name="Shark" type="CharacterBody3D"]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 8
+collision_mask = 12
 script = ExtResource("1_48se7")
 min_retarget_dist = 1.5
 patrol_speed = 2.0
@@ -78,6 +78,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.04391)
 shape = SubResource("BoxShape3D_s28vd")
 
 [node name="Awareness" type="Area3D" parent="."]
+collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Awareness"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85919, 5.6904)

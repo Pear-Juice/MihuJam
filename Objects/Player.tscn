@@ -7,9 +7,13 @@
 [ext_resource type="Shader" path="res://Scenes/Viginette.gdshader" id="3_a82rx"]
 [ext_resource type="AudioStream" uid="uid://h21m18r7s7t6" path="res://assets/Audio/swimming1.wav" id="4_j0o1n"]
 [ext_resource type="Shader" path="res://Pixilate.gdshader" id="4_w3goy"]
+[ext_resource type="Shader" path="res://Objects/Static.gdshader" id="5_f714f"]
 [ext_resource type="AudioStream" uid="uid://vkhccsuahx33" path="res://assets/Audio/swimming2.wav" id="5_yg50t"]
 [ext_resource type="AudioStream" uid="uid://b6abjbwtor8hu" path="res://assets/Audio/swimming3.wav" id="6_lhprc"]
 [ext_resource type="AudioStream" uid="uid://bmsw3xxmpomfh" path="res://assets/Audio/Drowing1.wav" id="9_y3lkp"]
+[ext_resource type="AudioStream" uid="uid://ckvwuf1y1ewyl" path="res://assets/Audio/bootup1.wav" id="10_rkws4"]
+[ext_resource type="AudioStream" uid="uid://cbovtd5k1pmfo" path="res://assets/Audio/bootup3.wav" id="11_c6rwy"]
+[ext_resource type="AudioStream" uid="uid://bogqindl87nvd" path="res://assets/Audio/death1.wav" id="12_3w77t"]
 
 [sub_resource type="Curve" id="Curve_qywf0"]
 min_value = 10.0
@@ -52,10 +56,23 @@ shader = ExtResource("3_a82rx")
 shader_parameter/player_position = Vector2(0.5, 0.5)
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/MULTIPLIER = 0.5
-shader_parameter/SCALE = 1.3
+shader_parameter/SCALE = 0.0
 shader_parameter/SOFTNESS = 0.5
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ahnh8"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2b3v5"]
+seed = 7
+frequency = 0.1015
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w0244"]
+noise = SubResource("FastNoiseLite_2b3v5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4r5oc"]
+shader = ExtResource("5_f714f")
+shader_parameter/noise = SubResource("NoiseTexture2D_w0244")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_s3a0d"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_eaqld"]
 random_pitch = 4.6
@@ -68,9 +85,18 @@ stream_1/weight = 1.0
 stream_2/stream = ExtResource("6_lhprc")
 stream_2/weight = 1.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0gl76"]
+random_pitch = 2.36
+streams_count = 2
+stream_0/stream = ExtResource("10_rkws4")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("11_c6rwy")
+stream_1/weight = 1.0
+
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.948671, 0)
-collision_mask = 4
+collision_layer = 5
+collision_mask = 12
 script = ExtResource("1_2n4qn")
 MovementSpeed = 8.0
 MouseSensitivity = 0.08
@@ -206,6 +232,25 @@ grow_vertical = 2
 texture = SubResource("PlaceholderTexture2D_ahnh8")
 metadata/_edit_use_anchors_ = true
 
+[node name="GameGameText" type="Label" parent="CanvasLayer"]
+clip_children = 2
+offset_left = 7.0
+offset_top = 117.0
+offset_right = 212.0
+offset_bottom = 166.0
+theme_override_font_sizes/font_size = 10
+text = " "
+
+[node name="GameGameTexture" type="TextureRect" parent="CanvasLayer/GameGameText"]
+material = SubResource("ShaderMaterial_4r5oc")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_s3a0d")
+
 [node name="AmbientPlayer" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_01k8j")
 
@@ -214,3 +259,9 @@ stream = SubResource("AudioStreamRandomizer_eaqld")
 
 [node name="DrownPlayer" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("9_y3lkp")
+
+[node name="BootupPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_0gl76")
+
+[node name="DeathPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("12_3w77t")
