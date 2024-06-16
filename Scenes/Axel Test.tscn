@@ -18,12 +18,12 @@
 [ext_resource type="Texture2D" path="res://Terrain/Textures/black_rock_alb_ht.dds" id="16_xb6y1"]
 [ext_resource type="Texture2D" path="res://Terrain/Textures/black_rock_nrm_rgh.dds" id="17_5dhtf"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5qaiq"]
 
 [sub_resource type="Sky" id="Sky_tonp6"]
-sky_material = SubResource("ProceduralSkyMaterial_dvpsr")
+sky_material = SubResource("ProceduralSkyMaterial_5qaiq")
 
-[sub_resource type="Environment" id="Environment_ygvgb"]
+[sub_resource type="Environment" id="Environment_nfjh0"]
 background_color = Color(0.698039, 0.811765, 0.972549, 1)
 background_energy_multiplier = 0.0
 sky = SubResource("Sky_tonp6")
@@ -161,7 +161,7 @@ textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_cc22v"), SubRe
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ygvgb")
+environment = SubResource("Environment_nfjh0")
 
 [node name="CeilingUnder" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 155.689, 0)

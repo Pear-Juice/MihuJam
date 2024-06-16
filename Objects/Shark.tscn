@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bjf5ynmdqpvgk"]
+[gd_scene load_steps=14 format=3 uid="uid://bjf5ynmdqpvgk"]
 
 [ext_resource type="Script" path="res://Objects/Shark.gd" id="1_48se7"]
 [ext_resource type="PackedScene" uid="uid://do2ud8cty4ikl" path="res://assets/props/shark.blend" id="2_0410o"]
+[ext_resource type="AudioStream" uid="uid://rgmkekhveqty" path="res://assets/Audio/chomp3.wav" id="3_xeya7"]
+[ext_resource type="AudioStream" uid="uid://cn11i7m6kqji4" path="res://assets/Audio/chomp4.wav" id="4_a3nsn"]
 
 [sub_resource type="Curve" id="Curve_i6w12"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -14,10 +16,11 @@ point_count = 3
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_acn8q"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mrns2"]
-radius = 4.0
-height = 14.0
+radius = 12.786
+height = 36.0246
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s28vd"]
+size = Vector3(2.25781, 1, 1.97559)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ajbej"]
 size = Vector3(9.0459, 4.44006, 12.3808)
@@ -29,16 +32,25 @@ size = Vector3(0.5, 0.5, 0.5)
 radius = 0.895399
 height = 4.74028
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jid28"]
+streams_count = 2
+stream_0/stream = ExtResource("3_xeya7")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_a3nsn")
+stream_1/weight = 1.0
+
 [node name="Shark" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_48se7")
 min_retarget_dist = 1.5
 patrol_speed = 2.0
 min_patrol_distance = 30
 patrol_length_sec = 140
 circle_speed = 3.0
-min_circle_distance = 7
+min_circle_distance = 12
 circle_length_sec = 120
-chase_speed = 8.0
+chase_speed = 9.0
 aware_length_threshold = 5.0
 wiggle_curve = SubResource("Curve_i6w12")
 wiggle_amp = 3.0
@@ -55,14 +67,14 @@ shape = SubResource("CapsuleShape3D_acn8q")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15.0373)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sight"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 8.10048)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 3.3223)
 shape = SubResource("CapsuleShape3D_mrns2")
 
 [node name="Eat" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.02593)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Eat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.59695)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.46028)
 shape = SubResource("BoxShape3D_s28vd")
 
 [node name="Awareness" type="Area3D" parent="."]
@@ -82,6 +94,10 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0366552, 2.55796)
 shape = SubResource("CapsuleShape3D_4hbs6")
+
+[node name="EatPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_jid28")
 
 [connection signal="body_entered" from="Sight" to="." method="_on_sight_entered"]
 [connection signal="body_entered" from="Eat" to="." method="_on_eat_body_entered"]

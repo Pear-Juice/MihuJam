@@ -52,10 +52,10 @@ func _ready():
 	
 func spawn():
 	is_targeting = true
-	target_angle = 180
-	target = get_position_away_from_position(Cage.I.global_position, target_angle, min_patrol_distance)
+	target_angle = 0
+	target = get_position_away_from_position(Cage.I.global_position, target_angle, min_circle_distance)
 	global_position = target
-	state_m.transfer("Patrol")
+	state_m.transfer("Circle")
 	
 func _physics_process(delta):
 	if is_targeting:
@@ -74,7 +74,7 @@ func patrol_state_run(delta):
 		state_m.transfer("Circle")
 	
 	if aware_of_player:
-		if aware_length > aware_length_threshold:
+		if aware_length > aware_length_threshold && !Cage.I.player_is_safe:
 			state_m.transfer("Chase")
 		aware_length += delta
 	
@@ -95,7 +95,7 @@ func circle_state_run(delta):
 		state_m.transfer("Patrol")
 		
 	if aware_of_player:
-		if aware_length > aware_length_threshold:
+		if aware_length > aware_length_threshold && !Cage.I.player_is_safe:
 			state_m.transfer("Chase")
 		aware_length += delta
 	
@@ -117,6 +117,8 @@ func eat_state():
 	is_targeting = false
 	
 	get_tree().create_tween().tween_property(self, "global_position", Player.I.global_position, 0.2)
+	%EatPlayer.play()
+	Player.I.GameOver()
 	
 func ram_state():
 	current_speed = chase_speed
@@ -132,7 +134,8 @@ func run_state_run():
 		state_m.transfer("Patrol")
 
 func _on_sight_entered(body):
-	if body is Player:
+	if body is Player  && !Cage.I.player_is_safe:
+		print("sight entered")
 		state_m.transfer("Chase")
 
 func _on_eat_body_entered(body):
