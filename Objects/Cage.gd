@@ -50,6 +50,8 @@ func _on_door_on_open():
 	player_in_danger.emit()
 	
 func leave():
+	await get_tree().create_timer(0.5).timeout
+	
 	get_tree().create_tween().set_ease(Tween.EASE_IN).tween_property(self, "global_position:y", 150, 5)
 	await get_tree().create_timer(3).timeout
 	

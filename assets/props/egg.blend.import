@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://do2ud8cty4ikl"
-path="res://.godot/imported/shark.blend-f6e1d4f4f08d12c65e6c13e116c27235.scn"
+uid="uid://dyh6r1tt1star"
+path="res://.godot/imported/egg.blend-bdaa4c29116ac941a20e647f579b5998.scn"
 
 [deps]
 
-source_file="res://assets/props/shark.blend"
-dest_files=["res://.godot/imported/shark.blend-f6e1d4f4f08d12c65e6c13e116c27235.scn"]
+source_file="res://assets/props/egg.blend"
+dest_files=["res://.godot/imported/egg.blend-bdaa4c29116ac941a20e647f579b5998.scn"]
 
 [params]
 
@@ -29,14 +29,7 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
-_subresources={
-"materials": {
-"Material": {
-"use_external/enabled": true,
-"use_external/path": "res://assets/props/Materials/SharkMat.tres"
-}
-}
-}
+_subresources={}
 gltf/naming_version=1
 gltf/embedded_image_handling=1
 blender/nodes/visible=0

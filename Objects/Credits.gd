@@ -2,6 +2,8 @@ extends Node
 
 
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	$Buzz.play()
 	var tween = get_tree().create_tween().tween_property($List, "global_position:y", -197, 20)
 	await tween.finished

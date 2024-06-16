@@ -15,6 +15,7 @@ extends CharacterBody3D
 var circle_close_dist : float
 var circle_far_dist : float
 @export var chase_speed : float
+@export var run_speed : float
 var current_speed : float
 
 var is_targeting : bool
@@ -41,6 +42,8 @@ var health = 3
 @export var approach_curve : Curve
 @export var approach_amp : float
 @export var approach_speed : float
+
+@export var give_up_timelimit : int
 
 func _ready():
 	state_m = StateMachine.create(self)
@@ -123,6 +126,9 @@ func chase_state_run(delta):
 	print(Cage.I.player_is_safe)
 	if Cage.I.player_is_safe:
 		player_escaped()
+		
+	if state_m.current_state.elapsed_time > give_up_timelimit:
+		player_escaped()
 
 func eat_state():
 	is_targeting = false
@@ -136,9 +142,9 @@ func ram_state():
 	state_m.transfer("Circle")
 	
 func run_state():
-	current_speed = chase_speed
+	current_speed = run_speed
 	
-	target = get_position_away_from_position(home_obj.global_position, target_angle, 30)
+	target = get_position_away_from_position(home_obj.global_position, target_angle + 70, 30)
 	
 func run_state_run(delta):
 	if global_position.distance_to(target) < min_retarget_dist:
@@ -153,18 +159,21 @@ func _on_sight_entered(body):
 func _on_sight_body_exited(body):
 	if body is Player:
 		player_in_sight = false
-		player_escaped()
 
 func _on_eat_body_entered(body):
 	if body is Player:
 		state_m.transfer("Eat")
 		
 func player_escaped():
+	print("player escape")
+	target = get_position_away_from_position(home_obj.global_position, target_angle, min_patrol_distance)
 	state_m.transfer("Circle")
 	
 func kill():
-	get_tree().create_tween().tween_property(self, "rotation:z", 180, 0.3)
-	
+	get_tree().create_tween().tween_method(func(value): rotation_degrees.z = value, 0, 180, 0.5)
+	process_mode = Node.PROCESS_MODE_DISABLED
+	print("Kill")
+
 func bonk():
 	if health > 1:
 		aware_length = 0
