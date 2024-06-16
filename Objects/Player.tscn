@@ -11,9 +11,9 @@
 [ext_resource type="AudioStream" uid="uid://vkhccsuahx33" path="res://assets/Audio/swimming2.wav" id="5_yg50t"]
 [ext_resource type="AudioStream" uid="uid://b6abjbwtor8hu" path="res://assets/Audio/swimming3.wav" id="6_lhprc"]
 [ext_resource type="AudioStream" uid="uid://bmsw3xxmpomfh" path="res://assets/Audio/Drowing1.wav" id="9_y3lkp"]
-[ext_resource type="AudioStream" path="res://assets/Audio/bootup1.wav" id="10_rkws4"]
-[ext_resource type="AudioStream" path="res://assets/Audio/bootup3.wav" id="11_c6rwy"]
-[ext_resource type="AudioStream" path="res://assets/Audio/death1.wav" id="12_3w77t"]
+[ext_resource type="AudioStream" uid="uid://ckvwuf1y1ewyl" path="res://assets/Audio/bootup1.wav" id="10_rkws4"]
+[ext_resource type="AudioStream" uid="uid://cbovtd5k1pmfo" path="res://assets/Audio/bootup3.wav" id="11_c6rwy"]
+[ext_resource type="AudioStream" uid="uid://bogqindl87nvd" path="res://assets/Audio/death1.wav" id="12_3w77t"]
 
 [sub_resource type="Curve" id="Curve_qywf0"]
 min_value = 10.0
