@@ -20,13 +20,13 @@
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
 
-[sub_resource type="Sky" id="Sky_r1pb4"]
+[sub_resource type="Sky" id="Sky_uu8hd"]
 sky_material = SubResource("ProceduralSkyMaterial_dvpsr")
 
 [sub_resource type="Environment" id="Environment_ygvgb"]
 background_color = Color(0.698039, 0.811765, 0.972549, 1)
 background_energy_multiplier = 0.0
-sky = SubResource("Sky_r1pb4")
+sky = SubResource("Sky_uu8hd")
 ambient_light_sky_contribution = 0.0
 ambient_light_energy = 0.0
 fog_enabled = true

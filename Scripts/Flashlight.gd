@@ -7,13 +7,18 @@ extends Node3D
 @export var BatteryTime: float
 
 var currentBattery : float
+var hasBeenActivated : bool = false
 
 func _ready():
 	SetFlashlightState(Active)
 	currentBattery = BatteryTime
 	
 func _process(delta):
-	if(Active):
+	if(get_parent().name.contains("Hand") && !hasBeenActivated):
+		hasBeenActivated = true
+		print("start battery countdown")
+	
+	if(Active && hasBeenActivated):
 		currentBattery -= delta
 		if(currentBattery <= 0):
 			Active = false
