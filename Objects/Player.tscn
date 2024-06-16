@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bpvsyyc4g8scg"]
+[gd_scene load_steps=33 format=3 uid="uid://bpvsyyc4g8scg"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_2n4qn"]
 [ext_resource type="Script" path="res://Scripts/EmptyObject.gd" id="2_5li10"]
@@ -26,8 +26,17 @@ point_count = 2
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u6feq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hykog"]
-bg_color = Color(0.345098, 0.345098, 0.345098, 1)
-corner_radius_bottom_right = 40
+bg_color = Color(0.156863, 0, 0.054902, 1)
+corner_radius_bottom_right = 10
+expand_margin_right = 2.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfb4g"]
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3j15"]
 bg_color = Color(1, 1, 1, 0.537255)
@@ -35,6 +44,7 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+anti_aliasing = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pmmw2"]
 shader = ExtResource("2_mxba4")
@@ -104,8 +114,7 @@ StickSensitivity = 0.05
 DashSpeedOverTime = SubResource("Curve_qywf0")
 DashTime = 3.0
 PickUpRange = 5.0
-MaxOxygenTime = 10.0
-DepleteOxygen = false
+MaxOxygenTime = 180.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false
@@ -151,7 +160,6 @@ omni_range = 10.0
 current = true
 
 [node name="Control" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -162,8 +170,8 @@ mouse_filter = 2
 
 [node name="Panel" type="Panel" parent="Control"]
 layout_mode = 0
-offset_right = 225.0
-offset_bottom = 68.0
+offset_right = 42.0
+offset_bottom = 13.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hykog")
 
@@ -177,10 +185,12 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="Control/Panel/CenterContainer"]
-custom_minimum_size = Vector2(150, 15)
+custom_minimum_size = Vector2(30, 5)
 layout_mode = 2
 mouse_filter = 2
-value = 100.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_kfb4g")
+value = 50.0
+show_percentage = false
 
 [node name="CenterContainer" type="CenterContainer" parent="Control"]
 layout_mode = 1
@@ -192,7 +202,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Panel2" type="Panel" parent="Control/CenterContainer"]
-custom_minimum_size = Vector2(10, 10)
+custom_minimum_size = Vector2(3, 3)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_w3j15")

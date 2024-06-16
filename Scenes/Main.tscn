@@ -178,6 +178,8 @@ shadow_blur = 6.228
 storage = ExtResource("6_a2hpm")
 material = SubResource("Terrain3DMaterial_q2mg3")
 texture_list = SubResource("Terrain3DTextureList_ftx0w")
+collision_layer = 15
+collision_mask = 15
 
 [node name="Items" type="Node" parent="."]
 
