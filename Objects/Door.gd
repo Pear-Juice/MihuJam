@@ -24,7 +24,7 @@ func _process(delta):
 func switch_state():
 	if !is_open:
 		is_open = true
-		get_tree().create_tween().set_ease(Tween.EASE_IN).tween_property(self, "rotation_degrees:y", open_rot, 1)
+		get_tree().create_tween().set_ease(Tween.EASE_IN).tween_property(self, "rotation_degrees:y", open_rot, 0.5)
 		%DoorOpen.play()
 		on_open.emit()
 		

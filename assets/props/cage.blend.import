@@ -66,11 +66,28 @@ _subresources={
 "@MATERIAL:8": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/props/Materials/CageMetal.tres"
+},
+"@MATERIAL:9": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/props/Materials/CageMetal.tres"
+}
+},
+"meshes": {
+"cage_Cube": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": true,
+"save_to_file/path": "res://assets/props/CageDoor.res"
 }
 },
 "nodes": {
 "PATH:Door": {
-"import/skip_import": true
+"import/skip_import": true,
+"mesh_instance/layers": 2
 },
 "PATH:bDoorOpening": {
 "import/skip_import": true
