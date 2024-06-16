@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_8vp7v"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_ryv21"]
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="3_wkpi2"]
-[ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_74jr7"]
+[ext_resource type="Texture2D" uid="uid://2att1gj6iwh2" path="res://assets/images/bubble.svg" id="4_74jr7"]
 [ext_resource type="PackedScene" uid="uid://c1mt5hokcdfjd" path="res://Objects/Cage.tscn" id="5_l40g5"]
 [ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight.tscn" id="6_si0ay"]
 [ext_resource type="PackedScene" uid="uid://bxd0pplnyh5yl" path="res://Objects/Oxygen Tank.tscn" id="8_m4m8r"]
