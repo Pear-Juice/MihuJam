@@ -115,7 +115,7 @@ _shader_parameters = {
 environment = SubResource("Environment_ygvgb")
 
 [node name="Player" parent="." instance=ExtResource("2_6dpmj")]
-transform = Transform3D(-0.959191, 0, -0.28276, 0, 1, 0, 0.28276, 0, -0.959191, -1.284, 54.7752, -0.01)
+transform = Transform3D(-0.959191, 0, -0.28276, 0, 1, 0, 0.28276, 0, -0.959191, -1.284, 56.2332, -0.01)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.1308, 0)
@@ -197,6 +197,10 @@ home_obj = NodePath("../Shark Targets/Shark 2 Circle Point")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.499, 35.8048, -138.398)
 home_obj = NodePath("../Shark Targets/Shark 3 Circle Point")
 
+[node name="Shark4" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("2_e4jod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.60612, 56.6175, 22.585)
+home_obj = NodePath("../Shark Targets/Shark 4 Circle Point")
+
 [node name="Worm" parent="Sharks" instance=ExtResource("5_miws6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -299.257, -16.2552, -185.653)
 
@@ -219,7 +223,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -281.514, 9.76041, -153.979)
 curve = ExtResource("12_t5kwk")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm2/Node/Path3D"]
-transform = Transform3D(0.314749, -0.448423, 0.836564, 0.529766, 0.814303, 0.237171, -0.787574, 0.368536, 0.493862, 20.3892, -1.32691, 51.8959)
+transform = Transform3D(0.314749, -0.448423, 0.836564, 0.529766, 0.814302, 0.237171, -0.787574, 0.368535, 0.493862, 20.3892, -1.32691, 51.8959)
 progress = 300.0
 
 [node name="Worm3" parent="Sharks" instance=ExtResource("5_miws6")]
@@ -245,7 +249,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -257.243, -100.591, 219.147)
 curve = ExtResource("13_qn1uv")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm4/Node/Path3D"]
-transform = Transform3D(-0.247465, -0.166536, -0.954467, -2.23516e-08, 0.985111, -0.171881, 0.96889, -0.0425349, -0.243781, 5.0468, 9.01786, -0.404449)
+transform = Transform3D(-0.247465, -0.166536, -0.954466, -2.23516e-08, 0.985111, -0.171881, 0.96889, -0.0425349, -0.243781, 5.0468, 9.01786, -0.404449)
 
 [node name="Worm5" parent="Sharks" instance=ExtResource("5_miws6")]
 transform = Transform3D(-0.0613097, 0, -0.998119, 0, 1, 0, 0.998119, 0, -0.0613097, -43.3522, -94.6984, 191.788)
@@ -280,3 +284,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.1878, 88.7092, -42.1766)
 
 [node name="Shark 3 Circle Point" type="Node3D" parent="Sharks/Shark Targets"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.0566, 35.9145, -135.526)
+
+[node name="Shark 4 Circle Point" type="Node3D" parent="Sharks/Shark Targets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.91986, 18.0665, -6.21861)

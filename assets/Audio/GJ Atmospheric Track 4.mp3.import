@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://vn415482wblq"
+path="res://.godot/imported/GJ Atmospheric Track 4.mp3-0b8f2f0cdfef79b86865bf2c1603efba.mp3str"
+
+[deps]
+
+source_file="res://assets/Audio/GJ Atmospheric Track 4.mp3"
+dest_files=["res://.godot/imported/GJ Atmospheric Track 4.mp3-0b8f2f0cdfef79b86865bf2c1603efba.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
