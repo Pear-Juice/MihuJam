@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bxd0pplnyh5yl" path="res://Objects/Oxygen Tank.tscn" id="8_m4m8r"]
 [ext_resource type="Terrain3DStorage" uid="uid://bykcc7ajvm2fd" path="res://Terrain/Environment.res" id="9_la3rf"]
 [ext_resource type="PackedScene" uid="uid://bee72ke1o1401" path="res://Objects/Chest.tscn" id="10_snsyp"]
-[ext_resource type="Terrain3DTextureList" uid="uid://ji7as4bd41s" path="res://Terrain/Environment Textures.tres" id="11_55i0v"]
+[ext_resource type="Terrain3DTextureList" uid="uid://bx522sn62k7ec" path="res://Terrain/Environment Textures.tres" id="11_55i0v"]
 [ext_resource type="PackedScene" uid="uid://dqb7y38rjiupt" path="res://Objects/Worm.tscn" id="12_mb4i4"]
 [ext_resource type="Curve3D" uid="uid://imkpslbb67gs" path="res://Shark Paths/Pillar area.tres" id="13_6svur"]
 [ext_resource type="Curve3D" uid="uid://du3eoq8qpkrkd" path="res://Shark Paths/Sand Area.tres" id="14_4rwb1"]
@@ -220,6 +220,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -252.695, -93.585, 93.9712)
 [node name="Flashlight4" parent="Items" instance=ExtResource("6_si0ay")]
 transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -278.698, -71.9957, 17.8948)
 
+[node name="Flashlight5" parent="Items" instance=ExtResource("6_si0ay")]
+transform = Transform3D(-0.684783, 0.0196411, -0.728483, -0.236055, 0.939763, 0.247233, 0.689456, 0.341263, -0.638897, -243.657, -110.331, 130.055)
+
+[node name="Oxygen Tank4" parent="Items" instance=ExtResource("8_m4m8r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.6878, -156.727, 188.43)
+
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("9_la3rf")
 material = SubResource("Terrain3DMaterial_q2mg3")
@@ -326,12 +332,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.1878, 88.7092, -42.1766)
 
 [node name="Shark 3 Circle Point" type="Node3D" parent="Sharks/Shark Targets"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.0566, 35.9145, -135.526)
-
-[node name="Flashlight" parent="." instance=ExtResource("6_si0ay")]
-transform = Transform3D(-0.684783, 0.0196411, -0.728483, -0.236055, 0.939763, 0.247233, 0.689456, 0.341263, -0.638897, -243.657, -110.331, 130.055)
-
-[node name="Oxygen Tank" parent="." instance=ExtResource("8_m4m8r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.6878, -156.727, 188.43)
-
-[node name="Oxygen Tank2" parent="." instance=ExtResource("8_m4m8r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.01093, 55.3956, 3.09071)
