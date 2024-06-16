@@ -3,18 +3,18 @@
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_e4jod"]
 [ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_hn4lp"]
-[ext_resource type="PackedScene" uid="uid://dqb7y38rjiupt" path="res://Objects/Worm.tscn" id="5_miws6"]
+[ext_resource type="PackedScene" path="res://Objects/Worm.tscn" id="5_miws6"]
 [ext_resource type="PackedScene" uid="uid://c1mt5hokcdfjd" path="res://Objects/Cage.tscn" id="5_w6t3y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
 
-[sub_resource type="Sky" id="Sky_r1pb4"]
+[sub_resource type="Sky" id="Sky_uu8hd"]
 sky_material = SubResource("ProceduralSkyMaterial_dvpsr")
 
 [sub_resource type="Environment" id="Environment_ygvgb"]
 background_color = Color(0.698039, 0.811765, 0.972549, 1)
 background_energy_multiplier = 0.0
-sky = SubResource("Sky_r1pb4")
+sky = SubResource("Sky_uu8hd")
 ambient_light_sky_contribution = 0.0
 ambient_light_energy = 0.0
 fog_enabled = true
@@ -130,5 +130,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.6025, -22.7558, -35.2669)
 curve = SubResource("Curve3D_gryuh")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Worm/Node/Path3D"]
-transform = Transform3D(0.853987, -0.259461, 0.450984, 0.0481635, 0.902486, 0.428017, -0.51806, -0.3438, 0.783208, -8.79545, -11.9389, 20.224)
+transform = Transform3D(0.853993, -0.259437, 0.450986, 0.0481365, 0.902487, 0.428018, -0.518053, -0.343816, 0.783206, -8.79546, -11.9389, 20.224)
 progress = 10.0

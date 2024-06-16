@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://b010y57bt4wj0"]
+[gd_scene load_steps=45 format=3 uid="uid://b010y57bt4wj0"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_8vp7v"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_ryv21"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="4_74jr7"]
 [ext_resource type="PackedScene" uid="uid://c1mt5hokcdfjd" path="res://Objects/Cage.tscn" id="5_l40g5"]
 [ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight.tscn" id="6_si0ay"]
-[ext_resource type="PackedScene" uid="uid://6bxucw5xesty" path="res://Objects/Battery.tscn" id="7_w3b30"]
 [ext_resource type="PackedScene" uid="uid://bxd0pplnyh5yl" path="res://Objects/Oxygen Tank.tscn" id="8_m4m8r"]
 [ext_resource type="Terrain3DStorage" uid="uid://bykcc7ajvm2fd" path="res://Terrain/Environment.res" id="9_la3rf"]
 [ext_resource type="Texture2D" path="res://Terrain/Textures/rock_alb_ht.dds" id="10_pypfj"]
@@ -20,20 +19,20 @@
 [ext_resource type="Texture2D" path="res://Terrain/Textures/black_rock_nrm_rgh.dds" id="17_5dhtf"]
 [ext_resource type="PackedScene" uid="uid://bwqs4xjt6t0dv" path="res://Objects/Knife.tscn" id="18_gq7qd"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5qaiq"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fn0s7"]
 
-[sub_resource type="Sky" id="Sky_tonp6"]
-sky_material = SubResource("ProceduralSkyMaterial_5qaiq")
+[sub_resource type="Sky" id="Sky_r1pb4"]
+sky_material = SubResource("ProceduralSkyMaterial_fn0s7")
 
-[sub_resource type="Environment" id="Environment_nfjh0"]
+[sub_resource type="Environment" id="Environment_fpkof"]
 background_color = Color(0.698039, 0.811765, 0.972549, 1)
 background_energy_multiplier = 0.0
-sky = SubResource("Sky_tonp6")
+sky = SubResource("Sky_r1pb4")
 ambient_light_sky_contribution = 0.0
 ambient_light_energy = 0.0
 fog_enabled = true
 fog_light_color = Color(0, 0, 0.101961, 1)
-fog_density = 0.4
+fog_density = 0.0275
 volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.0431373, 0, 0.337255, 1)
 
@@ -163,7 +162,7 @@ textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_cc22v"), SubRe
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_nfjh0")
+environment = SubResource("Environment_fpkof")
 
 [node name="CeilingUnder" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 155.689, 0)
@@ -180,7 +179,6 @@ mesh = SubResource("BoxMesh_l371t")
 
 [node name="Shark" parent="." instance=ExtResource("2_ryv21")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 64.2081, -9.39109)
-collision_layer = 8
 
 [node name="Player" parent="." instance=ExtResource("3_wkpi2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7064, 58.7946, 1.99237)
@@ -206,43 +204,42 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 57.5155, 0)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.868441, -9.83952e-08, 0.495792, -0.493388, -0.0983645, 0.86423, 0.0487683, -0.99515, -0.0854239, 0, 70.9296, 0)
 light_color = Color(0.16474, 0.397744, 1, 1)
-light_energy = 0.2
+light_energy = 0.1
 light_indirect_energy = 16.0
 light_volumetric_fog_energy = 30.0
 shadow_enabled = true
 shadow_opacity = 0.56
 shadow_blur = 6.228
 
-[node name="Flashlight" parent="." instance=ExtResource("6_si0ay")]
+[node name="Items" type="Node" parent="."]
+
+[node name="Flashlight" parent="Items" instance=ExtResource("6_si0ay")]
 transform = Transform3D(-0.500944, -0.173253, -0.847962, -0.0881226, 0.984877, -0.149168, 0.860982, 0, -0.508636, -74.0076, 55.5057, -31.344)
 BatteryTime = 1000.0
 
-[node name="Battery" parent="." instance=ExtResource("7_w3b30")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7375, 60.2321, -1.9117)
-
-[node name="Oxygen Tank" parent="." instance=ExtResource("8_m4m8r")]
+[node name="Oxygen Tank" parent="Items" instance=ExtResource("8_m4m8r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.7226, 41.0561, -179.318)
 
-[node name="Oxygen Tank2" parent="." instance=ExtResource("8_m4m8r")]
+[node name="Oxygen Tank2" parent="Items" instance=ExtResource("8_m4m8r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.5856, -0.890015, -131.961)
 
-[node name="Flashlight2" parent="." instance=ExtResource("6_si0ay")]
+[node name="Flashlight2" parent="Items" instance=ExtResource("6_si0ay")]
 transform = Transform3D(-0.866025, 0, 0.5, -0.110093, 0.975458, -0.190687, -0.487729, -0.220187, -0.844771, -51.2114, 32.8262, -84.2998)
 
-[node name="Knife" parent="." instance=ExtResource("18_gq7qd")]
+[node name="Knife" parent="Items" instance=ExtResource("18_gq7qd")]
 transform = Transform3D(1, 0, 0, 0, -0.970426, 0.241397, 0, -0.241397, -0.970426, -119.668, 30.1887, -163.735)
 
-[node name="Knife2" parent="." instance=ExtResource("18_gq7qd")]
+[node name="Knife2" parent="Items" instance=ExtResource("18_gq7qd")]
 transform = Transform3D(0.888305, 0.445673, -0.110863, 0.459254, -0.862034, 0.214434, 0, -0.241397, -0.970426, -240.793, 58.7196, -189.473)
 
-[node name="Flashlight3" parent="." instance=ExtResource("6_si0ay")]
+[node name="Flashlight3" parent="Items" instance=ExtResource("6_si0ay")]
 transform = Transform3D(0.100705, -0.0778686, 0.991864, -0.0534615, -0.995916, -0.0727587, 0.993479, -0.0456994, -0.104457, -209.792, 1.90735e-06, -164.682)
 
-[node name="Chest" parent="." instance=ExtResource("10_snsyp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.8868, -154.59, -39.35)
-
-[node name="Oxygen Tank3" parent="." instance=ExtResource("8_m4m8r")]
+[node name="Oxygen Tank3" parent="Items" instance=ExtResource("8_m4m8r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -253.508, -15.887, -125.443)
+
+[node name="Chest" parent="Items" instance=ExtResource("10_snsyp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.8868, -154.59, -39.35)
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("9_la3rf")

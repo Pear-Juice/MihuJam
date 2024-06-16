@@ -1,0 +1,32 @@
+[gd_resource type="Terrain3DTextureList" load_steps=13 format=3 uid="uid://ji7as4bd41s"]
+
+[ext_resource type="Texture2D" path="res://Terrain/Textures/rock_alb_ht.dds" id="1_0vt03"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/rock_nrm_rgh.dds" id="2_eocdy"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/moss_alb_ht.dds" id="3_nbh67"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/moss_nrm_rgh.dds" id="4_5hnms"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/sand_alb_ht.dds" id="5_085yf"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/sand_nrm_rgh.dds" id="6_3tq7t"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/black_rock_alb_ht.dds" id="7_0wrgs"]
+[ext_resource type="Texture2D" path="res://Terrain/Textures/black_rock_nrm_rgh.dds" id="8_nqjig"]
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_cc22v"]
+albedo_texture = ExtResource("1_0vt03")
+normal_texture = ExtResource("2_eocdy")
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_dq6kq"]
+texture_id = 1
+albedo_texture = ExtResource("3_nbh67")
+normal_texture = ExtResource("4_5hnms")
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_3cshu"]
+texture_id = 2
+albedo_texture = ExtResource("5_085yf")
+normal_texture = ExtResource("6_3tq7t")
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_llowk"]
+texture_id = 3
+albedo_texture = ExtResource("7_0wrgs")
+normal_texture = ExtResource("8_nqjig")
+
+[resource]
+textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_cc22v"), SubResource("Terrain3DTexture_dq6kq"), SubResource("Terrain3DTexture_3cshu"), SubResource("Terrain3DTexture_llowk")])
