@@ -180,7 +180,6 @@ mesh = SubResource("BoxMesh_l371t")
 
 [node name="Shark" parent="." instance=ExtResource("2_ryv21")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 64.2081, -9.39109)
-collision_layer = 8
 
 [node name="Player" parent="." instance=ExtResource("3_wkpi2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7064, 58.7946, 1.99237)
