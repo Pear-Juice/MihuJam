@@ -90,7 +90,6 @@ func patrol_state_run(delta):
 
 func get_next_target_loc(offset := 0):
 	path_follower.progress += 5 + offset
-	print(offset)
 	var pos = path_follower.global_position
 	return pos
 
