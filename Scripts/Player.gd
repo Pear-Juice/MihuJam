@@ -17,13 +17,17 @@ var isDashing : bool = false
 var dashTimeElapsed : float = 0
 var currentSpeed : float
 var currentOxygen : float
+var sceneRoot
 
 #Components
 @onready var cam = $Camera3D
 @onready var raycastFromCam = $Camera3D/RayCast3D
 @onready var rightHand = $"Camera3D/Right Hand"
 @onready var leftHand = $"Camera3D/Left Hand"
+@onready var middleHand = $"Camera3D/Secret Third Hand"
 @onready var oxygenBar = $Control/Panel/CenterContainer/ProgressBar as ProgressBar
+@onready var decoyLeft = $"Camera3D/Decoy Item" as Node3D
+@onready var decoyRight = $"Camera3D/Decoy Item2" as Node3D
 
 @onready var viginette_shader := $"CanvasLayer/Viginette"
 @onready var pixilate_shader := $"CanvasLayer/Pixilate"
@@ -45,6 +49,8 @@ func _ready():
 	currentSpeed = MovementSpeed
 	currentOxygen = MaxOxygenTime
 	oxygenBar.max_value = MaxOxygenTime
+	
+	sceneRoot = get_parent()
 	
 	ambient_background.play()
 	
@@ -146,8 +152,15 @@ func CheckHandStatus(hand) -> Node3D:
 
 func LetItemGo(item):
 	var itemTransfromValues = item.global_transform
+	if(item.name.contains("Decoy")):
+		item = middleHand.get_child(0)
+		decoyLeft.get_parent().remove_child(decoyLeft)
+		cam.add_child(decoyLeft)
+		decoyRight.get_parent().remove_child(decoyRight)
+		cam.add_child(decoyRight)
+
 	item.get_parent().remove_child(item)
-	get_tree().root.add_child(item)
+	sceneRoot.add_child(item)
 	item.transform = itemTransfromValues
 	item.get_child(0).OnItemReleased()
 	
@@ -161,6 +174,10 @@ func TryGetItem(hand):
 			return
 			
 		if(collider.is_in_group("Item")):
+			if(collider.name.contains("Chest")):
+				TryGetChest(collider)
+				return
+			
 			collider.get_parent().remove_child(collider)
 			hand.add_child(collider)
 			collider.position = Vector3.ZERO
@@ -168,9 +185,30 @@ func TryGetItem(hand):
 			collider.scale = Vector3.ONE
 			
 			collider.get_child(0).OnItemGrabbed()
-			
-		
-		
+
+func TryGetChest(chest):
+	if(CheckHandStatus(rightHand) != null || CheckHandStatus(leftHand) != null):
+		return
+	
+	cam.remove_child(decoyLeft)
+	leftHand.add_child(decoyLeft)
+	cam.remove_child(decoyRight)
+	rightHand.add_child(decoyRight)
+	
+	chest.get_parent().remove_child(chest)
+	middleHand.add_child(chest)
+	chest.position = Vector3.ZERO
+	chest.rotation_degrees = Vector3.ZERO
+	chest.scale = Vector3.ONE
+	chest.get_child(0).OnItemGrabbed()
+
+func LetChestGo():
+	leftHand.remove_child(decoyLeft)
+	cam.add_child(decoyLeft)
+	rightHand.remove_child(decoyRight)
+	cam.add_child(decoyRight)
+	middleHand.remove_child(middleHand.get_child(0))
+
 func UseItem(hand):
 	var item = CheckHandStatus(hand)
 	
@@ -205,7 +243,6 @@ func ChangeOxygen(amount):
 
 func GameOver():
 	is_dead = true
-	print("No more oxygen")
 	
 	viginette_shader.visible = true
 	pixilate_shader.visible = true

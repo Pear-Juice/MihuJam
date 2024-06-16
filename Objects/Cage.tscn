@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://0cm58618tvxr" path="res://assets/Audio/dooropen.wav" id="4_r8bx4"]
 [ext_resource type="AudioStream" uid="uid://dq1mvdy3ifi8f" path="res://assets/Audio/doorclose2.wav" id="5_0r7vw"]
 [ext_resource type="AudioStream" uid="uid://brg507k4wktj1" path="res://assets/Audio/Dooropen1.wav" id="5_s5jud"]
-[ext_resource type="ArrayMesh" uid="uid://c70idtimn7gyx" path="res://assets/props/CageDoor.res" id="7_dtpbt"]
+[ext_resource type="ArrayMesh" path="res://assets/props/CageDoor.res" id="7_dtpbt"]
 [ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight.tscn" id="8_dsckn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sxegj"]
@@ -92,6 +92,7 @@ shape = SubResource("BoxShape3D_w55ju")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5341, 0, 4)
 collision_layer = 4
+collision_mask = 3
 script = ExtResource("3_yoh8p")
 open_rot = -104
 
@@ -119,7 +120,6 @@ skeleton = NodePath("../..")
 
 [node name="Flashlight" parent="." instance=ExtResource("8_dsckn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0406278, -2.57347, -0.105658)
-BatteryTime = 60.0
 
 [node name="Area3D" type="Area3D" parent="."]
 

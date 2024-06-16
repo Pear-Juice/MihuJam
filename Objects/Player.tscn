@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://bpvsyyc4g8scg"]
+[gd_scene load_steps=23 format=3 uid="uid://bpvsyyc4g8scg"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_2n4qn"]
+[ext_resource type="Script" path="res://Scripts/EmptyObject.gd" id="2_5li10"]
 [ext_resource type="Shader" path="res://Scenes/ColorQuantizer.gdshader" id="2_mxba4"]
 [ext_resource type="AudioStream" uid="uid://bd1if6argq378" path="res://assets/Audio/deepseaspoopy.wav" id="3_01k8j"]
 [ext_resource type="Shader" path="res://Scenes/Viginette.gdshader" id="3_a82rx"]
@@ -102,6 +103,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.2, -0.5)
 
 [node name="Right Hand" type="Node3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.2, -0.5)
+
+[node name="Secret Third Hand" type="Node3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09909e-08, -0.937588, -1.22212)
+
+[node name="Decoy Item" type="Node3D" parent="Camera3D" groups=["Item"]]
+script = ExtResource("2_5li10")
+
+[node name="Decoy Item2" type="Node3D" parent="Camera3D" groups=["Item"]]
+script = ExtResource("2_5li10")
 
 [node name="Player Dim Light" type="OmniLight3D" parent="."]
 light_color = Color(0.45098, 0.737255, 0.905882, 1)

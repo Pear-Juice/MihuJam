@@ -3,7 +3,7 @@ extends Node3D
 @export var FloatTime : float
 @export var FallingSpeed : float
 
-@onready var omniLight = $"../OmniLight3D" as OmniLight3D
+@onready var omniLight = $"../Item Light" as OmniLight3D
 
 var body
 var timeElapsed : float = 0
@@ -13,7 +13,7 @@ var isFalling : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	body = get_parent()
+	body = get_parent() as CharacterBody3D
 	if(get_parent().get_parent().name.contains("Hand")):
 		OnItemGrabbed()
 
@@ -28,8 +28,11 @@ func _process(delta):
 			
 
 func _physics_process(delta):
-	if(isFalling):
+	if(!held):
+		if(!isFalling):
+			body.velocity.y = sin(timeElapsed ) * .15
 		body.move_and_slide()
+			
 	
 
 func OnItemGrabbed():

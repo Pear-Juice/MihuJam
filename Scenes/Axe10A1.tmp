@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://b010y57bt4wj0"]
+[gd_scene load_steps=45 format=3 uid="uid://b010y57bt4wj0"]
 
 [ext_resource type="Shader" path="res://Water.gdshader" id="1_8vp7v"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_ryv21"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://bxd0pplnyh5yl" path="res://Objects/Oxygen Tank.tscn" id="8_m4m8r"]
 [ext_resource type="Terrain3DStorage" uid="uid://bykcc7ajvm2fd" path="res://Terrain/Environment.res" id="9_la3rf"]
 [ext_resource type="Texture2D" path="res://Terrain/Textures/rock_alb_ht.dds" id="10_pypfj"]
-[ext_resource type="PackedScene" uid="uid://bee72ke1o1401" path="res://Objects/Chest.tscn" id="10_snsyp"]
 [ext_resource type="Texture2D" path="res://Terrain/Textures/rock_nrm_rgh.dds" id="11_m1a56"]
 [ext_resource type="Texture2D" path="res://Terrain/Textures/moss_alb_ht.dds" id="12_3kb4y"]
 [ext_resource type="Texture2D" path="res://Terrain/Textures/moss_nrm_rgh.dds" id="13_4qfln"]
@@ -223,26 +222,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7375, 60.2321, -1.9117)
 [node name="Oxygen Tank" parent="." instance=ExtResource("8_m4m8r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.7226, 41.0561, -179.318)
 
-[node name="Oxygen Tank2" parent="." instance=ExtResource("8_m4m8r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.5856, -0.890015, -131.961)
-
 [node name="Flashlight2" parent="." instance=ExtResource("6_si0ay")]
 transform = Transform3D(-0.866025, 0, 0.5, -0.110093, 0.975458, -0.190687, -0.487729, -0.220187, -0.844771, -51.2114, 32.8262, -84.2998)
 
 [node name="Knife" parent="." instance=ExtResource("18_gq7qd")]
-transform = Transform3D(1, 0, 0, 0, -0.970426, 0.241397, 0, -0.241397, -0.970426, -119.668, 30.1887, -163.735)
+transform = Transform3D(1, 0, 0, 0, -0.970426, 0.241397, 0, -0.241397, -0.970426, -119.668, 28.0885, -163.735)
 
 [node name="Knife2" parent="." instance=ExtResource("18_gq7qd")]
-transform = Transform3D(0.888305, 0.445673, -0.110863, 0.459254, -0.862034, 0.214434, 0, -0.241397, -0.970426, -240.793, 58.7196, -189.473)
-
-[node name="Flashlight3" parent="." instance=ExtResource("6_si0ay")]
-transform = Transform3D(0.100705, -0.0778686, 0.991864, -0.0534615, -0.995916, -0.0727587, 0.993479, -0.0456994, -0.104457, -209.792, 1.90735e-06, -164.682)
-
-[node name="Chest" parent="." instance=ExtResource("10_snsyp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.8868, -154.59, -39.35)
-
-[node name="Oxygen Tank3" parent="." instance=ExtResource("8_m4m8r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -253.508, -15.887, -125.443)
+transform = Transform3D(0.888305, 0.445673, -0.110863, 0.459254, -0.862034, 0.214434, 0, -0.241397, -0.970426, -240.203, 27.5135, -189.237)
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("9_la3rf")
@@ -252,3 +239,6 @@ collision_layer = 4
 collision_mask = 3
 mesh_lods = 2
 mesh_size = 32
+
+[node name="Flashlight3" parent="." instance=ExtResource("6_si0ay")]
+transform = Transform3D(0.322235, -0.719619, -0.615072, 0.333953, 0.69437, -0.637437, 0.885799, 0, 0.464069, -234.312, 0, -150.918)

@@ -40,8 +40,6 @@ var health = 3
 @export var approach_amp : float
 @export var approach_speed : float
 
-func _process(delta):
-	print(player_in_sight)
 
 func _ready():
 	state_m = StateMachine.create(self)

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c44jfgfdq7ci2"]
+
+[node name="Item Light" type="OmniLight3D"]
+light_energy = 2.0
+light_indirect_energy = 5.0
+light_volumetric_fog_energy = 16.0
+omni_range = 3.0
