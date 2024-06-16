@@ -51,6 +51,7 @@ circle_speed = 3.0
 min_circle_distance = 12
 circle_length_sec = 120
 chase_speed = 9.0
+run_speed = 20.0
 aware_length_threshold = 5.0
 wiggle_curve = SubResource("Curve_i6w12")
 wiggle_amp = 3.0
@@ -58,6 +59,7 @@ wiggle_speed = 10
 approach_curve = SubResource("Curve_4yclo")
 approach_amp = 20.0
 approach_speed = 0.5
+give_up_timelimit = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cb7tmni4jkgpd"]
+[gd_scene load_steps=29 format=3 uid="uid://cb7tmni4jkgpd"]
 
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_e4jod"]
@@ -109,6 +109,13 @@ _shader_parameters = {
 "noise_texture": SubResource("NoiseTexture2D_w27l2")
 }
 
+[sub_resource type="Curve3D" id="Curve3D_euh1s"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.40809, -8.94078, 20.7949, 0, 0, 0, 0, 0, 0, 9.05864, -2.15879, 18.0012, 0, 0, 0, 0, 0, 0, 15.7379, 4.23344, 15.9973, 0, 0, 0, 0, 0, 0, 25.7602, 7.11773, 25.8243, 0, 0, 0, 0, 0, 0, 34.8018, 4.97399, 43.7707, 0, 0, 0, 0, 0, 0, 20.3212, -10.4999, 51.2065, 0, 0, 0, 0, 0, 0, 4.90973, -14.0078, 34.3209, 0, 0, 0, 0, 0, 0, -0.847631, -13.1503, 23.8645, 0, 0, 0, 0, 0, 0, 2.40809, -8.94078, 20.7949),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 9
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -209,6 +216,19 @@ curve = ExtResource("12_t5kwk")
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm/Node/Path3D"]
 transform = Transform3D(-0.812692, 0.0101658, 0.582596, -9.31318e-10, 0.999845, -0.0174463, -0.582686, -0.0141785, -0.812567, -19.6587, -14.8826, -28.4297)
 
+[node name="Worm7" parent="Sharks" instance=ExtResource("5_miws6")]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.23822, 57.1983, 0.346248)
+
+[node name="Node" type="Node" parent="Sharks/Worm7"]
+
+[node name="Path3D" type="Path3D" parent="Sharks/Worm7/Node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2167, 59.244, -34.25)
+curve = SubResource("Curve3D_euh1s")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm7/Node/Path3D"]
+transform = Transform3D(0.387288, -0.63152, -0.6717, 0, 0.72856, -0.684975, 0.921954, 0.265285, 0.282163, 2.40809, -8.94078, 20.7949)
+
 [node name="Worm2" parent="Sharks" instance=ExtResource("5_miws6")]
 transform = Transform3D(0.789695, 0, 0.6135, 0, 1, 0, -0.6135, 0, 0.789695, -253.546, -0.700621, -98.4181)
 
@@ -219,7 +239,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -281.514, 9.76041, -153.979)
 curve = ExtResource("12_t5kwk")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm2/Node/Path3D"]
-transform = Transform3D(0.314749, -0.448423, 0.836564, 0.529766, 0.814304, 0.237171, -0.787574, 0.368536, 0.493862, 20.3892, -1.32691, 51.8959)
+transform = Transform3D(0.314749, -0.448423, 0.836564, 0.529766, 0.814303, 0.237171, -0.787574, 0.368536, 0.493862, 20.3892, -1.32691, 51.8959)
 progress = 300.0
 
 [node name="Worm3" parent="Sharks" instance=ExtResource("5_miws6")]

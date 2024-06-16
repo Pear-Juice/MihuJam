@@ -14,6 +14,7 @@ gradient = SubResource("Gradient_m3jqv")
 [resource]
 render_priority = 0
 shader = ExtResource("1_43hid")
+shader_parameter/base_color = null
 shader_parameter/metalic = 0.0
 shader_parameter/noise_color = Color(0.505882, 0.27451, 0.247059, 1)
 shader_parameter/noise_alpha = 1.0

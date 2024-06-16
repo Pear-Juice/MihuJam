@@ -1,6 +1,7 @@
 shader_type spatial;
 
 uniform sampler2D albedo;
+uniform vec4 base_color : source_color;
 uniform float metalic : hint_range(0.0, 1.0, 0.1) = 0;
 uniform vec4 noise_color : source_color;
 uniform float noise_alpha : hint_range(0.0, 1.0, 0.1) = 1;
@@ -12,7 +13,7 @@ void vertex() {
 
 void fragment() {
 	METALLIC = metalic;
-	ALBEDO = texture(albedo, UV).rgb + (texture(noise, UV).x * noise_color * noise_alpha).rgb;
+	ALBEDO = base_color.rgb + (texture(noise, UV).x * noise_color * noise_alpha).rgb;
 }
 
 void light() {
