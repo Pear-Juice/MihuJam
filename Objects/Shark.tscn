@@ -20,7 +20,7 @@ radius = 12.786
 height = 36.0246
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s28vd"]
-size = Vector3(2.25781, 1, 1.97559)
+size = Vector3(2.25781, 1.86108, 2.53674)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ajbej"]
 size = Vector3(9.0459, 4.44006, 12.3808)
@@ -64,7 +64,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 shape = SubResource("CapsuleShape3D_acn8q")
 
 [node name="Sight" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15.0373)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18.7693)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sight"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 3.3223)
@@ -74,7 +74,7 @@ shape = SubResource("CapsuleShape3D_mrns2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.02593)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Eat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.46028)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.04391)
 shape = SubResource("BoxShape3D_s28vd")
 
 [node name="Awareness" type="Area3D" parent="."]
@@ -100,6 +100,7 @@ unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_jid28")
 
 [connection signal="body_entered" from="Sight" to="." method="_on_sight_entered"]
+[connection signal="body_exited" from="Sight" to="." method="_on_sight_body_exited"]
 [connection signal="body_entered" from="Eat" to="." method="_on_eat_body_entered"]
 [connection signal="body_entered" from="Awareness" to="." method="_on_awareness_body_entered"]
 [connection signal="body_exited" from="Awareness" to="." method="_on_awareness_body_exited"]

@@ -22,10 +22,14 @@ var target_angle := 180
 var state_m : StateMachine
 var state_length_mod : int
 
-var lerp_multiplier = 2
+var lerp_multiplier = 3.5
 
 var aware_of_player : bool
 var aware_length : float
+var player_in_sight : bool
+
+var health = 3
+
 @export var aware_length_threshold : float
 
 @export var wiggle_curve : Curve
@@ -35,6 +39,9 @@ var aware_length : float
 @export var approach_curve : Curve
 @export var approach_amp : float
 @export var approach_speed : float
+
+func _process(delta):
+	print(player_in_sight)
 
 func _ready():
 	state_m = StateMachine.create(self)
@@ -52,7 +59,7 @@ func _ready():
 	
 func spawn():
 	is_targeting = true
-	target_angle = 0
+	target_angle = 180
 	target = get_position_away_from_position(Cage.I.global_position, target_angle, min_circle_distance)
 	global_position = target
 	state_m.transfer("Circle")
@@ -61,7 +68,9 @@ func _physics_process(delta):
 	if is_targeting:
 		lerp_target = lerp_target.slerp(target, delta * lerp_multiplier)
 		$Target.global_position = lerp_target
-		look_at(lerp_target)
+		
+		if global_position.distance_to(Player.I.global_position) > 2:
+			look_at(lerp_target)
 		velocity = global_position.direction_to(target) * current_speed
 		move_and_slide()
 
@@ -87,6 +96,7 @@ func patrol_state_run(delta):
 		target = get_position_away_from_position(Cage.I.global_position, target_angle, wiggle_distance + approach_distance + min_patrol_distance)
 
 func circle_state():
+	
 	current_speed = circle_speed
 	state_length_mod = randi_range(-20,20)
 	
@@ -112,6 +122,9 @@ func chase_state():
 	
 func chase_state_run(delta):
 	target = Player.I.global_position
+	
+	if Cage.I.player_is_safe:
+		player_escaped()
 
 func eat_state():
 	is_targeting = false
@@ -129,14 +142,20 @@ func run_state():
 	
 	target = get_position_away_from_position(Cage.I.global_position, target_angle, 30)
 	
-func run_state_run():
+func run_state_run(delta):
 	if global_position.distance_to(target) < min_retarget_dist:
 		state_m.transfer("Patrol")
 
 func _on_sight_entered(body):
 	if body is Player  && !Cage.I.player_is_safe:
 		print("sight entered")
+		player_in_sight = true
 		state_m.transfer("Chase")
+		
+func _on_sight_body_exited(body):
+	if body is Player:
+		player_in_sight = false
+		player_escaped()
 
 func _on_eat_body_entered(body):
 	if body is Player:
@@ -149,9 +168,14 @@ func kill():
 	get_tree().create_tween().tween_property(self, "rotation:z", 180, 0.3)
 	
 func bonk():
-	aware_length = 0
-	aware_of_player = false
-	state_m.transfer("Run")
+	if health > 1:
+		aware_length = 0
+		aware_of_player = false
+		state_m.transfer("Run")
+		health -= 1
+	else:
+		health = 0
+		kill()
 
 func get_position_away_from_position(pos, angle, distance):
 	return (Vector3(0,0,1).rotated(Vector3(0,1,0), deg_to_rad(angle)) * distance) + pos
@@ -161,7 +185,6 @@ func _on_awareness_body_entered(body):
 	if body is Player:
 		aware_of_player = true
 		aware_length = 0
-
 
 func _on_awareness_body_exited(body):
 	if body is Player:
