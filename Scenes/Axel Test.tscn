@@ -133,7 +133,7 @@ _shader_parameters = {
 "noise_texture": SubResource("NoiseTexture2D_w27l2")
 }
 
-[node name="Main2" type="Node3D"]
+[node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fpkof")
@@ -220,6 +220,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -252.695, -93.585, 93.9712)
 [node name="Flashlight4" parent="Items" instance=ExtResource("6_si0ay")]
 transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -278.698, -71.9957, 17.8948)
 
+[node name="Flashlight5" parent="Items" instance=ExtResource("6_si0ay")]
+transform = Transform3D(-0.684783, 0.0196411, -0.728483, -0.236055, 0.939763, 0.247233, 0.689456, 0.341263, -0.638897, -243.657, -110.331, 130.055)
+
+[node name="Oxygen Tank4" parent="Items" instance=ExtResource("8_m4m8r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.6878, -156.727, 188.43)
+
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("9_la3rf")
 material = SubResource("Terrain3DMaterial_q2mg3")
@@ -265,7 +271,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -281.514, 9.76041, -153.979)
 curve = ExtResource("13_6svur")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm2/Node/Path3D"]
-transform = Transform3D(0.314749, -0.448424, 0.836564, 0.529766, 0.814304, 0.237171, -0.787574, 0.368536, 0.493862, 20.3892, -1.32691, 51.8959)
+transform = Transform3D(0.314749, -0.448423, 0.836564, 0.529766, 0.814304, 0.237171, -0.787574, 0.368536, 0.493862, 20.3892, -1.32691, 51.8959)
 progress = 300.0
 
 [node name="Worm3" parent="Sharks" instance=ExtResource("12_mb4i4")]
@@ -326,9 +332,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.1878, 88.7092, -42.1766)
 
 [node name="Shark 3 Circle Point" type="Node3D" parent="Sharks/Shark Targets"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.0566, 35.9145, -135.526)
-
-[node name="Flashlight" parent="." instance=ExtResource("6_si0ay")]
-transform = Transform3D(-0.684783, 0.0196411, -0.728483, -0.236055, 0.939763, 0.247233, 0.689456, 0.341263, -0.638897, -243.657, -110.331, 130.055)
-
-[node name="Oxygen Tank" parent="." instance=ExtResource("8_m4m8r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.6878, -156.727, 188.43)

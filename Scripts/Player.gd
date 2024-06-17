@@ -76,11 +76,14 @@ func _physics_process(delta):
 	var verticalInput = Input.get_axis("Swim Down", "Swim Up")
 	
 	var dir_vector = (input_dir.y * cam.global_transform.basis.z) + (input_dir.x * global_transform.basis.x)
-	var desired_velocity = currentSpeed * dir_vector + Vector3(0, verticalInput, 0)
+	dir_vector.y += verticalInput
+	var desired_velocity = currentSpeed * dir_vector
 	
-	if input_dir != Vector2():
+	if input_dir != Vector2() || verticalInput != 0:
+		print("hi")
 		velocity = lerp(velocity, desired_velocity, 0.1)
 	else:
+		print("no")
 		velocity *= .97
 		
 	move_and_slide()
