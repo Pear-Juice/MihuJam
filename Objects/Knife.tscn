@@ -8,11 +8,12 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_3i3c5"]
 size = Vector3(0.669678, 1.17169, 1)
 
-[node name="Knife" type="CharacterBody3D" groups=["Item"]]
+[node name="Knife" type="CharacterBody3D" node_paths=PackedStringArray("knife_model") groups=["Item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.44929, 67.2437, 0)
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_citss")
+knife_model = NodePath("knife")
 
 [node name="Floating" parent="." instance=ExtResource("2_it8xa")]
 
@@ -23,4 +24,4 @@ shape = SubResource("BoxShape3D_3i3c5")
 [node name="Item Light" parent="." instance=ExtResource("4_q4yhk")]
 
 [node name="knife" parent="." instance=ExtResource("3_5sgne")]
-transform = Transform3D(4.36809e-08, -0.999293, 0.0366429, -0.999975, -4.37098e-08, 0, 1.60171e-09, -0.0366425, -0.999305, 0.171948, -0.134041, 0.18286)
+transform = Transform3D(-1.6017e-09, 0.0366424, 0.999305, -0.999974, -4.37098e-08, -7.79758e-16, 4.36809e-08, -0.999293, 0.0366429, 0, -0.134003, 0.183)

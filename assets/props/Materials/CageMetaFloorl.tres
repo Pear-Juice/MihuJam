@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://co6rmsgdo23yb"]
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://2iod0vwngxb6"]
 
-[ext_resource type="Shader" path="res://Detail.gdshader" id="1_43hid"]
+[ext_resource type="Shader" path="res://Detail.gdshader" id="1_c6l1v"]
 
 [sub_resource type="Gradient" id="Gradient_m3jqv"]
 offsets = PackedFloat32Array(0.997685, 1)
@@ -17,7 +17,7 @@ noise = SubResource("FastNoiseLite_h15h5")
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_43hid")
+shader = ExtResource("1_c6l1v")
 shader_parameter/base_color = Color(0.486275, 0.498039, 0.278431, 1)
 shader_parameter/metalic = 0.6
 shader_parameter/noise_color = Color(0.886275, 0.670588, 0.643137, 1)

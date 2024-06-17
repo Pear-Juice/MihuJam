@@ -40,7 +40,7 @@ size = Vector3(9, 3, 1)
 size = Vector3(2.55078, 4.09985, 0.166077)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n5yar"]
-size = Vector3(7, 9, 7)
+size = Vector3(7, 9, 8.51294)
 
 [node name="Cage" type="Node3D"]
 script = ExtResource("1_1hc8d")
@@ -126,6 +126,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0406278, -2.57347, -0.1056
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75647)
 shape = SubResource("BoxShape3D_n5yar")
 
 [connection signal="on_close" from="Door" to="." method="_on_door_on_close"]

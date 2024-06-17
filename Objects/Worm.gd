@@ -7,6 +7,7 @@ extends CharacterBody3D
 @export var patrol_speed : float
 
 @export var chase_speed : float
+@export var run_speed : float
 var current_speed : float
 
 var is_targeting : bool
@@ -30,6 +31,8 @@ var health = 3
 
 var path : Path3D
 var path_follower : PathFollow3D
+
+@export var give_up_timelimit : int
 
 func _ready():
 	if find_child("Path3D"):
@@ -85,8 +88,9 @@ func patrol_state_run(delta):
 	if global_position.distance_to(target) < min_retarget_dist:
 		target = get_next_target_loc()
 
-func get_next_target_loc():
-	path_follower.progress += 5
+func get_next_target_loc(offset := 0):
+	path_follower.progress += 5 + offset
+	print(offset)
 	var pos = path_follower.global_position
 	return pos
 
@@ -97,6 +101,9 @@ func chase_state_run(delta):
 	target = Player.I.global_position
 	
 	if Cage.I.player_is_safe:
+		player_escaped()
+		
+	if state_m.current_state.elapsed_time > give_up_timelimit:
 		player_escaped()
 
 func eat_state():
@@ -111,9 +118,9 @@ func ram_state():
 	state_m.transfer("Circle")
 	
 func run_state():
-	current_speed = chase_speed
+	current_speed = run_speed
 	
-	target = get_next_target_loc()
+	target = get_next_target_loc(30)
 	
 func run_state_run(delta):
 	if global_position.distance_to(target) < min_retarget_dist:
@@ -121,24 +128,24 @@ func run_state_run(delta):
 
 func _on_sight_entered(body):
 	if body is Player  && !Cage.I.player_is_safe:
-		print("sight entered")
 		player_in_sight = true
 		state_m.transfer("Chase")
 		
 func _on_sight_body_exited(body):
 	if body is Player:
 		player_in_sight = false
-		player_escaped()
 
 func _on_eat_body_entered(body):
 	if body is Player:
 		state_m.transfer("Eat")
 		
 func player_escaped():
-	pass
+	target = get_next_target_loc()
+	state_m.transfer("Patrol")
 	
 func kill():
-	get_tree().create_tween().tween_property(self, "rotation:z", 180, 0.3)
+	get_tree().create_tween().tween_method(func(value): rotation_degrees.z = value, 0, 180, 0.5)
+	process_mode = Node.PROCESS_MODE_DISABLED
 	
 func bonk():
 	if health > 1:

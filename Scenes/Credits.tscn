@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://db5y4jox5gcwj" path="res://Theme.tres" id="1_jow5u"]
 [ext_resource type="Script" path="res://Objects/Credits.gd" id="1_jxjv5"]
-[ext_resource type="Texture2D" uid="uid://cabpkoa2ha0gb" path="res://assets/images/bubble.svg" id="2_f50f7"]
+[ext_resource type="Texture2D" uid="uid://2att1gj6iwh2" path="res://assets/images/bubble.svg" id="2_f50f7"]
 [ext_resource type="AudioStream" uid="uid://cxb8cgjhr4jwc" path="res://assets/Audio/light-switch-156813.mp3" id="3_lu66a"]
 [ext_resource type="AudioStream" uid="uid://bogqindl87nvd" path="res://assets/Audio/death1.wav" id="4_ytiqu"]
 
@@ -42,7 +42,7 @@ initial_velocity_min = 240.68
 initial_velocity_max = 345.76
 scale_amount_min = 0.0
 scale_amount_max = 0.01
-color = Color(1, 1, 1, 0.0196078)
+color = Color(1, 1, 1, 0.635294)
 
 [node name="List" type="Control" parent="."]
 unique_name_in_owner = true
@@ -59,7 +59,7 @@ offset_top = 5.0
 offset_right = 214.0
 offset_bottom = 47.0
 theme_override_font_sizes/font_size = 30
-text = "Ocean Game"
+text = "NAUTILUS"
 
 [node name="Label2" type="Label" parent="List"]
 layout_mode = 0
@@ -118,7 +118,7 @@ offset_top = 143.0
 offset_right = 98.0
 offset_bottom = 166.0
 theme_override_font_sizes/font_size = 12
-text = "Music"
+text = "Music (to be added)"
 
 [node name="Panel2" type="Panel" parent="List"]
 custom_minimum_size = Vector2(0, 1)
