@@ -1,9 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://dqb7y38rjiupt"]
+[gd_scene load_steps=15 format=3 uid="uid://dqb7y38rjiupt"]
 
 [ext_resource type="Script" path="res://Objects/Worm.gd" id="1_44i6n"]
 [ext_resource type="AudioStream" uid="uid://rgmkekhveqty" path="res://assets/Audio/chomp3.wav" id="3_bo78n"]
 [ext_resource type="PackedScene" uid="uid://dbjosiqs1jrml" path="res://assets/props/worm_shark.blend" id="4_h0htu"]
 [ext_resource type="AudioStream" uid="uid://cn11i7m6kqji4" path="res://assets/Audio/chomp4.wav" id="4_te3uw"]
+[ext_resource type="AudioStream" uid="uid://chryyxorpi7ws" path="res://assets/Audio/sharkspot-002.wav" id="5_6wrt8"]
+[ext_resource type="AudioStream" uid="uid://c1hnilmblrrjk" path="res://assets/Audio/chomp2.wav" id="6_cc5fl"]
+[ext_resource type="AudioStream" uid="uid://jktylxocdsyu" path="res://assets/Audio/sharkspot-001.wav" id="7_nfjcm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qradk"]
 
@@ -88,6 +91,18 @@ stream = SubResource("AudioStreamRandomizer_ugbd4")
 
 [node name="worm_shark" parent="." instance=ExtResource("4_h0htu")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 3.47973)
+
+[node name="GrowlPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_6wrt8")
+
+[node name="DeathPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_cc5fl")
+
+[node name="GiveUpPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("7_nfjcm")
 
 [connection signal="body_entered" from="Sight" to="." method="_on_sight_entered"]
 [connection signal="body_exited" from="Sight" to="." method="_on_sight_body_exited"]

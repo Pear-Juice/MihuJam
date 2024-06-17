@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bpvsyyc4g8scg"]
+[gd_scene load_steps=37 format=3 uid="uid://bpvsyyc4g8scg"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_2n4qn"]
 [ext_resource type="Script" path="res://Scripts/EmptyObject.gd" id="2_5li10"]
@@ -14,6 +14,9 @@
 [ext_resource type="AudioStream" uid="uid://ckvwuf1y1ewyl" path="res://assets/Audio/bootup1.wav" id="10_rkws4"]
 [ext_resource type="AudioStream" uid="uid://cbovtd5k1pmfo" path="res://assets/Audio/bootup3.wav" id="11_c6rwy"]
 [ext_resource type="AudioStream" uid="uid://bogqindl87nvd" path="res://assets/Audio/death1.wav" id="12_3w77t"]
+[ext_resource type="AudioStream" uid="uid://b8klgau7ibdm3" path="res://assets/Audio/GJ Atmospheric Track 3.mp3" id="15_ht3t6"]
+[ext_resource type="AudioStream" uid="uid://vn415482wblq" path="res://assets/Audio/GJ Atmospheric Track 4.mp3" id="16_h1mlc"]
+[ext_resource type="AudioStream" uid="uid://btmnp0hefy3ad" path="res://assets/Audio/GJ Atmospheric Track 5.mp3" id="17_vdinq"]
 
 [sub_resource type="Curve" id="Curve_qywf0"]
 min_value = 10.0
@@ -24,6 +27,7 @@ point_count = 2
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1ngyl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u6feq"]
+height = 3.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hykog"]
 bg_color = Color(0.156863, 0, 0.054902, 1)
@@ -101,6 +105,14 @@ streams_count = 2
 stream_0/stream = ExtResource("10_rkws4")
 stream_0/weight = 1.0
 stream_1/stream = ExtResource("11_c6rwy")
+stream_1/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hkhvi"]
+playback_mode = 2
+streams_count = 2
+stream_0/stream = ExtResource("15_ht3t6")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("16_h1mlc")
 stream_1/weight = 1.0
 
 [node name="Player" type="CharacterBody3D"]
@@ -275,3 +287,10 @@ stream = SubResource("AudioStreamRandomizer_0gl76")
 
 [node name="DeathPlayer" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("12_3w77t")
+
+[node name="MusicPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_hkhvi")
+
+[node name="EndPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_vdinq")
+volume_db = -40.0

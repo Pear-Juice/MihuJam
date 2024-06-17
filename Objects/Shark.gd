@@ -155,6 +155,9 @@ func _on_sight_entered(body):
 		print("sight entered")
 		player_in_sight = true
 		state_m.transfer("Chase")
+		$GrowlPlayer.play()
+		
+		
 		
 func _on_sight_body_exited(body):
 	if body is Player:
@@ -168,11 +171,13 @@ func player_escaped():
 	print("player escape")
 	target = get_position_away_from_position(home_obj.global_position, target_angle, min_patrol_distance)
 	state_m.transfer("Circle")
+	$GiveUpPlayer.play()
 	
 func kill():
 	get_tree().create_tween().tween_method(func(value): rotation_degrees.z = value, 0, 180, 0.5)
 	process_mode = Node.PROCESS_MODE_DISABLED
 	print("Kill")
+	$DeathPlayer.play()
 
 func bonk():
 	if health > 1:

@@ -20,10 +20,10 @@ RefillRate = 5.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_bdptf")
 
-[node name="oxygentank" parent="." instance=ExtResource("3_8sas4")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -0.889462, 0)
-
 [node name="Item Light" parent="." instance=ExtResource("4_3o7cg")]
+
+[node name="oxygentank2" parent="." instance=ExtResource("3_8sas4")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -0.886648, 0)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("5_0auol")

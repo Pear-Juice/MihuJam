@@ -1,9 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://bjf5ynmdqpvgk"]
+[gd_scene load_steps=17 format=3 uid="uid://bjf5ynmdqpvgk"]
 
 [ext_resource type="Script" path="res://Objects/Shark.gd" id="1_48se7"]
 [ext_resource type="PackedScene" uid="uid://do2ud8cty4ikl" path="res://assets/props/shark.blend" id="2_0410o"]
 [ext_resource type="AudioStream" uid="uid://rgmkekhveqty" path="res://assets/Audio/chomp3.wav" id="3_xeya7"]
 [ext_resource type="AudioStream" uid="uid://cn11i7m6kqji4" path="res://assets/Audio/chomp4.wav" id="4_a3nsn"]
+[ext_resource type="AudioStream" uid="uid://chryyxorpi7ws" path="res://assets/Audio/sharkspot-002.wav" id="5_eox5w"]
+[ext_resource type="AudioStream" uid="uid://c1hnilmblrrjk" path="res://assets/Audio/chomp2.wav" id="6_mrnwj"]
+[ext_resource type="AudioStream" uid="uid://jktylxocdsyu" path="res://assets/Audio/sharkspot-001.wav" id="7_h4efd"]
 
 [sub_resource type="Curve" id="Curve_i6w12"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -101,6 +104,18 @@ shape = SubResource("CapsuleShape3D_4hbs6")
 [node name="EatPlayer" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_jid28")
+
+[node name="GrowlPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_eox5w")
+
+[node name="DeathPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_mrnwj")
+
+[node name="GiveUpPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("7_h4efd")
 
 [connection signal="body_entered" from="Sight" to="." method="_on_sight_entered"]
 [connection signal="body_exited" from="Sight" to="." method="_on_sight_body_exited"]
