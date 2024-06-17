@@ -133,7 +133,7 @@ _shader_parameters = {
 "noise_texture": SubResource("NoiseTexture2D_w27l2")
 }
 
-[node name="Main2" type="Node3D"]
+[node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fpkof")
