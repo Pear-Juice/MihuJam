@@ -223,7 +223,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -281.514, 9.76041, -153.979)
 curve = ExtResource("12_t5kwk")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm2/Node/Path3D"]
-transform = Transform3D(0.314749, -0.448423, 0.836564, 0.529766, 0.814302, 0.237171, -0.787574, 0.368535, 0.493862, 20.3892, -1.32691, 51.8959)
+transform = Transform3D(0.314749, -0.448422, 0.836564, 0.529766, 0.814302, 0.237171, -0.787574, 0.368535, 0.493862, 20.3892, -1.32691, 51.8959)
 progress = 300.0
 
 [node name="Worm3" parent="Sharks" instance=ExtResource("5_miws6")]

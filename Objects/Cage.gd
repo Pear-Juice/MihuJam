@@ -42,7 +42,7 @@ func _on_door_on_close():
 		player_is_safe = true
 		player_reached_safety.emit()
 	
-	if num_shark_in_cage == 4:
+	if num_shark_in_cage == 1:
 		leave()
 	if treasure_in_cage:
 		leave()
