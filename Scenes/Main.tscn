@@ -236,7 +236,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -281.514, -9.20706, -153.979)
 curve = ExtResource("12_t5kwk")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm3/Node/Path3D"]
-transform = Transform3D(-0.524523, 0.0777874, -0.847824, -0.33545, 0.896378, 0.289773, 0.782518, 0.4364, -0.444078, 88.4426, 35.7232, -41.7957)
+transform = Transform3D(-0.524527, 0.0777642, -0.847824, -0.33549, 0.896363, 0.289773, 0.782499, 0.436435, -0.444078, 88.4426, 35.7232, -41.7957)
 progress = 650.0
 
 [node name="Worm4" parent="Sharks" instance=ExtResource("5_miws6")]
@@ -274,7 +274,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -257.243, -100.591, 219.147)
 curve = ExtResource("13_qn1uv")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm6/Node/Path3D"]
-transform = Transform3D(-0.0136326, -0.513071, 0.858228, 0.980773, -0.173931, -0.0884007, 0.19463, 0.840531, 0.50558, 101.313, -17.5733, -41.9014)
+transform = Transform3D(-0.0136325, -0.513071, 0.858228, 0.980773, -0.173931, -0.0884007, 0.19463, 0.840531, 0.50558, 101.313, -17.5733, -41.9014)
 progress = 741.2
 
 [node name="Shark Targets" type="Node" parent="Sharks"]
