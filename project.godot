@@ -128,3 +128,7 @@ Dash={
 3d_physics/layer_1="Player"
 3d_physics/layer_2="Item"
 3d_physics/layer_3="Environment"
+
+[rendering]
+
+textures/vram_compression/import_s3tc_bptc=true

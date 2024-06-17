@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://sngh1vfj0k0r" path="res://Objects/Floating.tscn" id="2_ngd6g"]
 [ext_resource type="PackedScene" uid="uid://cey88crit360e" path="res://assets/props/oxygentank.blend" id="3_8sas4"]
 [ext_resource type="PackedScene" uid="uid://c44jfgfdq7ci2" path="res://Objects/Item Light.tscn" id="4_3o7cg"]
-[ext_resource type="AudioStream" uid="uid://dqg4uqsf7ku0t" path="res://assets/Audio/smoke-machine-spray-1-185120.mp3" id="5_0auol"]
+[ext_resource type="AudioStream" path="res://assets/Audio/smoke-machine-spray-1-185120.mp3" id="5_0auol"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_bdptf"]
 
