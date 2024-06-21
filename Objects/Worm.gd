@@ -168,3 +168,19 @@ func _on_awareness_body_entered(body):
 func _on_awareness_body_exited(body):
 	if body is Player:
 		aware_of_player = false
+
+func _process(delta):
+	if Player.I.global_position.distance_to(global_position) > 100:
+		disable()
+	else:
+		enable()
+
+func disable():
+	is_targeting = false
+	for child in get_children():
+		child.process_mode = Node.PROCESS_MODE_DISABLED
+		
+func enable():
+	is_targeting = true
+	for child in get_children():
+		child.process_mode = Node.PROCESS_MODE_INHERIT

@@ -1,14 +1,14 @@
-[gd_scene load_steps=28 format=3 uid="uid://cb7tmni4jkgpd"]
+[gd_scene load_steps=21 format=3 uid="uid://cb7tmni4jkgpd"]
 
 [ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
 [ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_e4jod"]
-[ext_resource type="Texture2D" uid="uid://2att1gj6iwh2" path="res://assets/images/bubble.svg" id="4_hn4lp"]
 [ext_resource type="PackedScene" uid="uid://dqb7y38rjiupt" path="res://Objects/Worm.tscn" id="5_miws6"]
 [ext_resource type="PackedScene" uid="uid://c1mt5hokcdfjd" path="res://Objects/Cage.tscn" id="5_w6t3y"]
 [ext_resource type="Terrain3DStorage" uid="uid://bykcc7ajvm2fd" path="res://Terrain/Environment.res" id="6_a2hpm"]
 [ext_resource type="Terrain3DTextureList" uid="uid://bx522sn62k7ec" path="res://Terrain/Environment Textures.tres" id="6_h7bom"]
 [ext_resource type="Curve3D" uid="uid://imkpslbb67gs" path="res://Shark Paths/Pillar area.tres" id="12_t5kwk"]
 [ext_resource type="Curve3D" uid="uid://du3eoq8qpkrkd" path="res://Shark Paths/Sand Area.tres" id="13_qn1uv"]
+[ext_resource type="PackedScene" uid="uid://cadm2jh85ri6k" path="res://Objects/Vent.tscn" id="13_rm0tp"]
 [ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight.tscn" id="14_saoey"]
 [ext_resource type="PackedScene" uid="uid://bxd0pplnyh5yl" path="res://Objects/Oxygen Tank.tscn" id="15_yk8in"]
 [ext_resource type="PackedScene" uid="uid://bwqs4xjt6t0dv" path="res://Objects/Knife.tscn" id="16_mxtw6"]
@@ -30,48 +30,6 @@ fog_light_color = Color(0, 0, 0.101961, 1)
 fog_density = 0.0275
 volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.0431373, 0, 0.337255, 1)
-
-[sub_resource type="Curve" id="Curve_s2hxw"]
-_data = [Vector2(0, 0.0193548), 0.0, 8.48065, 0, 0, Vector2(0.3159, 1), 0.0, 0.0, 0, 0, Vector2(0.89749, 0.851613), -1.09804, -1.09804, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="CurveTexture" id="CurveTexture_pmmli"]
-curve = SubResource("Curve_s2hxw")
-
-[sub_resource type="Curve" id="Curve_a4ahb"]
-_data = [Vector2(0, 0.178197), 0.0, 0.0, 0, 0, Vector2(1, 0.181298), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_r8bhc"]
-curve = SubResource("Curve_a4ahb")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2ty6m"]
-emission_shape_scale = Vector3(1, 0, 1)
-emission_shape = 3
-emission_box_extents = Vector3(15, 1, 15)
-direction = Vector3(0, 0, 0)
-gravity = Vector3(0, 0.5, 0)
-scale_min = 0.0
-alpha_curve = SubResource("CurveTexture_pmmli")
-turbulence_enabled = true
-turbulence_influence_over_life = SubResource("CurveTexture_r8bhc")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cctew"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-depth_draw_mode = 1
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("4_hn4lp")
-disable_receive_shadows = true
-billboard_mode = 1
-distance_fade_mode = 1
-distance_fade_max_distance = 1.0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_3cvgp"]
-material = SubResource("StandardMaterial3D_cctew")
-size = Vector2(0.5, 0.5)
-orientation = 2
 
 [sub_resource type="Gradient" id="Gradient_j43ds"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -116,16 +74,6 @@ environment = SubResource("Environment_ygvgb")
 
 [node name="Player" parent="." instance=ExtResource("2_6dpmj")]
 transform = Transform3D(-0.959191, 0, -0.28276, 0, 1, 0, 0.28276, 0, -0.959191, -1.284, 56.2332, -0.01)
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.1308, 0)
-amount = 100
-lifetime = 20.0
-preprocess = 5.0
-randomness = 1.0
-visibility_aabb = AABB(-31.2538, -1.00001, -24.0354, 63.9678, 54.6824, 63.2687)
-process_material = SubResource("ParticleProcessMaterial_2ty6m")
-draw_pass_1 = SubResource("PlaneMesh_3cvgp")
 
 [node name="Cage" parent="." instance=ExtResource("5_w6t3y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0097484, 57.5157, -0.00109595)
@@ -183,10 +131,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -252.695, -93.585, 93.9712)
 [node name="Flashlight4" parent="Items" instance=ExtResource("14_saoey")]
 transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -278.698, -71.9957, 17.8948)
 
+[node name="Knife4" parent="Items" instance=ExtResource("16_mxtw6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0716293, 56, -1.09009)
+
 [node name="Sharks" type="Node" parent="."]
 
 [node name="Shark" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("2_e4jod")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 64.2081, -9.39109)
+transform = Transform3D(0.309283, 0, -0.95097, 0, 1, 0, 0.95097, 0, 0.309283, 0, 58.2794, 17.3071)
 home_obj = NodePath("../../Cage")
 
 [node name="Shark2" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("2_e4jod")]
@@ -198,8 +149,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.499, 35.8048, -138.398)
 home_obj = NodePath("../Shark Targets/Shark 3 Circle Point")
 
 [node name="Shark4" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("2_e4jod")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.60612, 56.6175, 22.585)
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 16.4626, 23.6821, -0.0587006)
 home_obj = NodePath("../Shark Targets/Shark 4 Circle Point")
+
+[node name="Shark5" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("2_e4jod")]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.50657, 55.0267, -36.1569)
+home_obj = NodePath("../../Cage")
+target_angle = 0
+initial_state = "Patrol"
+approach_amp = 15.0
 
 [node name="Worm" parent="Sharks" instance=ExtResource("5_miws6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -299.257, -16.2552, -185.653)
@@ -223,7 +182,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -281.514, 9.76041, -153.979)
 curve = ExtResource("12_t5kwk")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm2/Node/Path3D"]
-transform = Transform3D(0.314749, -0.448422, 0.836564, 0.529766, 0.814302, 0.237171, -0.787574, 0.368535, 0.493862, 20.3892, -1.32691, 51.8959)
+transform = Transform3D(0.314749, -0.448421, 0.836564, 0.529766, 0.8143, 0.237171, -0.787574, 0.368534, 0.493862, 20.3892, -1.32691, 51.8959)
 progress = 300.0
 
 [node name="Worm3" parent="Sharks" instance=ExtResource("5_miws6")]
@@ -287,3 +246,46 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.0566, 35.9145, -135.526)
 
 [node name="Shark 4 Circle Point" type="Node3D" parent="Sharks/Shark Targets"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.91986, 18.0665, -6.21861)
+
+[node name="Vents" type="Node" parent="."]
+
+[node name="Vent" parent="Vents" instance=ExtResource("13_rm0tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.3792, 39.1366, -171.915)
+light_height = 17.0
+light_fog_energy = 150
+partical_lifetime = 5.0
+turbulence_stength = 0.03
+
+[node name="Vent2" parent="Vents" instance=ExtResource("13_rm0tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -119.396, 30.5933, -163.54)
+light_height = 30.0
+partical_lifetime = 15.0
+turbulence_stength = 0.001
+
+[node name="Vent3" parent="Vents" instance=ExtResource("13_rm0tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -224.521, -7.8638, -163.351)
+turbulence_stength = 0.03
+
+[node name="Vent4" parent="Vents" instance=ExtResource("13_rm0tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -235.485, -8.18923, -153.054)
+turbulence_stength = 0.03
+
+[node name="Vent5" parent="Vents" instance=ExtResource("13_rm0tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -268.246, -29.7604, -105.632)
+light_height = 25.0
+turbulence_stength = 0.03
+
+[node name="Vent6" parent="Vents" instance=ExtResource("13_rm0tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -341.278, -65.9009, -35.9308)
+light_height = 25.0
+turbulence_stength = 0.03
+
+[node name="Vent7" parent="Vents" instance=ExtResource("13_rm0tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -333.388, -65.9009, -16.6264)
+light_height = 25.0
+turbulence_stength = 0.03
+
+[node name="Vent8" parent="Vents" instance=ExtResource("13_rm0tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.209, -12.8743, -82.5247)
+light_height = 25.0
+turbulence_stength = 0.03

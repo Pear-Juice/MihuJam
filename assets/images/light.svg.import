@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2att1gj6iwh2"
-path.s3tc="res://.godot/imported/bubble.svg-5cccfbbeb25c0ee07c3a37864c40635b.s3tc.ctex"
+uid="uid://dqv72d0d0ktl5"
+path.s3tc="res://.godot/imported/light.svg-4cb79ec7af5bcc42dcc3b6d5b33d922c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/images/bubble.svg"
-dest_files=["res://.godot/imported/bubble.svg-5cccfbbeb25c0ee07c3a37864c40635b.s3tc.ctex"]
+source_file="res://assets/images/light.svg"
+dest_files=["res://.godot/imported/light.svg-4cb79ec7af5bcc42dcc3b6d5b33d922c.s3tc.ctex"]
 
 [params]
 
