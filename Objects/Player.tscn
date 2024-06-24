@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bpvsyyc4g8scg"]
+[gd_scene load_steps=45 format=3 uid="uid://bpvsyyc4g8scg"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_2n4qn"]
 [ext_resource type="Script" path="res://Scripts/EmptyObject.gd" id="2_5li10"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://b8klgau7ibdm3" path="res://assets/Audio/GJ Atmospheric Track 3.mp3" id="15_ht3t6"]
 [ext_resource type="AudioStream" uid="uid://vn415482wblq" path="res://assets/Audio/GJ Atmospheric Track 4.mp3" id="16_h1mlc"]
 [ext_resource type="AudioStream" uid="uid://btmnp0hefy3ad" path="res://assets/Audio/GJ Atmospheric Track 5.mp3" id="17_vdinq"]
+[ext_resource type="Texture2D" uid="uid://2att1gj6iwh2" path="res://assets/images/d-bubble.svg" id="18_ahuq5"]
 
 [sub_resource type="Curve" id="Curve_qywf0"]
 min_value = 10.0
@@ -115,6 +116,48 @@ stream_0/weight = 1.0
 stream_1/stream = ExtResource("16_h1mlc")
 stream_1/weight = 1.0
 
+[sub_resource type="Curve" id="Curve_vqiq0"]
+_data = [Vector2(0, 0.0193548), 0.0, 8.48065, 0, 0, Vector2(0.3159, 1), 0.0, 0.0, 0, 0, Vector2(0.89749, 0.851613), -1.09804, -1.09804, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_pmmli"]
+curve = SubResource("Curve_vqiq0")
+
+[sub_resource type="Curve" id="Curve_cqrvo"]
+_data = [Vector2(0, 0.178197), 0.0, 0.0, 0, 0, Vector2(1, 0.181298), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r8bhc"]
+curve = SubResource("Curve_cqrvo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y81ll"]
+emission_shape_scale = Vector3(1, 0, 1)
+emission_shape = 3
+emission_box_extents = Vector3(15, 1, 15)
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0.5, 0)
+scale_min = 0.0
+alpha_curve = SubResource("CurveTexture_pmmli")
+turbulence_enabled = true
+turbulence_influence_over_life = SubResource("CurveTexture_r8bhc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cctew"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+depth_draw_mode = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("18_ahuq5")
+disable_receive_shadows = true
+billboard_mode = 1
+distance_fade_mode = 1
+distance_fade_max_distance = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hbxhj"]
+material = SubResource("StandardMaterial3D_cctew")
+size = Vector2(0.5, 0.5)
+orientation = 2
+
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.948671, 0)
 collision_layer = 5
@@ -142,7 +185,7 @@ current = true
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
 transform = Transform3D(0.333, 1.49012e-08, -2.169e-16, 0, -4.37114e-08, -0.333, -4.9621e-09, 1, -1.45559e-08, 0, 0, 0)
 target_position = Vector3(0, -4, 0)
-collision_mask = 14
+collision_mask = 15
 debug_shape_custom_color = Color(1, 0, 1, 1)
 
 [node name="Left Hand" type="Node3D" parent="Camera3D"]
@@ -214,7 +257,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Panel2" type="Panel" parent="Control/CenterContainer"]
-custom_minimum_size = Vector2(3, 3)
+custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_w3j15")
@@ -294,3 +337,13 @@ stream = SubResource("AudioStreamRandomizer_hkhvi")
 [node name="EndPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_vdinq")
 volume_db = -40.0
+
+[node name="BubbleSurround" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.1308, 0)
+amount = 100
+lifetime = 20.0
+preprocess = 5.0
+randomness = 1.0
+visibility_aabb = AABB(-31.2538, -1.00001, -24.0354, 63.9678, 54.6824, 63.2687)
+process_material = SubResource("ParticleProcessMaterial_y81ll")
+draw_pass_1 = SubResource("PlaneMesh_hbxhj")

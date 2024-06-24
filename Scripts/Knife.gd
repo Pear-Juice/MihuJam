@@ -8,8 +8,11 @@ func _ready():
 	raycast = get_node("/root/Main/Player/Camera3D/RayCast3D")
 
 func OnItemUse():
+	print("use knife")
 	var hit = raycast.get_collider() as Node3D
-	if hit!= null && (hit.name.contains("Shark") || hit.name.contains("Worm")):
+	if hit:
+		print(hit.name)
+	if hit && (hit.name.contains("Shark") || hit.name.contains("Worm")):
 		hit.bonk()
 		
 	var tween = get_tree().create_tween().tween_property(knife_model, "position:z", -1,0.1)

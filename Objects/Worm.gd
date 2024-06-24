@@ -15,6 +15,7 @@ var target : Vector3
 var lerp_target : Vector3
 var state_m : StateMachine
 
+var turn_lerp_multiplier = 0.5
 var lerp_multiplier = 3.5
 
 var aware_of_player : bool
@@ -33,6 +34,8 @@ var path : Path3D
 var path_follower : PathFollow3D
 
 @export var give_up_timelimit : int
+
+@onready var animator := $"Body/AnimationPlayer"
 
 func _ready():
 	if find_child("Path3D"):
@@ -67,11 +70,17 @@ func spawn():
 	
 func _physics_process(delta):
 	if is_targeting:
-		lerp_target = lerp_target.slerp(target, delta * lerp_multiplier)
+		lerp_target = lerp_target.lerp(target, delta * lerp_multiplier)
 		$Target.global_position = lerp_target
 		
 		if global_position.distance_to(Player.I.global_position) > 2:
-			look_at(lerp_target)
+			#look_at(lerp_target)
+			if global_position != lerp_target:
+				var desired_rot = transform.looking_at(lerp_target, Vector3.UP).basis.get_rotation_quaternion()
+				var current_rot = transform.basis.get_rotation_quaternion()
+				quaternion = current_rot.slerp(desired_rot, delta * turn_lerp_multiplier)
+			
+			
 		velocity = global_position.direction_to(target) * current_speed
 		
 		move_and_slide()
@@ -86,7 +95,7 @@ func patrol_state_run(delta):
 		aware_length += delta
 	
 	if global_position.distance_to(target) < min_retarget_dist:
-		target = get_next_target_loc()
+		create_tween().tween_method(func(val): target = val, target, get_next_target_loc(), 0.3)
 
 func get_next_target_loc(offset := 0):
 	path_follower.progress += 5 + offset
@@ -168,3 +177,23 @@ func _on_awareness_body_entered(body):
 func _on_awareness_body_exited(body):
 	if body is Player:
 		aware_of_player = false
+
+func _process(delta):
+	if Player.I.global_position.distance_to(global_position) > 100:
+		disable()
+	else:
+		enable()
+
+func disable():
+	animator.stop()
+	
+	is_targeting = false
+	for child in get_children():
+		child.process_mode = Node.PROCESS_MODE_DISABLED
+		
+func enable():
+	animator.play("Swim")
+	
+	is_targeting = true
+	for child in get_children():
+		child.process_mode = Node.PROCESS_MODE_INHERIT

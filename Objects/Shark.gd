@@ -3,49 +3,58 @@ class_name Shark
 extends CharacterBody3D
 
 @export var home_obj : Node3D
+@export var target_angle := 180
 
 @export var min_retarget_dist : float
+@export var health = 3
+@export var initial_state := "Circle"
 
+var state_length_mod : int #how  long patrol or circle should last
+@export_group("Patrol")
 @export var patrol_speed : float
 @export var min_patrol_distance : int
 @export var patrol_length_sec : int
+
+@export_group("Circle")
 @export var circle_speed : float
 @export var min_circle_distance : int
 @export var circle_length_sec : int
-var circle_close_dist : float
-var circle_far_dist : float
+
+@export_group("Chase and Run")
 @export var chase_speed : float
 @export var run_speed : float
+@export var give_up_timelimit : int
 var current_speed : float
 
+#movement
 var is_targeting : bool
 var target : Vector3
 var lerp_target : Vector3
-var target_angle := 180
 var state_m : StateMachine
-var state_length_mod : int
-
 var lerp_multiplier = 3.5
 
-var aware_of_player : bool
-var aware_length : float
-var player_in_sight : bool
+#awareness
 
-var health = 3
-
-@export var aware_length_threshold : float
-
+@export_group("Wiggle")
 @export var wiggle_curve : Curve
 @export var wiggle_amp : float
 @export var wiggle_speed : int
 
+@export_group("Approach")
 @export var approach_curve : Curve
 @export var approach_amp : float
 @export var approach_speed : float
 
-@export var give_up_timelimit : int
+@export_group("Awareness")
+@export var aware_length_threshold : float
+var aware_of_player : bool
+var aware_length : float
+var player_in_sight : bool
+
+var shark_animator : AnimationPlayer
 
 func _ready():
+	shark_animator = $"shark/AnimationPlayer"
 	state_m = StateMachine.create(self)
 	
 	state_m.add_state("Patrol", patrol_state, patrol_state_run)
@@ -59,10 +68,12 @@ func _ready():
 	
 func spawn():
 	is_targeting = true
-	target_angle = 180
-	target = get_position_away_from_position(home_obj.global_position, target_angle, min_circle_distance)
+	var wiggle_distance = (wiggle_curve.sample((target_angle * wiggle_speed % 360) / 360.0) * wiggle_amp)
+	var approach_distance = (approach_curve.sample((int(target_angle * approach_speed) % 360) / 360.0) * approach_amp)
+		
+	target = get_position_away_from_position(home_obj.global_position, target_angle, wiggle_distance + approach_distance + min_patrol_distance)
 	global_position = target
-	state_m.transfer("Circle")
+	state_m.transfer(initial_state)
 	
 func _physics_process(delta):
 	if is_targeting:
@@ -75,6 +86,7 @@ func _physics_process(delta):
 		move_and_slide()
 
 func patrol_state():
+	shark_animator.play("swim")
 	current_speed = patrol_speed
 	state_length_mod = randi_range(-20,20)
 	
@@ -96,7 +108,7 @@ func patrol_state_run(delta):
 		target = get_position_away_from_position(home_obj.global_position, target_angle, wiggle_distance + approach_distance + min_patrol_distance)
 
 func circle_state():
-	
+	shark_animator.play("swim")
 	current_speed = circle_speed
 	state_length_mod = randi_range(-20,20)
 	
@@ -110,7 +122,7 @@ func circle_state_run(delta):
 		aware_length += delta
 	
 	if global_position.distance_to(target) < min_retarget_dist:
-		target_angle += 2
+		target_angle += 5
 		
 		var wiggle_distance = (wiggle_curve.sample((target_angle * wiggle_speed % 360) / 360.0) * wiggle_amp)
 		var approach_distance = (approach_curve.sample((int(target_angle * approach_speed) % 360) / 360.0) * approach_amp)
@@ -118,6 +130,7 @@ func circle_state_run(delta):
 		target = get_position_away_from_position(home_obj.global_position, target_angle, wiggle_distance + approach_distance + min_circle_distance)
 	
 func chase_state():
+	shark_animator.play("eat")
 	current_speed = chase_speed
 	
 func chase_state_run(delta):
@@ -142,6 +155,7 @@ func ram_state():
 	state_m.transfer("Circle")
 	
 func run_state():
+	shark_animator.play("swim")
 	current_speed = run_speed
 	
 	target = get_position_away_from_position(home_obj.global_position, target_angle + 70, 30)
@@ -174,9 +188,12 @@ func player_escaped():
 	$GiveUpPlayer.play()
 	
 func kill():
-	get_tree().create_tween().tween_method(func(value): rotation_degrees.z = value, 0, 180, 0.5)
+	shark_animator.play("die")
+	#get_tree().create_tween().tween_method(func(value): rotation_degrees.z = value, 0, 180, 0.5)
+	state_m.transfer("")
+	await shark_animator.animation_finished
 	process_mode = Node.PROCESS_MODE_DISABLED
-	print("Kill")
+	
 	$DeathPlayer.play()
 
 func bonk():
@@ -201,3 +218,19 @@ func _on_awareness_body_entered(body):
 func _on_awareness_body_exited(body):
 	if body is Player:
 		aware_of_player = false
+
+func _process(delta):
+	if Player.I.global_position.distance_to(global_position) > 100:
+		disable()
+	else:
+		enable()
+
+func disable():
+	is_targeting = false
+	for child in get_children():
+		child.process_mode = Node.PROCESS_MODE_DISABLED
+		
+func enable():
+	is_targeting = true
+	for child in get_children():
+		child.process_mode = Node.PROCESS_MODE_INHERIT

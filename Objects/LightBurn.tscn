@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://c57ges241pq6q"]
+
+[ext_resource type="Script" path="res://Scripts/LightBurn.gd" id="1_7c08n"]
+[ext_resource type="PackedScene" uid="uid://cu4f02qjo8wad" path="res://assets/props/Environment/LightBurn.blend" id="1_vwuu7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b7fbe"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0, 0, 0, 1)
+metallic = 1.0
+emission_enabled = true
+emission = Color(0.877555, 0, 0.000248162, 1)
+emission_energy_multiplier = 100.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_nedgj"]
+material = SubResource("StandardMaterial3D_b7fbe")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_akxjn"]
+size = Vector3(27.5784, 6.82983, 7.83228)
+
+[node name="LightBurn" type="Node3D"]
+script = ExtResource("1_7c08n")
+search_color = Color(0.784624, 0, 0.225043, 1)
+pull_color = Color(0.468478, 0.00244735, 0.775375, 1)
+
+[node name="Model" parent="." instance=ExtResource("1_vwuu7")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -0.501506, 0.03417, 0.661259)
+
+[node name="Tongue" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36177, 0.0641394, -0.0187611)
+mesh = SubResource("SphereMesh_nedgj")
+
+[node name="Light" type="SpotLight3D" parent="Tongue"]
+unique_name_in_owner = true
+transform = Transform3D(0.689702, -0.0128096, -0.72398, -0.411681, 0.815585, -0.40662, 0.595676, 0.578495, 0.557237, 0, 0, 0)
+light_color = Color(0.884407, 0, 0.154941, 1)
+light_energy = 100.0
+light_volumetric_fog_energy = 50.0
+spot_range = 60.405
+spot_angle = 27.56
+spot_angle_attenuation = 0.0220971
+
+[node name="Sight" type="Area3D" parent="Tongue"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tongue/Sight"]
+transform = Transform3D(0.721316, -0.478302, 0.500929, 0.416187, 0.877439, 0.238515, -0.553617, 0.0364354, 0.831974, 9.58573, 5.5308, -7.35714)
+shape = SubResource("BoxShape3D_akxjn")
+
+[connection signal="body_entered" from="Tongue/Sight" to="." method="_on_sight_body_entered"]
+[connection signal="body_exited" from="Tongue/Sight" to="." method="_on_sight_body_exited"]

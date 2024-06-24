@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://cadm2jh85ri6k"]
+
+[ext_resource type="Texture2D" uid="uid://dqv72d0d0ktl5" path="res://assets/images/light.svg" id="1_31qul"]
+[ext_resource type="Script" path="res://Scripts/Vent.gd" id="1_462vr"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lumr5"]
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+turbulence_enabled = true
+turbulence_noise_scale = 1.0
+turbulence_influence_min = 0.001
+turbulence_influence_max = 0.03
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xirsj"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.293832, 0.671537, 0.731882, 1)
+albedo_texture = ExtResource("1_31qul")
+billboard_mode = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_q1rya"]
+lightmap_size_hint = Vector2i(4, 4)
+material = SubResource("StandardMaterial3D_xirsj")
+size = Vector2(0.5, 0.5)
+orientation = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tewju"]
+size = Vector3(2, 9.978, 2)
+
+[node name="Vent" type="Node3D"]
+script = ExtResource("1_462vr")
+air_fill_rate = 60.0
+off_range = Vector2(5, 15)
+on_range = Vector2(3, 5)
+
+[node name="Partical" type="GPUParticles3D" parent="."]
+unique_name_in_owner = true
+amount = 100
+lifetime = 3.0
+visibility_aabb = AABB(-10.1377, -34.1868, -9.7378, 20.2754, 68.3736, 19.4756)
+process_material = SubResource("ParticleProcessMaterial_lumr5")
+draw_pass_1 = SubResource("PlaneMesh_q1rya")
+
+[node name="Light" type="SpotLight3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+light_color = Color(1, 0.054902, 0.627451, 1)
+light_energy = 16.0
+light_volumetric_fog_energy = 50.0
+spot_range = 14.0
+spot_angle = 33.0
+
+[node name="Bubbles" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bubbles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.48901, 0)
+shape = SubResource("BoxShape3D_tewju")
+
+[connection signal="body_entered" from="Bubbles" to="." method="_on_bubbles_body_entered"]
+[connection signal="body_exited" from="Bubbles" to="." method="_on_bubbles_body_exited"]

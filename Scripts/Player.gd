@@ -64,10 +64,13 @@ func _ready():
 	
 	spawn()
 	
-	await get_tree().create_timer(randi_range(15, 30)).timeout
+	await get_tree().create_timer(0.1).timeout
+	cam.rotation = Vector3()
+	
+	await get_tree().create_timer(randi_range(15, 120)).timeout
 	while true:
 		music_player.play()
-		await get_tree().create_timer(randi_range(45, 120)).timeout
+		await get_tree().create_timer(randi_range(120, 180)).timeout
 	
 
 func _physics_process(delta):
@@ -80,10 +83,8 @@ func _physics_process(delta):
 	var desired_velocity = currentSpeed * dir_vector
 	
 	if input_dir != Vector2() || verticalInput != 0:
-		print("hi")
 		velocity = lerp(velocity, desired_velocity, 0.1)
 	else:
-		print("no")
 		velocity *= .97
 		
 	move_and_slide()
@@ -259,7 +260,13 @@ func ChangeOxygen(amount):
 	
 	if(currentOxygen <= 0) && !is_dead:
 		GameOver()
-		return
+		
+func set_oxygen(amount : float):
+	currentOxygen = min(amount, MaxOxygenTime)
+	oxygenBar.value = currentOxygen
+	
+	if(currentOxygen <= 0) && !is_dead:
+		GameOver()
 
 func GameOver():
 	is_dead = true
@@ -286,7 +293,8 @@ func GameOver():
 func print_text(text_obj : Label, text):
 	for char in text:
 		text_obj.text += char
-		await get_tree().create_timer(0.07).timeout
+		if get_tree():
+			await get_tree().create_timer(0.07).timeout
 
 func spawn():
 	is_dead = false
@@ -311,3 +319,5 @@ func win_game():
 	await tween.finished
 	
 	get_tree().change_scene_to_file("res://Scenes/Credits.tscn")
+	
+	
