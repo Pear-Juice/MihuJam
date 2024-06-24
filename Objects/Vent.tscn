@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cadm2jh85ri6k"]
+[gd_scene load_steps=7 format=3 uid="uid://cadm2jh85ri6k"]
 
 [ext_resource type="Texture2D" uid="uid://dqv72d0d0ktl5" path="res://assets/images/light.svg" id="1_31qul"]
 [ext_resource type="Script" path="res://Scripts/Vent.gd" id="1_462vr"]
@@ -27,9 +27,14 @@ material = SubResource("StandardMaterial3D_xirsj")
 size = Vector2(0.5, 0.5)
 orientation = 2
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_tewju"]
+size = Vector3(2, 9.978, 2)
+
 [node name="Vent" type="Node3D"]
 script = ExtResource("1_462vr")
-turbulence_stength = null
+air_fill_rate = 60.0
+off_range = Vector2(5, 15)
+on_range = Vector2(3, 5)
 
 [node name="Partical" type="GPUParticles3D" parent="."]
 unique_name_in_owner = true
@@ -42,8 +47,17 @@ draw_pass_1 = SubResource("PlaneMesh_q1rya")
 [node name="Light" type="SpotLight3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-light_color = Color(1, 0.056222, 0.628651, 1)
-light_energy = 50.0
+light_color = Color(1, 0.054902, 0.627451, 1)
+light_energy = 16.0
 light_volumetric_fog_energy = 50.0
-spot_range = 13.4347
-spot_angle = 33.1745
+spot_range = 14.0
+spot_angle = 33.0
+
+[node name="Bubbles" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bubbles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.48901, 0)
+shape = SubResource("BoxShape3D_tewju")
+
+[connection signal="body_entered" from="Bubbles" to="." method="_on_bubbles_body_entered"]
+[connection signal="body_exited" from="Bubbles" to="." method="_on_bubbles_body_exited"]

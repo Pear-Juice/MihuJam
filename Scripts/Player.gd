@@ -260,7 +260,13 @@ func ChangeOxygen(amount):
 	
 	if(currentOxygen <= 0) && !is_dead:
 		GameOver()
-		return
+		
+func set_oxygen(amount : float):
+	currentOxygen = min(amount, MaxOxygenTime)
+	oxygenBar.value = currentOxygen
+	
+	if(currentOxygen <= 0) && !is_dead:
+		GameOver()
 
 func GameOver():
 	is_dead = true
@@ -313,3 +319,5 @@ func win_game():
 	await tween.finished
 	
 	get_tree().change_scene_to_file("res://Scenes/Credits.tscn")
+	
+	

@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://clk43wbtpgvki"]
 
-[ext_resource type="Shader" path="res://Detail.gdshader" id="1_huy2u"]
-[ext_resource type="Texture2D" uid="uid://cljg4c3of2hnu" path="res://assets/images/base16.png" id="2_u0k25"]
+[ext_resource type="Shader" path="res://DetailAlbedo.gdshader" id="1_2qyaw"]
+[ext_resource type="Texture2D" uid="uid://bg3ip06c8syql" path="res://assets/props/Textures/shark-tex.png" id="2_8053e"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0ss43"]
 frequency = 0.0895
@@ -11,10 +11,10 @@ noise = SubResource("FastNoiseLite_0ss43")
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_huy2u")
-shader_parameter/base_color = null
-shader_parameter/metalic = 0.8
-shader_parameter/noise_color = Color(0.792157, 0.45098, 0.513726, 1)
-shader_parameter/noise_alpha = 1.0
-shader_parameter/albedo = ExtResource("2_u0k25")
+shader = ExtResource("1_2qyaw")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/metalic = 0.0
+shader_parameter/noise_color = Color(0.475048, 0.222929, 0.274354, 1)
+shader_parameter/noise_alpha = 0.0
+shader_parameter/albedo = ExtResource("2_8053e")
 shader_parameter/noise = SubResource("NoiseTexture2D_jn2bd")
