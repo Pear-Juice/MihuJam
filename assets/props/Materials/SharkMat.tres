@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://clk43wbtpgvki"]
 
-[ext_resource type="Shader" path="res://DetailAlbedo.gdshader" id="1_2qyaw"]
+[ext_resource type="Shader" path="res://Shaders/DetailAlbedo.gdshader" id="1_2qyaw"]
 [ext_resource type="Texture2D" uid="uid://bg3ip06c8syql" path="res://assets/props/Textures/shark-tex.png" id="2_8053e"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0ss43"]

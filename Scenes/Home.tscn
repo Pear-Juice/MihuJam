@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://crpfa464wq7u0"]
 
 [ext_resource type="Theme" uid="uid://db5y4jox5gcwj" path="res://Theme.tres" id="1_85k3b"]
-[ext_resource type="Script" path="res://Scripts/Home.gd" id="2_i1v0y"]
+[ext_resource type="Script" path="res://Scenes/Scripts/Home.gd" id="2_i1v0y"]
 [ext_resource type="Texture2D" uid="uid://b2lsx3g1uj1r0" path="res://Objects/Screenshot 2024-06-16 063102.png" id="3_genjo"]
 
 [node name="Home" type="Control"]

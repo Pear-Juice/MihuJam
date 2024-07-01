@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://bgpdw380lxf1q"]
 
-[ext_resource type="Shader" path="res://DetailAlbedo.gdshader" id="1_ohtu2"]
+[ext_resource type="Shader" path="res://Shaders/DetailAlbedo.gdshader" id="1_ohtu2"]
 [ext_resource type="Texture2D" uid="uid://cljg4c3of2hnu" path="res://assets/images/base16.png" id="2_5y7os"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_codnp"]

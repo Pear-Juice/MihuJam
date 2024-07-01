@@ -1,20 +1,20 @@
 [gd_scene load_steps=23 format=3 uid="uid://cb7tmni4jkgpd"]
 
-[ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player.tscn" id="2_6dpmj"]
-[ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Shark.tscn" id="2_e4jod"]
-[ext_resource type="PackedScene" uid="uid://dqb7y38rjiupt" path="res://Objects/Worm.tscn" id="5_miws6"]
-[ext_resource type="PackedScene" uid="uid://c1mt5hokcdfjd" path="res://Objects/Cage.tscn" id="5_w6t3y"]
+[ext_resource type="PackedScene" uid="uid://bpvsyyc4g8scg" path="res://Objects/Player/Player.tscn" id="1_rb2nt"]
+[ext_resource type="PackedScene" uid="uid://c1mt5hokcdfjd" path="res://Objects/Cage/Cage.tscn" id="2_x4ro7"]
+[ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight/Flashlight.tscn" id="5_cfl2m"]
 [ext_resource type="Terrain3DStorage" uid="uid://bykcc7ajvm2fd" path="res://Terrain/Environment.res" id="6_a2hpm"]
 [ext_resource type="Terrain3DTextureList" uid="uid://bx522sn62k7ec" path="res://Terrain/Environment Textures.tres" id="6_h7bom"]
-[ext_resource type="Curve3D" uid="uid://imkpslbb67gs" path="res://Shark Paths/Pillar area.tres" id="12_t5kwk"]
-[ext_resource type="Curve3D" uid="uid://du3eoq8qpkrkd" path="res://Shark Paths/Sand Area.tres" id="13_qn1uv"]
-[ext_resource type="PackedScene" uid="uid://cadm2jh85ri6k" path="res://Objects/Vent.tscn" id="13_rm0tp"]
+[ext_resource type="PackedScene" uid="uid://bxd0pplnyh5yl" path="res://Objects/OxygenTank/Oxygen Tank.tscn" id="6_qmrod"]
+[ext_resource type="PackedScene" uid="uid://bwqs4xjt6t0dv" path="res://Objects/Knife/Knife.tscn" id="7_5cho4"]
+[ext_resource type="PackedScene" uid="uid://bee72ke1o1401" path="res://Objects/Egg/Chest.tscn" id="8_bv1sr"]
+[ext_resource type="PackedScene" uid="uid://bjf5ynmdqpvgk" path="res://Objects/Creatures/Shark/Shark.tscn" id="9_bc3il"]
+[ext_resource type="PackedScene" uid="uid://dqb7y38rjiupt" path="res://Objects/Creatures/SeaDragon/Worm.tscn" id="10_6bo8y"]
+[ext_resource type="Curve3D" uid="uid://imkpslbb67gs" path="res://Objects/Creatures/Shark Paths/Pillar area.tres" id="11_jsx04"]
+[ext_resource type="Curve3D" uid="uid://du3eoq8qpkrkd" path="res://Objects/Creatures/Shark Paths/Sand Area.tres" id="12_w5bue"]
+[ext_resource type="PackedScene" uid="uid://cadm2jh85ri6k" path="res://Objects/Vent/Vent.tscn" id="13_2bb7j"]
 [ext_resource type="PackedScene" uid="uid://cgs72gqg3lkp4" path="res://assets/props/Environment/Branch1.blend" id="14_0q1wc"]
-[ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight.tscn" id="14_saoey"]
-[ext_resource type="PackedScene" uid="uid://c57ges241pq6q" path="res://Objects/LightBurn.tscn" id="15_p0jda"]
-[ext_resource type="PackedScene" uid="uid://bxd0pplnyh5yl" path="res://Objects/Oxygen Tank.tscn" id="15_yk8in"]
-[ext_resource type="PackedScene" uid="uid://bwqs4xjt6t0dv" path="res://Objects/Knife.tscn" id="16_mxtw6"]
-[ext_resource type="PackedScene" uid="uid://bee72ke1o1401" path="res://Objects/Chest.tscn" id="17_3uxxl"]
+[ext_resource type="PackedScene" uid="uid://c57ges241pq6q" path="res://Objects/Creatures/Tuber/LightBurn.tscn" id="15_v21hl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvpsr"]
 
@@ -74,10 +74,10 @@ _shader_parameters = {
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ygvgb")
 
-[node name="Player" parent="." instance=ExtResource("2_6dpmj")]
-transform = Transform3D(-0.959191, 0, -0.28276, 0, 1, 0, 0.28276, 0, -0.959191, -294.024, -35.8813, 11.146)
+[node name="Player" parent="." instance=ExtResource("1_rb2nt")]
+transform = Transform3D(-0.959191, 0, -0.28276, 0, 1, 0, 0.28276, 0, -0.959191, -0.775287, 58.1155, -1.21292)
 
-[node name="Cage" parent="." instance=ExtResource("5_w6t3y")]
+[node name="Cage" parent="." instance=ExtResource("2_x4ro7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0097484, 57.5157, -0.00109595)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -97,58 +97,58 @@ collision_mask = 15
 
 [node name="Items" type="Node" parent="."]
 
-[node name="Flashlight" parent="Items" instance=ExtResource("14_saoey")]
+[node name="Flashlight" parent="Items" instance=ExtResource("5_cfl2m")]
 transform = Transform3D(-0.500944, -0.173253, -0.847962, -0.0881226, 0.984877, -0.149168, 0.860982, 0, -0.508636, -74.0076, 55.5057, -31.344)
 
-[node name="Oxygen Tank" parent="Items" instance=ExtResource("15_yk8in")]
+[node name="Oxygen Tank" parent="Items" instance=ExtResource("6_qmrod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.7226, 41.0561, -179.318)
 
-[node name="Oxygen Tank2" parent="Items" instance=ExtResource("15_yk8in")]
+[node name="Oxygen Tank2" parent="Items" instance=ExtResource("6_qmrod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.5856, -0.890015, -131.961)
 
-[node name="Flashlight2" parent="Items" instance=ExtResource("14_saoey")]
+[node name="Flashlight2" parent="Items" instance=ExtResource("5_cfl2m")]
 transform = Transform3D(-0.866025, 0, 0.5, -0.110093, 0.975458, -0.190687, -0.487729, -0.220187, -0.844771, -51.2114, 32.8262, -84.2998)
 
-[node name="Knife" parent="Items" instance=ExtResource("16_mxtw6")]
+[node name="Knife" parent="Items" instance=ExtResource("7_5cho4")]
 transform = Transform3D(1, 0, 0, 0, -0.970426, 0.241397, 0, -0.241397, -0.970426, -119.668, 30.1887, -163.735)
 
-[node name="Knife2" parent="Items" instance=ExtResource("16_mxtw6")]
+[node name="Knife2" parent="Items" instance=ExtResource("7_5cho4")]
 transform = Transform3D(0.888305, 0.445673, -0.110863, 0.459254, -0.862034, 0.214434, 0, -0.241397, -0.970426, -240.793, 58.7196, -189.473)
 
-[node name="Flashlight3" parent="Items" instance=ExtResource("14_saoey")]
+[node name="Flashlight3" parent="Items" instance=ExtResource("5_cfl2m")]
 transform = Transform3D(0.100705, -0.0778686, 0.991864, -0.0534615, -0.995916, -0.0727587, 0.993479, -0.0456994, -0.104457, -209.792, 1.90735e-06, -164.682)
 
-[node name="Oxygen Tank3" parent="Items" instance=ExtResource("15_yk8in")]
+[node name="Oxygen Tank3" parent="Items" instance=ExtResource("6_qmrod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -253.508, -15.887, -125.443)
 
-[node name="Egg" parent="Items" instance=ExtResource("17_3uxxl")]
+[node name="Egg" parent="Items" instance=ExtResource("8_bv1sr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -552, 35.7667, 174.807)
 
-[node name="Knife3" parent="Items" instance=ExtResource("16_mxtw6")]
+[node name="Knife3" parent="Items" instance=ExtResource("7_5cho4")]
 transform = Transform3D(-0.953528, -0.301305, 0, 0.301305, -0.953528, 0, 0, 0, 1, -338.845, -47.7911, -32.6237)
 
-[node name="Knife4" parent="Items" instance=ExtResource("16_mxtw6")]
+[node name="Knife4" parent="Items" instance=ExtResource("7_5cho4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0716293, 56, -1.09009)
 
 [node name="Sharks" type="Node" parent="."]
 
-[node name="Shark" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("2_e4jod")]
+[node name="Shark" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("9_bc3il")]
 transform = Transform3D(0.309283, 0, -0.95097, 0, 1, 0, 0.95097, 0, 0.309283, 0, 58.2794, 17.3071)
 home_obj = NodePath("../../Cage")
 
-[node name="Shark2" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("2_e4jod")]
+[node name="Shark2" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("9_bc3il")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.6302, 88.5995, -45.0487)
 home_obj = NodePath("../Shark Targets/Shark 2 Circle Point")
 
-[node name="Shark3" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("2_e4jod")]
+[node name="Shark3" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("9_bc3il")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.499, 35.8048, -138.398)
 home_obj = NodePath("../Shark Targets/Shark 3 Circle Point")
 
-[node name="Shark4" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("2_e4jod")]
+[node name="Shark4" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("9_bc3il")]
 transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 16.4626, 23.6821, -0.0587006)
 home_obj = NodePath("../Shark Targets/Shark 4 Circle Point")
 
-[node name="Shark5" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("2_e4jod")]
+[node name="Shark5" parent="Sharks" node_paths=PackedStringArray("home_obj") instance=ExtResource("9_bc3il")]
 process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.50657, 55.0267, -36.1569)
 home_obj = NodePath("../../Cage")
@@ -156,77 +156,77 @@ target_angle = 0
 initial_state = "Patrol"
 approach_amp = 15.0
 
-[node name="Worm" parent="Sharks" instance=ExtResource("5_miws6")]
+[node name="Worm" parent="Sharks" instance=ExtResource("10_6bo8y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -299.257, -16.2552, -185.653)
 
 [node name="Node" type="Node" parent="Sharks/Worm"]
 
 [node name="Path3D" type="Path3D" parent="Sharks/Worm/Node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -281.514, 17.3152, -153.979)
-curve = ExtResource("12_t5kwk")
+curve = ExtResource("11_jsx04")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm/Node/Path3D"]
 transform = Transform3D(-0.812692, 0.0101658, 0.582596, -9.31318e-10, 0.999845, -0.0174463, -0.582686, -0.0141785, -0.812567, -19.6587, -14.8826, -28.4297)
 
-[node name="Worm2" parent="Sharks" instance=ExtResource("5_miws6")]
+[node name="Worm2" parent="Sharks" instance=ExtResource("10_6bo8y")]
 transform = Transform3D(0.789695, 0, 0.6135, 0, 1, 0, -0.6135, 0, 0.789695, -253.546, -0.700621, -98.4181)
 
 [node name="Node" type="Node" parent="Sharks/Worm2"]
 
 [node name="Path3D" type="Path3D" parent="Sharks/Worm2/Node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -281.514, 9.76041, -153.979)
-curve = ExtResource("12_t5kwk")
+curve = ExtResource("11_jsx04")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm2/Node/Path3D"]
-transform = Transform3D(0.314749, -0.448421, 0.836564, 0.529766, 0.814299, 0.237171, -0.787574, 0.368534, 0.493862, 20.3892, -1.32691, 51.8959)
+transform = Transform3D(0.314749, -0.44842, 0.836564, 0.529766, 0.814298, 0.237171, -0.787574, 0.368533, 0.493862, 20.3892, -1.32691, 51.8959)
 progress = 300.0
 
-[node name="Worm3" parent="Sharks" instance=ExtResource("5_miws6")]
+[node name="Worm3" parent="Sharks" instance=ExtResource("10_6bo8y")]
 transform = Transform3D(-0.0613097, 0, -0.998119, 0, 1, 0, 0.998119, 0, -0.0613097, -195.467, 37.2737, -198.18)
 
 [node name="Node" type="Node" parent="Sharks/Worm3"]
 
 [node name="Path3D" type="Path3D" parent="Sharks/Worm3/Node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -281.514, -9.20706, -153.979)
-curve = ExtResource("12_t5kwk")
+curve = ExtResource("11_jsx04")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm3/Node/Path3D"]
 transform = Transform3D(-0.524527, 0.0777642, -0.847824, -0.33549, 0.896363, 0.289773, 0.782499, 0.436435, -0.444078, 88.4426, 35.7232, -41.7957)
 progress = 650.0
 
-[node name="Worm4" parent="Sharks" instance=ExtResource("5_miws6")]
+[node name="Worm4" parent="Sharks" instance=ExtResource("10_6bo8y")]
 transform = Transform3D(-0.0613097, 0, -0.998119, 0, 1, 0, 0.998119, 0, -0.0613097, -252.223, -94.6984, 220.564)
 
 [node name="Node" type="Node" parent="Sharks/Worm4"]
 
 [node name="Path3D" type="Path3D" parent="Sharks/Worm4/Node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -257.243, -100.591, 219.147)
-curve = ExtResource("13_qn1uv")
+curve = ExtResource("12_w5bue")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm4/Node/Path3D"]
 transform = Transform3D(-0.247465, -0.166536, -0.954466, -2.23516e-08, 0.985111, -0.171881, 0.96889, -0.0425349, -0.243781, 5.0468, 9.01786, -0.404449)
 
-[node name="Worm5" parent="Sharks" instance=ExtResource("5_miws6")]
+[node name="Worm5" parent="Sharks" instance=ExtResource("10_6bo8y")]
 transform = Transform3D(-0.0613097, 0, -0.998119, 0, 1, 0, 0.998119, 0, -0.0613097, -43.3522, -94.6984, 191.788)
 
 [node name="Node" type="Node" parent="Sharks/Worm5"]
 
 [node name="Path3D" type="Path3D" parent="Sharks/Worm5/Node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -257.243, -100.591, 219.147)
-curve = ExtResource("13_qn1uv")
+curve = ExtResource("12_w5bue")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm5/Node/Path3D"]
 transform = Transform3D(0.918371, -0.113638, 0.379034, 0.127321, 0.991792, -0.0111413, -0.37466, 0.0584914, 0.925306, 202.525, 10.4423, -60.0661)
 progress = 400.0
 
-[node name="Worm6" parent="Sharks" instance=ExtResource("5_miws6")]
+[node name="Worm6" parent="Sharks" instance=ExtResource("10_6bo8y")]
 transform = Transform3D(-0.111989, 0, 0.993709, 0, 1, 0, -0.993709, 0, -0.111989, -123.195, -120.369, 179.551)
 
 [node name="Node" type="Node" parent="Sharks/Worm6"]
 
 [node name="Path3D" type="Path3D" parent="Sharks/Worm6/Node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -257.243, -100.591, 219.147)
-curve = ExtResource("13_qn1uv")
+curve = ExtResource("12_w5bue")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Sharks/Worm6/Node/Path3D"]
 transform = Transform3D(-0.0136325, -0.513071, 0.858228, 0.980773, -0.173931, -0.0884007, 0.19463, 0.840531, 0.50558, 101.313, -17.5733, -41.9014)
@@ -245,55 +245,55 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.91986, 18.0665, -6.21861)
 
 [node name="Vents" type="Node" parent="."]
 
-[node name="Vent" parent="Vents" instance=ExtResource("13_rm0tp")]
+[node name="Vent" parent="Vents" instance=ExtResource("13_2bb7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.3792, 39.1366, -171.915)
 light_height = 17.0
 light_fog_energy = 150
 partical_lifetime = 5.0
 
-[node name="Vent2" parent="Vents" instance=ExtResource("13_rm0tp")]
+[node name="Vent2" parent="Vents" instance=ExtResource("13_2bb7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -119.396, 30.5933, -163.54)
 light_height = 30.0
 partical_lifetime = 15.0
 turbulence_stength = 0.001
 
-[node name="Vent3" parent="Vents" instance=ExtResource("13_rm0tp")]
+[node name="Vent3" parent="Vents" instance=ExtResource("13_2bb7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -224.521, -7.8638, -163.351)
 
-[node name="Vent4" parent="Vents" instance=ExtResource("13_rm0tp")]
+[node name="Vent4" parent="Vents" instance=ExtResource("13_2bb7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -235.485, -8.18923, -153.054)
 
-[node name="Vent5" parent="Vents" instance=ExtResource("13_rm0tp")]
+[node name="Vent5" parent="Vents" instance=ExtResource("13_2bb7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -268.246, -29.7604, -105.632)
 light_height = 25.0
 
-[node name="Vent6" parent="Vents" instance=ExtResource("13_rm0tp")]
+[node name="Vent6" parent="Vents" instance=ExtResource("13_2bb7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -341.278, -65.9009, -35.9308)
 light_height = 25.0
 
-[node name="Vent7" parent="Vents" instance=ExtResource("13_rm0tp")]
+[node name="Vent7" parent="Vents" instance=ExtResource("13_2bb7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -333.388, -65.9009, -16.6264)
 light_height = 25.0
 
-[node name="Vent8" parent="Vents" instance=ExtResource("13_rm0tp")]
+[node name="Vent8" parent="Vents" instance=ExtResource("13_2bb7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -246.355, -112.166, 63.2215)
 light_height = 25.0
 
-[node name="Vent9" parent="Vents" instance=ExtResource("13_rm0tp")]
+[node name="Vent9" parent="Vents" instance=ExtResource("13_2bb7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.3643, -210.433, -34.7049)
 light_color = Color(0, 0.684053, 0.332196, 1)
 light_height = 100.0
 light_angle = 15.0
 light_fog_energy = 100
 
-[node name="Vent10" parent="Vents" instance=ExtResource("13_rm0tp")]
+[node name="Vent10" parent="Vents" instance=ExtResource("13_2bb7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.5822, -200.954, -34.7118)
 light_color = Color(0, 0.684053, 0.332196, 1)
 light_height = 100.0
 light_angle = 15.0
 light_fog_energy = 100
 
-[node name="Vent11" parent="Vents" instance=ExtResource("13_rm0tp")]
+[node name="Vent11" parent="Vents" instance=ExtResource("13_2bb7j")]
 transform = Transform3D(4.27993, 0, 0, 0, 4.27993, 0, 0, 0, 4.27993, -346.377, -109.608, 97.347)
 light_height = 50.0
 light_energy = 30.0
@@ -323,5 +323,5 @@ omni_range = 1085.79
 
 [node name="AlienLife" type="Node" parent="."]
 
-[node name="LightBurn" parent="AlienLife" instance=ExtResource("15_p0jda")]
+[node name="LightBurn" parent="AlienLife" instance=ExtResource("15_v21hl")]
 transform = Transform3D(0.471797, 0, 0.881707, 0, 1, 0, -0.881707, 0, 0.471797, -361, -53, 128.187)

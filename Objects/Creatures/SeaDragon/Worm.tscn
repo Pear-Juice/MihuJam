@@ -1,0 +1,111 @@
+[gd_scene load_steps=15 format=3 uid="uid://dqb7y38rjiupt"]
+
+[ext_resource type="Script" path="res://Objects/Creatures/SeaDragon/Worm.gd" id="1_44i6n"]
+[ext_resource type="AudioStream" uid="uid://rgmkekhveqty" path="res://assets/Audio/chomp3.wav" id="3_bo78n"]
+[ext_resource type="AudioStream" uid="uid://cn11i7m6kqji4" path="res://assets/Audio/chomp4.wav" id="4_te3uw"]
+[ext_resource type="AudioStream" uid="uid://chryyxorpi7ws" path="res://assets/Audio/sharkspot-002.wav" id="5_6wrt8"]
+[ext_resource type="AudioStream" uid="uid://c1hnilmblrrjk" path="res://assets/Audio/chomp2.wav" id="6_cc5fl"]
+[ext_resource type="PackedScene" uid="uid://dln14pg1doxi5" path="res://assets/props/Creatures/dragon_shark.blend" id="7_msggj"]
+[ext_resource type="AudioStream" uid="uid://jktylxocdsyu" path="res://assets/Audio/sharkspot-001.wav" id="7_nfjcm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qradk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v33on"]
+radius = 12.786
+height = 36.0246
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rdvrv"]
+size = Vector3(2.25781, 1.86108, 2.53674)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i4j7d"]
+size = Vector3(9.0459, 4.44006, 12.3808)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jgprv"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4divi"]
+radius = 0.895399
+height = 7.51877
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ugbd4"]
+streams_count = 2
+stream_0/stream = ExtResource("3_bo78n")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_te3uw")
+stream_1/weight = 1.0
+
+[node name="Worm" type="CharacterBody3D"]
+collision_layer = 13
+collision_mask = 13
+collision_priority = 15.0
+script = ExtResource("1_44i6n")
+min_retarget_dist = 1.5
+patrol_speed = 5.0
+chase_speed = 9.0
+run_speed = 20.0
+aware_length_threshold = 5.0
+give_up_timelimit = 15
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0663986, 1)
+shape = SubResource("CapsuleShape3D_qradk")
+
+[node name="Sight" type="Area3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.9965)
+collision_layer = 5
+collision_mask = 5
+priority = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sight"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 3.3223)
+shape = SubResource("CapsuleShape3D_v33on")
+
+[node name="Eat" type="Area3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.811855, -7.67832)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Eat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.04391)
+shape = SubResource("BoxShape3D_rdvrv")
+
+[node name="Awareness" type="Area3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.02103)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Awareness"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85919, 5.6904)
+shape = SubResource("BoxShape3D_i4j7d")
+
+[node name="Target" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = SubResource("BoxMesh_jgprv")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0366552, 3.7773)
+shape = SubResource("CapsuleShape3D_4divi")
+
+[node name="EatPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_ugbd4")
+
+[node name="GrowlPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_6wrt8")
+
+[node name="DeathPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_cc5fl")
+
+[node name="GiveUpPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("7_nfjcm")
+
+[node name="Body" parent="." instance=ExtResource("7_msggj")]
+transform = Transform3D(-1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, -1, -0.130514, -0.250512, -3.54049)
+
+[connection signal="body_entered" from="Sight" to="." method="_on_sight_entered"]
+[connection signal="body_exited" from="Sight" to="." method="_on_sight_body_exited"]
+[connection signal="body_entered" from="Eat" to="." method="_on_eat_body_entered"]
+[connection signal="body_entered" from="Awareness" to="." method="_on_awareness_body_entered"]
+[connection signal="body_exited" from="Awareness" to="." method="_on_awareness_body_exited"]

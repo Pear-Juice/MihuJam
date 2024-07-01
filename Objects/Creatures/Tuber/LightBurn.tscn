@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://c57ges241pq6q"]
+
+[ext_resource type="Script" path="res://Objects/Creatures/Tuber/LightBurn.gd" id="1_kxfms"]
+[ext_resource type="PackedScene" uid="uid://c3flos34cduw1" path="res://assets/props/Creatures/LightBurn.blend" id="2_0xd8u"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xgofj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b7fbe"]
+transparency = 1
+depth_draw_mode = 1
+albedo_color = Color(0, 0, 0, 0.658824)
+metallic = 0.44
+metallic_specular = 1.0
+emission = Color(0.877555, 0, 0.000248162, 1)
+emission_energy_multiplier = 0.15
+refraction_scale = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_nedgj"]
+material = SubResource("StandardMaterial3D_b7fbe")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_akxjn"]
+size = Vector3(27.5784, 6.82983, 7.83228)
+
+[node name="LightBurn" type="Node3D"]
+script = ExtResource("1_kxfms")
+search_color = Color(0.734654, 0, 0.152375, 1)
+lock_head_rot_speed_mod = 5.0
+
+[node name="Model" parent="." instance=ExtResource("2_0xd8u")]
+
+[node name="TestCube" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(4.07713, 0, 0, 0, 4.07713, 0, 0, 0, 4.07713, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_xgofj")
+
+[node name="Tongue" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = SubResource("SphereMesh_nedgj")
+
+[node name="Light" type="SpotLight3D" parent="Tongue"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+light_color = Color(0.884407, 0, 0.154941, 1)
+light_energy = 100.0
+light_volumetric_fog_energy = 50.0
+spot_range = 60.405
+spot_angle = 27.56
+spot_angle_attenuation = 0.0220971
+
+[node name="Sight" type="Area3D" parent="Tongue"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tongue/Sight"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.11959e-07, 0, -14)
+shape = SubResource("BoxShape3D_akxjn")
+
+[connection signal="body_entered" from="Tongue/Sight" to="." method="_on_sight_body_entered"]
+[connection signal="body_exited" from="Tongue/Sight" to="." method="_on_sight_body_exited"]
