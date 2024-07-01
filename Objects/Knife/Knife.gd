@@ -6,7 +6,7 @@ var raycast : RayCast3D
 
 func _ready():
 	raycast = get_node("/root/Main/Player/Camera3D/RayCast3D")
-
+	
 func OnItemUse():
 	print("use knife")
 	var hit = raycast.get_collider() as Node3D

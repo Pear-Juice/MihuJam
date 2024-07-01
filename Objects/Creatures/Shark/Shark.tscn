@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://bjf5ynmdqpvgk"]
 
 [ext_resource type="Script" path="res://Objects/Creatures/Shark/Shark.gd" id="1_48se7"]
-[ext_resource type="PackedScene" uid="uid://do2ud8cty4ikl" path="res://assets/props/Creatures/shark.blend" id="2_0410o"]
+[ext_resource type="PackedScene" uid="uid://do2ud8cty4ikl" path="res://assets/props/Creatures/shark.blend" id="2_3ip8k"]
 [ext_resource type="AudioStream" uid="uid://rgmkekhveqty" path="res://assets/Audio/chomp3.wav" id="3_xeya7"]
 [ext_resource type="AudioStream" uid="uid://cn11i7m6kqji4" path="res://assets/Audio/chomp4.wav" id="4_a3nsn"]
 [ext_resource type="AudioStream" uid="uid://chryyxorpi7ws" path="res://assets/Audio/sharkspot-002.wav" id="5_eox5w"]
@@ -93,7 +93,7 @@ unique_name_in_owner = true
 visible = false
 mesh = SubResource("BoxMesh_i1gv5")
 
-[node name="shark" parent="." instance=ExtResource("2_0410o")]
+[node name="shark" parent="." instance=ExtResource("2_3ip8k")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, 2.88423)
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]

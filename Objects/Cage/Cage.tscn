@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c1mt5hokcdfjd"]
+[gd_scene load_steps=21 format=3 uid="uid://c1mt5hokcdfjd"]
 
 [ext_resource type="Script" path="res://Objects/Cage/Cage.gd" id="1_tdu3w"]
 [ext_resource type="PackedScene" uid="uid://dspdt1cjs3f5g" path="res://assets/props/cage.blend" id="2_r24qn"]
@@ -6,7 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://0cm58618tvxr" path="res://assets/Audio/dooropen.wav" id="4_kqn3b"]
 [ext_resource type="AudioStream" uid="uid://brg507k4wktj1" path="res://assets/Audio/Dooropen1.wav" id="5_lmwuk"]
 [ext_resource type="AudioStream" uid="uid://dq1mvdy3ifi8f" path="res://assets/Audio/doorclose2.wav" id="6_1f4uw"]
-[ext_resource type="ArrayMesh" uid="uid://c70idtimn7gyx" path="res://assets/props/CageDoor.res" id="7_8ghw3"]
+[ext_resource type="ArrayMesh" uid="uid://dg7gaxrwne8kk" path="res://assets/props/CageDoor.res" id="7_8ghw3"]
+[ext_resource type="Material" uid="uid://co6rmsgdo23yb" path="res://assets/props/Materials/CageMetal.tres" id="8_h1ev7"]
 [ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight/Flashlight.tscn" id="8_pe6o7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sxegj"]
@@ -118,6 +119,7 @@ stream = ExtResource("6_1f4uw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0406457, -0.693449, 0)
 mesh = ExtResource("7_8ghw3")
 skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("8_h1ev7")
 
 [node name="Flashlight" parent="." instance=ExtResource("8_pe6o7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0406278, -2.57347, -0.105658)
