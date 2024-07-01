@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwqs4xjt6t0dv"]
+
+[ext_resource type="Script" path="res://Objects/Knife/Knife.gd" id="1_8t2sg"]
+[ext_resource type="PackedScene" uid="uid://sngh1vfj0k0r" path="res://Objects/ItemComponents/Floating.tscn" id="2_xl2rl"]
+[ext_resource type="PackedScene" uid="uid://c44jfgfdq7ci2" path="res://Objects/ItemComponents/Item Light.tscn" id="3_oid3i"]
+[ext_resource type="PackedScene" uid="uid://j7m2ipuw08my" path="res://assets/props/Items/knife.blend" id="4_mdccg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3i3c5"]
+size = Vector3(0.669678, 1.17169, 1)
+
+[node name="Knife" type="CharacterBody3D" node_paths=PackedStringArray("knife_model") groups=["Item"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.44929, 67.2437, 0)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_8t2sg")
+knife_model = NodePath("knife")
+
+[node name="Floating" parent="." instance=ExtResource("2_xl2rl")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.146088, 0)
+shape = SubResource("BoxShape3D_3i3c5")
+
+[node name="Item Light" parent="." instance=ExtResource("3_oid3i")]
+
+[node name="knife" parent="." instance=ExtResource("4_mdccg")]
+transform = Transform3D(-1.6017e-09, 0.0366424, 0.999305, -0.999974, -4.37098e-08, -7.79758e-16, 4.36809e-08, -0.999293, 0.0366429, 0, -0.134003, 0.183)
