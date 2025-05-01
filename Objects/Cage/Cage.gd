@@ -18,6 +18,12 @@ var initial_pos : Vector3
 
 func _init():
 	I = self
+	
+func _process(delta: float) -> void:
+	if global_position.distance_to(Player.I.global_position) > 12:
+		player_is_safe = false
+	
+	print(player_is_safe)
 
 func _on_area_3d_body_entered(body):
 	print(body, "entered")
@@ -41,6 +47,7 @@ func _on_door_on_close():
 	if player_in_cage:
 		player_is_safe = true
 		player_reached_safety.emit()
+		print("Player is safe")
 	
 	if num_shark_in_cage == 1:
 		leave()
@@ -61,7 +68,7 @@ func leave():
 	get_tree().create_tween().set_ease(Tween.EASE_IN).tween_property(self, "global_position:y", 450, 21)
 	
 	var world = get_tree().root.get_child(0).get_child(0) as WorldEnvironment
-	get_tree().create_tween().tween_property(world.environment, "fog_light_color", Color("5186ff"), 7)
+	get_tree().create_tween().tween_property(world.environment, "fog_light_color", Color("9deae9"), 7)
 	await get_tree().create_timer(7).timeout
 	Player.I.bootup_player.play()
 	

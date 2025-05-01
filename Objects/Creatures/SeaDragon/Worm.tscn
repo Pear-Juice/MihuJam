@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://dln14pg1doxi5" path="res://assets/props/Creatures/dragon_shark.blend" id="7_msggj"]
 [ext_resource type="AudioStream" uid="uid://jktylxocdsyu" path="res://assets/Audio/sharkspot-001.wav" id="7_nfjcm"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qradk"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_42ncg"]
+radius = 1.54843
+height = 7.70996
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v33on"]
 radius = 12.786
@@ -30,9 +32,7 @@ height = 7.51877
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ugbd4"]
 streams_count = 2
 stream_0/stream = ExtResource("3_bo78n")
-stream_0/weight = 1.0
 stream_1/stream = ExtResource("4_te3uw")
-stream_1/weight = 1.0
 
 [node name="Worm" type="CharacterBody3D"]
 collision_layer = 13
@@ -47,8 +47,12 @@ aware_length_threshold = 5.0
 give_up_timelimit = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0663986, 1)
-shape = SubResource("CapsuleShape3D_qradk")
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -2.30899, 9.71979)
+shape = SubResource("CapsuleShape3D_42ncg")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.333066, -0.942903, 0, 0.942903, -0.333066, 0, -0.410914, 0.186722)
+shape = SubResource("CapsuleShape3D_42ncg")
 
 [node name="Sight" type="Area3D" parent="."]
 unique_name_in_owner = true
@@ -79,6 +83,7 @@ shape = SubResource("BoxShape3D_i4j7d")
 
 [node name="Target" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
+visible = false
 mesh = SubResource("BoxMesh_jgprv")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]

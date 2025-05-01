@@ -53,6 +53,8 @@ var player_in_sight : bool
 
 var shark_animator : AnimationPlayer
 
+var screamed : bool
+
 func _ready():
 	shark_animator = $"shark/AnimationPlayer"
 	state_m = StateMachine.create(self)
@@ -65,6 +67,14 @@ func _ready():
 	state_m.add_state("Eat", eat_state)
 	
 	spawn()
+	
+	play_ambient()
+	
+func play_ambient():
+	await get_tree().create_timer(1).timeout
+	while true:
+		await get_tree().create_timer(randi_range(30,60)).timeout
+		%AmbientPlayer.play()
 	
 func spawn():
 	is_targeting = true
@@ -137,6 +147,13 @@ func chase_state_run(delta):
 	target = Player.I.global_position
 	
 	print(Cage.I.player_is_safe)
+	
+	if Player.I.global_position.distance_to(global_position) < 13:
+		if screamed == false:
+			%ScreamPlayer.play()
+			screamed = true
+	else:
+		screamed = false
 	if Cage.I.player_is_safe:
 		player_escaped()
 		
@@ -171,8 +188,6 @@ func _on_sight_entered(body):
 		state_m.transfer("Chase")
 		$GrowlPlayer.play()
 		
-		
-		
 func _on_sight_body_exited(body):
 	if body is Player:
 		player_in_sight = false
@@ -186,6 +201,7 @@ func player_escaped():
 	target = get_position_away_from_position(home_obj.global_position, target_angle, min_patrol_distance)
 	state_m.transfer("Circle")
 	$GiveUpPlayer.play()
+	screamed = false
 	
 func kill():
 	shark_animator.play("die")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bjf5ynmdqpvgk"]
+[gd_scene load_steps=23 format=3 uid="uid://bjf5ynmdqpvgk"]
 
 [ext_resource type="Script" path="res://Objects/Creatures/Shark/Shark.gd" id="1_48se7"]
 [ext_resource type="PackedScene" uid="uid://do2ud8cty4ikl" path="res://assets/props/Creatures/shark.blend" id="2_3ip8k"]
@@ -7,6 +7,11 @@
 [ext_resource type="AudioStream" uid="uid://chryyxorpi7ws" path="res://assets/Audio/sharkspot-002.wav" id="5_eox5w"]
 [ext_resource type="AudioStream" uid="uid://c1hnilmblrrjk" path="res://assets/Audio/chomp2.wav" id="6_mrnwj"]
 [ext_resource type="AudioStream" uid="uid://jktylxocdsyu" path="res://assets/Audio/sharkspot-001.wav" id="7_h4efd"]
+[ext_resource type="AudioStream" uid="uid://pcmwcwam067g" path="res://assets/Audio/Monster/roar-47757.mp3" id="8_ei4v6"]
+[ext_resource type="AudioStream" uid="uid://kth6v7iw5uej" path="res://assets/Audio/Monster/deep-sea-monster-roar-329857.mp3" id="8_pgdx5"]
+[ext_resource type="AudioStream" uid="uid://cq6k28brdvf8i" path="res://assets/Audio/Monster/colossal-dragon-roar-329856.mp3" id="9_rcu8w"]
+[ext_resource type="AudioStream" uid="uid://q76m3dkh8fr" path="res://assets/Audio/Monster/monster-roar-1-226801.mp3" id="10_3qvm0"]
+[ext_resource type="AudioStream" uid="uid://bx7pcrwd8ubgj" path="res://assets/Audio/Monster/monster-10-307190.mp3" id="11_7iee6"]
 
 [sub_resource type="Curve" id="Curve_i6w12"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -37,9 +42,14 @@ height = 6.5755
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jid28"]
 streams_count = 2
 stream_0/stream = ExtResource("3_xeya7")
-stream_0/weight = 1.0
 stream_1/stream = ExtResource("4_a3nsn")
-stream_1/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6ifv1"]
+streams_count = 4
+stream_0/stream = ExtResource("8_pgdx5")
+stream_1/stream = ExtResource("9_rcu8w")
+stream_2/stream = ExtResource("10_3qvm0")
+stream_3/stream = ExtResource("11_7iee6")
 
 [node name="Shark" type="CharacterBody3D"]
 collision_layer = 12
@@ -115,6 +125,17 @@ stream = ExtResource("6_mrnwj")
 [node name="GiveUpPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("7_h4efd")
+
+[node name="ScreamPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("8_ei4v6")
+attenuation_model = 3
+volume_db = -12.05
+
+[node name="AmbientPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_6ifv1")
+volume_db = 8.0
 
 [connection signal="body_entered" from="SightCollider" to="." method="_on_sight_entered"]
 [connection signal="body_exited" from="SightCollider" to="." method="_on_sight_body_exited"]

@@ -36,14 +36,15 @@ func update_props():
 	$Partical.process_material.set("turbulence_influence_max", turbulence_stength)
 
 func on_off_loop():
-	while true:
-		if !active:
-			activate()
-			await get_tree().create_timer(randf_range(on_range.x, on_range.y)).timeout
-		else:
-			deactivate()
-			await get_tree().create_timer(randf_range(off_range.x, off_range.y)).timeout
-			
+	activate()
+	#while true:
+		#if !active:
+			#activate()
+			#await get_tree().create_timer(randf_range(on_range.x, on_range.y)).timeout
+		#else:
+			#deactivate()
+			#await get_tree().create_timer(randf_range(off_range.x, off_range.y)).timeout
+			#
 
 func activate():
 	active = true
@@ -62,6 +63,9 @@ func _process(delta):
 func _on_bubbles_body_entered(body):
 	if body is Player:
 		player_in_bubbles = true
+		Player.I.drink_air_player.play()
+		await get_tree().create_timer(3).timeout
+		Player.I.drink_air_player.stop()
 
 func _on_bubbles_body_exited(body):
 	if body is Player:

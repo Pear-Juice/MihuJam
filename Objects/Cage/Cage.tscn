@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c1mt5hokcdfjd"]
+[gd_scene load_steps=20 format=3 uid="uid://c1mt5hokcdfjd"]
 
 [ext_resource type="Script" path="res://Objects/Cage/Cage.gd" id="1_tdu3w"]
 [ext_resource type="PackedScene" uid="uid://dspdt1cjs3f5g" path="res://assets/props/cage.blend" id="2_r24qn"]
@@ -8,7 +8,6 @@
 [ext_resource type="AudioStream" uid="uid://dq1mvdy3ifi8f" path="res://assets/Audio/doorclose2.wav" id="6_1f4uw"]
 [ext_resource type="ArrayMesh" uid="uid://dg7gaxrwne8kk" path="res://assets/props/CageDoor.res" id="7_8ghw3"]
 [ext_resource type="Material" uid="uid://co6rmsgdo23yb" path="res://assets/props/Materials/CageMetal.tres" id="8_h1ev7"]
-[ext_resource type="PackedScene" uid="uid://cni7v830hypgc" path="res://Objects/Flashlight/Flashlight.tscn" id="8_pe6o7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sxegj"]
 size = Vector3(9, 0.198486, 9)
@@ -121,15 +120,21 @@ mesh = ExtResource("7_8ghw3")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("8_h1ev7")
 
-[node name="Flashlight" parent="." instance=ExtResource("8_pe6o7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0406278, -2.57347, -0.105658)
-
 [node name="Area3D" type="Area3D" parent="."]
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75647)
 shape = SubResource("BoxShape3D_n5yar")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(-1, -1.77636e-15, 8.9407e-08, 8.93972e-08, 0.0147823, 0.999891, -1.32164e-09, 0.999891, -0.0147823, -0.341133, 7.32752, -0.444411)
+light_energy = 40.0
+light_indirect_energy = 7.225
+light_volumetric_fog_energy = 8.0
+light_size = 0.444
+light_specular = 4.325
+spot_range = 100.0
 
 [connection signal="on_close" from="Door" to="." method="_on_door_on_close"]
 [connection signal="on_open" from="Door" to="." method="_on_door_on_open"]

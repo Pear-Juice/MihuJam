@@ -12,6 +12,8 @@ class_name Player
 @export var MaxOxygenTime : float
 @export var DepleteOxygen : bool = true
 
+@export var environment : WorldEnvironment
+
 #Private variables
 var isDashing : bool = false
 var dashTimeElapsed : float = 0
@@ -42,6 +44,7 @@ static var I : Player
 @onready var death_player := $"DeathPlayer"
 @onready var music_player := $"MusicPlayer"
 @onready var end_player := $"EndPlayer"
+@onready var drink_air_player := $"AirPlayer"
 
 @onready var game_game_text := $"CanvasLayer/GameGameText"
 @onready var game_game_texture := $"CanvasLayer/GameGameText/GameGameTexture"
@@ -71,7 +74,6 @@ func _ready():
 	while true:
 		music_player.play()
 		await get_tree().create_timer(randi_range(120, 180)).timeout
-	
 
 func _physics_process(delta):
 	#Handle movement
@@ -81,6 +83,8 @@ func _physics_process(delta):
 	var dir_vector = (input_dir.y * cam.global_transform.basis.z) + (input_dir.x * global_transform.basis.x)
 	dir_vector.y += verticalInput
 	var desired_velocity = currentSpeed * dir_vector
+	
+	velocity.y -= delta
 	
 	if input_dir != Vector2() || verticalInput != 0:
 		velocity = lerp(velocity, desired_velocity, 0.1)
@@ -146,11 +150,14 @@ func _process(delta):
 #Handle camera movement with mouse
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
-		cam.rotate_x(-event.relative.y * MouseSensitivity)
-		if abs(cam.rotation_degrees.y) < 1:
-			rotate_y(-event.relative.x * MouseSensitivity)
-		else:
-			rotate_y(event.relative.x * MouseSensitivity)
+		if (event.relative.y > 0 && cam.rotation_degrees.x > -90) || (event.relative.y < 0 && cam.rotation_degrees.x < 90):
+			cam.rotate_x(-event.relative.y * MouseSensitivity)
+		
+		rotate_y(-event.relative.x * MouseSensitivity)
+		#if abs(cam.rotation_degrees.y) < 1:
+			#rotate_y(-event.relative.x * MouseSensitivity)
+		#else:
+			
 
 func StartDash():
 	isDashing = true
@@ -193,7 +200,7 @@ func TryGetItem(hand):
 			return
 			
 		if(collider.is_in_group("Item")):
-			if(collider.name.contains("Chest")):
+			if(collider.name.contains("Egg")):
 				TryGetChest(collider)
 				return
 			
@@ -214,12 +221,16 @@ func TryGetChest(chest):
 	cam.remove_child(decoyRight)
 	rightHand.add_child(decoyRight)
 	
+	MovementSpeed = 14
+	
 	chest.get_parent().remove_child(chest)
 	middleHand.add_child(chest)
 	chest.position = Vector3.ZERO
 	chest.rotation_degrees = Vector3.ZERO
 	chest.scale = Vector3.ONE
 	chest.get_child(0).OnItemGrabbed()
+	
+	chest.light.visible = false
 	
 	has_chest = true
 
@@ -234,12 +245,14 @@ func UseItem(hand):
 	var item = CheckHandStatus(hand)
 	
 	if(item != null):
-		item.OnItemUse()
+		if item.has_method("OnItemUse"):
+			item.OnItemUse()
 		
 func CancelItem(hand):
 	var item = CheckHandStatus(hand)
 	if(item != null):
-		item.OnCancelUse()
+		if item.has_method("OnCancelUse"):
+			item.OnCancelUse()
 	
 
 func CheckHandsForItem(itemName) -> Node3D:
@@ -279,7 +292,7 @@ func GameOver():
 	await get_tree().create_timer(0.5).timeout
 	game_game_text.visible = true
 	
-	var messages = ["...sending replacement", "...loading","#@#&#^#", "...finding suitable canidate", "@#&^##&*&@^#$", "...retrying"]
+	var messages = ["...sending replacement", "...loading","#@#&#^#", "...finding suitable candidate", "@#&^##&*&@^#$", "...retrying", "Idiot.", "skill issue"]
 	print_text(game_game_text, messages.pick_random())
 	
 	#create_tween().tween_property(game_game_texture, "shader_paremeters/noise/noise/seed", 100, 3)
@@ -289,6 +302,7 @@ func GameOver():
 	reset_game()
 	
 func print_text(text_obj : Label, text):
+	text_obj.text = ""
 	for char in text:
 		text_obj.text += char
 		if get_tree():

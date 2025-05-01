@@ -38,7 +38,7 @@ on_range = Vector2(3, 5)
 
 [node name="Partical" type="GPUParticles3D" parent="."]
 unique_name_in_owner = true
-amount = 100
+amount = 15
 lifetime = 3.0
 visibility_aabb = AABB(-10.1377, -34.1868, -9.7378, 20.2754, 68.3736, 19.4756)
 process_material = SubResource("ParticleProcessMaterial_lumr5")
